@@ -444,9 +444,9 @@ img.src = "http:// www.example.com/ test? name = Nicholas";
 
 【自定义协议的缺点】
 
-- 1.于， 制 定 协 议 的 时 间 比 制 定 JavaScript API 的 时 间 还 要 长。
+-  制 定 协 议 的 时 间 比 制 定 JavaScript API 的 时 间 还 要 长。
 
-#### 6.5.1 Web Sockets API
+【Web Sockets API】
 
 ```javascript
 var socket = new WebSocket(" ws:// xxx/ server.js");
@@ -509,7 +509,7 @@ console.dir(new WebSocket('ws://www.baidu.com'));
 */
 ```
 
-##### 6.5.1.1`【socket的状态码--readyState】`
+#### 6.5.1`【socket的状态码--readyState】`
 
 - WebSocket.CONNECTING (0) ：正 在 建 立 连 接。
 -  WebSocket.OPEN (1) ：已 经 建 立 连 接。
@@ -527,7 +527,7 @@ var socket = new WebSocket(" ws:// xxx/ server.js");
 
 ```
 
-##### 5.5.1.2 WebSocket发送和接收数据
+#### 6.5.2 WebSocket发送和接收数据
 
 ​	【发送--send()】
 
@@ -546,7 +546,7 @@ socket.onmessage =function(event){
 }；
 ```
 
-##### 6.5.1.3 其他事件
+#### 6.5.3 其他事件
 
 - open ：在 成 功 建 立 连 接 时 触 发。 
 - error ：在 发 生 错 误 时 触 发， 连 接 不 能 持 续。 
