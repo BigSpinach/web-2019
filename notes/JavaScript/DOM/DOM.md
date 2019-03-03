@@ -380,9 +380,9 @@ nodeValue：null
 
 ----------------
 
+#### 3.2.7 兼用获取指定元素
 
-
-需求一：获取当前元素的所有元素子节点
+##### 3.2.7.1 获取当前元素的所有元素子节点---`children`
 
 > 基于children不兼容IE低版本浏览器（会把注释当做元素节点）
 
@@ -434,9 +434,7 @@ console.log(children(course));
 
 ```
 
-
-
-需求二：获取当前元素的上一个哥哥元素节点
+##### 3.2.7.2 获取当前元素的上一个哥哥元素节点 ----`prev`
 
 > previousSibling：上一个哥哥节点
 
@@ -490,11 +488,49 @@ function prev(curEle) {
 
 ```
 
+##### 3.7.2.3 获取当前元素的下一个弟弟元素---`next`
+
+```javascript
+function next(curEle){
+    var nextEle = curEle.nextSibling;
+    while(nextEle && nextEle.nodeType!==1){
+        nextEle = nextEle.nextSibling;
+    }
+    return nextEle;
+}
+```
+
+##### 3.7.2.4 获取所有哥哥节点--`prevAll`
+
+```javascript
+
+```
 
 
-回去后扩展：next下一个弟弟元素节点，prevAll获取所有哥哥元素节点，nextAll获取所有弟弟元素节点，siblings获取所有兄弟元素节点，index获取当前元素的索引...
 
 
+
+##### 3.7.2.5 获取所有弟弟元素 ---`siblings`
+
+```javascript
+
+```
+
+
+
+##### 3.7.2.6 获取当前元素的索引----` index`
+
+```javascript
+
+```
+
+
+
+##### 3.7.2.7
+
+```javascript
+
+```
 
 
 
@@ -595,3 +631,230 @@ oBox.removeAttribute('myColor'); //=>删除
 
 
 需求：解析一个URL字符串问号传参和HASH值部分
+
+## 5 .JS盒子模型
+
+
+
+### 5.1 获取常用（复合）样式的值
+
+【`clientWidth & clientHeight`】
+
+> 获取当前元素可视区域的宽高（内容的宽高+左右/上下PADDING）
+> //=>和内容是否有溢出无关（和是否设置了OVERFLOW:HIDDEN也无关），就是我们自己设定的内容的宽高+PADDING
+
+```javascript
+//获取一屏幕的宽高
+document.documentElement.clientWidth||document.body.clientWidth
+document.documentElement.clientHeight||document.body.clientHeight
+```
+
+【`clientTop & clientLeft`】
+
+> 获取(上/左)边框的宽度
+
+
+
+【`offsetWidth & offsetHeight`】
+
+> 在client的基础上加上border（和内容是否溢出也没有关系）
+
+
+
+【`scrollWidth & scrollHeight`】
+
+> 真实内容的宽高（不一定是自己设定的值，因为可能会存在内容溢出，有内容溢出的情况下，需要把溢出的内容也算上）+ 左/上PADDING，而且是一个约等于的值 （没有内容溢出和CLIENT一样）
+>
+> =>在不同浏览器中，或者是否设置了OVERFLOW:HIDDEN都会对最后的结果产生影响，所以这个值仅仅做参考，属于约等于的值
+
+```javascript
+//=>获取当前页面的真实宽高（包含溢出的部分）
+document.documentElement.scrollWidth || document.body.scrollWidth
+document.documentElement.scrollHeight || document.body.scrollHeight
+```
+
+【通过JS盒模型属性获取值的特点】
+
+> + 1.获取的都是数字不带单位
+> + 2.获取的都是整数，不会出现小数（一般都 会四舍五入，尤其是获取的 偏移量）
+> + 3.获取的结果都是复合样式值（好几个元素的样式组合在一起的值），如果只想获取单一样式值（例如：只想获取PADDING），我们的盒子模型属性就操作不了了（这不能说没有用，真实项目中，有时候我们就是需要获取组合的值来完成一些操作）
+
+【offsetParent 、offfsetLeft、offsetTop】
+
+> + offsetParent  当前盒子的父级参照物
+> + offfsetLeft  获取当前盒子距离其父级参照物的偏移量(上偏移/左偏移)
+> + offsetTop  当前盒子的外边框开始~父级参照物的内边框
+
+
+
+【scrollLeft、scrollTop】
+
+> 滚动条卷去的宽度或者高度
+>
+> + 最小卷去值：0
+> + 最大卷去值：真实页面的高度 - 一屏幕的高度   document.documentElement.scrollHeight-document.documentElement.clientHeight
+>   
+
+ *   在JS盒子模型13个属性中，只有scrollTop/scrollLeft是**“可读写”**属性，其余都是“只读”属性
+    
+ *   操作浏览器的盒子模型属性，我们一般都要写两套，用来兼容各种模式下的浏览器
+    
+
+### 5.2  **获取元素具体的某个样式值**
+
+#### 5.2.1 [元素].style.xxx 
+
+>只能获取所有写在元素行内上的样式(不写在行内上,不管你写没写都获取不到,真实项目中我们很少会把样式写在行内上)
+
+#### 5.2.2 获取当前元素所有经过浏览器计算的样式 
+
+> +  经过计算的样式：只要当前元素可以在页面中呈现（或者浏览器渲染它了），那么它的样式都是被计算过的
+> + 不管当前样式写在哪
+> + 不管你是否写了(浏览器会给元素设置一些默认样式)
+
+【标准浏览器(IE9+)】
+
+```
+window.getComputedStyle([元素],[伪类,一般都写null]) 获取到当前元素所有被浏览器计算过的样式(对象)
+```
+
+【 IE6~8】
+
+```
+ [元素].currentStyle 获取经过计算的样式
+```
+
+ 
+
+### 5.3 常用操作样式的方法封装
+
+#### 5.3.1 ` getCss(curEle,attr)`
+
+`getCss(curEle,attr)`
+
+```javascript
+/*
+ * getCss：获取当前元素某一个样式属性值
+ *
+ * @param
+ *    curEle[object]：当前要操作的元素
+ *    attr[string]：当前要获取的样式属性名
+ *
+ * @return
+ *    获取的样式属性值
+ */
+let getCss = function getCss(curEle, attr) {
+    if ('getComputedStyle' in window) {
+        //typeof window.getComputedStyle === 'undefined'
+        let val = window.getComputedStyle(curEle, null)[attr];
+        let reg = /^-?\d+(\.\d+)?(px|rem|em|pt)?$/i;
+        reg.test(val) ? val = parseFloat(val) : null;
+        return val;
+    }
+    throw new SyntaxError('您的浏览器版本过低...');
+};
+```
+
+```javascript
+let getCss = function (curEle, attr) {
+    if (typeof window.getComputedStyle === 'undefined') {
+        //=>当前浏览器不兼容GET-COMPUTED-STYLE
+        return;
+    }
+    let val = window.getComputedStyle(curEle, null)[attr],
+        reg = /^-?\d+(\.\d+)?(px|rem|em|pt)?$/i;
+    reg.test(val) ? val = parseFloat(val) : null;
+    return val;
+};
+
+```
+
+
+
+#### 5.3.2 `setCss(curEle,attr,value)`
+
+`setCss(curEle,attr,value)`
+
+```javascript
+//JS中给元素设置样式只有两种
+//1.设置元素的样式类名（前提：样式类及对应的样式已经处理完成）
+//2.通过行内样式设置 xxx.style.xxx=xxx
+let setCss = function (curEle, attr, value) {
+    /*
+     * 细节处理
+     *   1.如果需要考虑IE6~8兼容，透明度这个样式在低版本浏览器中不是使用opacity，而是filter（我们两套都要设置）
+     *   2.如果传递进来的VALUE值没有带单位,我们根据情况设置PX单位
+     *     ->某些样式属性才会加单位：WIDTH/HEIGHT/PADDING(LEFT...)/MARGIN(LEFT...)/FONT-SIZE/TOP/LEFT/BOTTOM/RIGHT...
+     *     ->用户自己传递的VALUE值中是没有单位的
+     */
+    if (attr === 'opacity') {
+        curEle.style.opacity = value;
+        curEle.style.filter = `alpha(opacity=${value * 100})`;
+        return;
+    }
+    if (!isNaN(value)) {
+        //=>IS-NaN检测的结果是FALSE：说明VALUE是纯数字没单位
+        let reg = /^(width|height|fontSize|((margin|padding)?(top|left|right|bottom)?))$/i;
+        reg.test(attr) ? value += 'px' : null;
+    }
+    curEle['style'][attr] = value;
+};
+```
+
+
+
+#### 5.3.3 `setGroupCss (curEle, options = {})`
+
+```javascript
+let setGroupCss = function (curEle, options = {}) {
+    //=>遍历传递的OPTIONS,有多少键值对,就循环多少次,每一次都调取SET-CSS方法逐一设置即可
+    for (let attr in options) {
+        if (!options.hasOwnProperty(attr)) break;
+        //=>options:传递进来的需要修改的样式对象(集合)
+        //=>attr:每一次遍历到的集合中的某一项(要操作的样式属性名)
+        //=>options[attr]:传递的要操作的样式属性值
+        setCss(curEle, attr, options[attr]);
+    }
+};
+```
+
+#### 5.3.4 css:集合`get/set/setGroup`为一体的方法
+
+```javascript
+/*let css = function (...arg) {
+    //=>ARG:传递的实参集合
+    let len = arg.length;
+    if (len >= 3) {
+        //=>单一设置:SET-CSS
+        // arg=[outer, 'width', 500];
+        // setCss(outer, 'width', 500);
+        // setCss.apply(null,arg);
+        setCss(...arg);
+        return;
+    }
+
+    if (len === 2 && typeof arg[1] === 'object' && arg[1] !== null) {
+        //=>传递两个参数，第二个参数是一个对象(不是NULL)，说明想要操作的是批量设置
+        setGroupCss(...arg);
+        return;
+    }
+    //=>剩下的代表获取样式
+    return getCss(...arg);
+};*/
+/*let css = function (...arg) {
+    let len = arg.length,
+        fn = getCss;
+    len >= 3 ? fn = setCss : null;
+    len === 2 && (arg[1] instanceof Object) ? fn = setGroupCss : null;
+    return fn(...arg);
+};*/
+```
+
+
+
+#### 5.3.5 
+
+#### 5.3.6
+
+#### 5.3.7 
+
