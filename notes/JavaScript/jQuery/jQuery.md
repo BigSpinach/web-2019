@@ -164,6 +164,24 @@ $(function($){
 
 #### 2.4.3 each()
 
+jQuery内置each机制，默认对`数组/集合`执行一次each方法
+
+```javascript
+$('.tabBox li').each(function (index, item) {
+    //=>非箭头函数：THIS===ITEM，当前遍历的这一项 （原生JS对象）
+     //=>$(THIS)把当前遍历的这一项转换为JQ对象
+     $(this).click(function () {
+         //=>给每一个遍历的LI都绑定一个点击事件
+         //THIS:当前点击的LI（原生JS对象）
+         $(this).css({
+             color: 'red'
+         });
+     });
+});
+```
+
+
+
 ##  3.  选择器
 
 > 基于各种选择器创建一个JQ实例(JQ对象)
@@ -385,6 +403,20 @@ else if ( isFunction( selector ) ) {
 将这个函数执行。
 
 
+
+
+
+### 4. 常用的一些方法
+
+#### 4.1 常用的筛选方法
+
++ `filter`           同级别的筛选
++ `childrren`    儿子级别的筛选
++ `find`               后代级别的筛选
+
+
+
+#### 4.2 
 
 
 

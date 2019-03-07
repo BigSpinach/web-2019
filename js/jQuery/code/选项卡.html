@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery实现的选项卡</title>
+    <link href="https://cdn.bootcss.com/minireset.css/0.0.2/minireset.min.css" rel="stylesheet">
+    <style>
+    .tabBox {
+        margin: 20px auto;
+        width: 600px;
+    }
+
+    .tabBox ul {
+        position: relative;
+        top: 1px;
+    }
+
+    .tabBox ul li {
+        float: left;
+        margin-right: 10px;
+        padding: 0 10px;
+        line-height: 35px;
+        cursor: pointer;
+        border: 1px solid #AAA;
+    }
+
+    .tabBox ul li.active {
+        border-bottom-color: #FFF;
+    }
+
+    .tabBox div {
+        display: none;
+        height: 150px;
+        line-height: 150px;
+        text-align: center;
+        border: 1px solid #AAA;
+    }
+
+    .tabBox div.active {
+        display: block;
+    }
+    </style>
+</head>
+
+<body>
+   <div class="tabBox">
+    <ul class="header clearfix">
+        <li class="active">新闻</li>
+        <li>电影</li>
+        <li>音乐</li>
+    </ul>
+    <div class="active">时事新闻</div>
+    <div>最新电影</div>
+    <div>欧美音乐</div>
+</div>
+</body>
+<script src="../../../node_modules/jquery/dist/jquery.min.js"></script>
+<script>
+	$(function($){
+		
+		$('.tabBox>.header>li').on('click', function () {
+			//$(this)  当前点击的li，
+			//让当前的li的所有兄弟li元素都没有 click样式属性
+			let index = $(this).index();
+			$(this).addClass("active")
+				.siblings().removeClass('active')
+				//获取其父级元素的所有兄弟 div 元素集合
+				.parent().nextAll('div')
+				.eq(index).addClass('active')
+				.siblings('div').removeClass('active');
+		});
+
+	});
+</script>
+</html>

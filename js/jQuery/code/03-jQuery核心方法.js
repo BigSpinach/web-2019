@@ -38,7 +38,7 @@
 
     console.log('-------1.3--内置each--------');
     $('.box_ol li').click(function(index,item){
-    	//JQ在调取CLICK的时候，会默认的把集合进行EACH遍历，把每一项都给CLICK了
+    	//JQ在调取CLICK的时候，会默认的把集合 进行EACH遍历，把每一项都给CLICK了
     	console.log($(this),"OK");
     })
 }
