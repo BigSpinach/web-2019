@@ -1,6 +1,10 @@
 # BigSpinach_utils.js
 
-### toArray
+## 1 数据类型的转换
+
+
+
+### 1.1 toArray
 
 > 把类数组转换为数组（兼容所有的浏览器）
 
@@ -18,7 +22,7 @@ function toArray(classAry) {
 }
 ```
 
-### toJSON(str)
+### 1.2 toJSON(str)
 
 > 把JSON格式的字符串转换为JSON格式的对象
 
@@ -28,7 +32,7 @@ function toJSON(str) {
 }
 ```
 
-### 数据类型检测
+### 1.3 数据类型检测
 
 > 基于Object.prototype.toString.call(item);
 >
@@ -44,7 +48,7 @@ function toJSON(str) {
 
 
 
-```javas
+```javascript
 ~function () {
     var obj = {
         isNumber: 'Number',
@@ -72,34 +76,9 @@ function toJSON(str) {
 
 ```
 
-### getElementsByClassName()
-
-> 全兼容的getElementsByClassName()
-
-```javascript
-Node.prototype.queryElementsByClassName = function queryElementsByClassName() {
-    if (arguments.length === 0) return [];
-    var strClass = arguments[0],
-        nodeList = utils.toArray(this.getElementsByTagName('*'));
-    strClass = strClass.replace(/^ +| +$/g, '').split(/ +/);
-    for (var i = 0; i < strClass.length; i++) {
-        var reg = new RegExp('(^| +)' + strClass[i] + '( +|$)');
-        for (var k = 0; k < nodeList.length; k++) {
-            if (!reg.test(nodeList[k].className)) {
-                nodeList.splice(k, 1);
-                k--;
-            }
-        }
-    }
-    return nodeList;
-};	
-```
 
 
-
-
-
-###  样式操作相关
+## 2. 样式操作相关
 
 ```javascript
 let utils = (function () {
@@ -188,5 +167,45 @@ let utils = (function () {
 })();
 ```
 
+## 3. DOM操作相关
 
+### 3.1  getElementsByClassName()全兼容
+
+```javascript
+Node.prototype.queryElementsByClassName = function queryElementsByClassName() {
+    if (arguments.length === 0) return [];
+    var strClass = arguments[0],
+        nodeList = utils.toArray(this.getElementsByTagName('*'));
+    strClass = strClass.replace(/^ +| +$/g, '').split(/ +/);
+    for (var i = 0; i < strClass.length; i++) {
+        var reg = new RegExp('(^| +)' + strClass[i] + '( +|$)');
+        for (var k = 0; k < nodeList.length; k++) {
+            if (!reg.test(nodeList[k].className)) {
+                nodeList.splice(k, 1);
+                k--;
+            }
+        }
+    }
+    return nodeList;
+};	
+```
+
+### 3.2 `insertAfter`
+
+```javascript
+function insertAfter(newEle, originEle) {
+    //=>newEle:新插入的元素
+    //=>originEle:指定的老元素
+    //=>插入到原有元素的后面，其实就是插入到原有元素弟弟的前面
+    let next = originEle.nextElementSibling,
+        par = originEle.parentNode;
+    if (next) {
+        //=>有弟弟插入到弟弟的前面
+        par.insertBefore(newEle, next);
+    } else {
+        //=>没有弟弟插入到容器的末尾
+        par.appendChild(newEle);
+    }
+}
+```
 

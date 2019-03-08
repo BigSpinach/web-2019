@@ -315,19 +315,20 @@ XMLHttpRequest
 
 - loadstart ：在 接 收 到 响 应 数 据 的 第 一 个 字 节 时 触 发。
 
--  progress ：在 接 收 响 应 期 间 持 续 不 断 地 触 发。
+- progress ：在 接 收 响 应 期 间 持 续 不 断 地 触 发。
 
--  error ：在 请 求 发 生 错 误 时 触 发。 
+- error ：在 请 求 发 生 错 误 时 触 发。 
 
 - abort ：在 因 为 调 用 abort() 方 法 而 终 止 连 接 时 触 发。
 
 - load ：在 接 收 到 完 整 的 响 应 数 据 时 触 发。
 
--  loadend ：在 通 信 完 成 或 者 触 发 error 、abort 或 load 事 件 后 触 发。
+- loadend ：在 通 信 完 成 或 者 触 发 error 、abort 或 load 事 件 后 触 发。
 
   
 
-- 
+  
+
 
 #### 5.1.1 load 事 件
 
