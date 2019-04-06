@@ -1,0 +1,85 @@
+.container {
+	margin:20px auto;
+	width: 800px;
+	height: 260px;
+	background: url("../img/default.gif");
+	/*overflow: hidden;*/
+	position: relative;
+}
+
+.container .wrapper{
+	/*存放图片的盒子*/
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 3200px;/*这个宽度由服务器端给的数据的多少来决定*/
+	height: 260px;
+}
+
+.container .wrapper .slide{
+	float: left;
+	width: 800px;
+	height: 100%;
+	overflow: hidden;
+}
+
+.container .wrapper .slide img{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.container .focus{
+	height: 12px;
+	padding: 4px;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 999;
+	background: rgba(0,0,0,0.5);
+	border-radius:  10px;
+	font-size: 0;
+	bottom: 10px;
+}
+
+.container .focus li{
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	margin:0 4px;
+	border-radius: 50%;
+	background: #fff;
+	cursor: pointer;
+}
+
+.container .focus li.active{
+	background: red;
+}
+
+.container .arrow{
+	width: 28px;
+	height: 46px;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	/*
+		margin-top:-23px;
+		向上偏移高度的一半就可以到达中间位置
+	 */
+	background: url("../img/pre.png") no-repeat;
+	opacity: 0.3;
+}
+
+.container .arrow:hover{
+	opacity: 1;
+}
+
+.container .arrow.arrowLeft{
+	left:0;
+	background-position: 0 0 ;
+}
+
+.container .arrow.arrowRight{
+	right:0;
+	background-position: -50px 0 ;
+}

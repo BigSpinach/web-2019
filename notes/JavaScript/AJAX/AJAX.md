@@ -380,7 +380,7 @@ xhr.send( null);
 
 ### 6.1 CORS
 
-​CORS（ Cross-Origin Resource Sharing， 跨 源 资 源 共 享）
+CORS（ Cross-Origin Resource Sharing， 跨 源 资 源 共 享）
 
 #### 6.1.1 IE对CORS的支持---XDR类型
 
@@ -554,6 +554,10 @@ socket.onmessage =function(event){
 - close ：在 连 接 关 闭 时 触 发。
 
 >WebSocket 对 象 不 支 持 DOM 2 级 事 件 侦 听 器， 因 此 必 须 使 用 DOM 0 级 语 法 分 别 定 义 每 个 事 件 处 理 程 序。
+
+
+
+
 
 
 

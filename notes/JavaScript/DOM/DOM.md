@@ -1,3 +1,5 @@
+
+
 # DOM
 
 ## 1. DOM树
@@ -696,9 +698,9 @@ document.documentElement.scrollHeight || document.body.scrollHeight
 >   
 
  *   在JS盒子模型13个属性中，只有scrollTop/scrollLeft是**“可读写”**属性，其余都是“只读”属性
-    
+   
  *   操作浏览器的盒子模型属性，我们一般都要写两套，用来兼容各种模式下的浏览器
-    
+   
 
 ### 5.2  **获取元素具体的某个样式值**
 

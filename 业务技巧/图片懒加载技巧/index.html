@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lazyLoadImg</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.min.css">
+	<style>
+		.container{
+			margin:20px auto;
+			width: 300px;		
+		}
+
+		.container .imgBox{
+			margin-bottom: 20px;
+			height:500px;
+			background:url('img/default.gif') no-repeat center center #eee;
+		}
+		.container .imgBox img{
+			width:100%;
+			height: 100%;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="container" id="container">
+		<!-- <div class="imgBox">
+			<img src="img/01.jpeg" alt="" data-src="img/01.jpeg">
+		</div> -->
+	</div>
+	
+</body>
+<script src="js/lazyLoadImg.js"></script>
+</html>

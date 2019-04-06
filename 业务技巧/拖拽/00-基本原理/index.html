@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽的基本实现原理</title>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <style>
+    	/*模态框的基本样式*/
+		html, body {
+            height: 500%;
+            -webkit-user-select: none; /*禁止用户选中页面中的文字*/
+        }
+
+		/*当弹出模态框的时候，那一层遮罩层*/
+		.diaLogMark{
+			width:100%;
+			height: 100%;
+			display: block;
+			background: rgba(0,0,0,0.3);
+			position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+		}
+
+		.diaLogBox {
+            /*控制盒子在中间我们最好在JS中实现，经过精密的计算，算出具体的TOP和LEFT，而不是模糊的百分比，这样以后我们在JS中通过修改它的TOP/LEFT就可以改变位置了*/
+            position: fixed;
+            z-index: 1001;
+            width: 200px;
+            height: 300px;
+            background: #FFF;
+            overflow: hidden;
+            /*border: 1px solid #0000;*/
+        }
+
+		.diaLogBox h3 {
+            position: relative;
+            margin-top: 0;
+            padding: 0 10px;
+            height: 35px;
+            line-height: 35px;
+            background: #DDD;
+            border-bottom: 1px solid #AAA;
+            cursor: move;
+        }
+		
+		.diaLogBox h3 i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            margin-top: -10px;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            font-size: 16px;
+            color: #E01D20;
+            font-style: normal;
+            font-family: "Microsoft JhengHei";
+            cursor: pointer;
+        }
+
+    	.active {
+            background: orange !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- dialog 模态框（弹出框） -->
+    <div class="diaLogMark"></div>
+    <div class="diaLogBox">
+        <h3 class="title">
+            DIALOG
+            <i>X</i>
+        </h3>
+        <div class="con"></div>
+    </div>
+</body>
+
+<script src="js/drag.js"></script>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>01-input新增类型</title>
+	<style>
+		body{
+			margin:20px;
+			width: 100%;
+		}
+
+		/*搞一下关于邮箱验证*/
+		/*默认*/
+		#emailInput1{
+			border: 1px solid #ddd;
+			/*清除默认行为*/
+			outline: none;
+		}
+		/*验证成功*/
+		#emailInput1:valid+span:after{
+			font-size: 14px;
+			color: green;			
+			content: '邮箱格式正确';
+		}
+		/*验证失败*/
+		#emailInput1:invalid+span:after{
+			color: red;
+			font-size: 14px;	
+			content: '邮箱格式错误';
+		}
+
+		#emailInput2{
+			border: 1px solid #ddd;
+			/*清除默认行为*/
+			outline: none;
+		}
+
+		#emailInput3{
+			border: 1px solid #ddd;
+			/*清除默认行为*/
+			outline: none;
+		}
+		#emailInput3:valid+span:after{
+			font-size: 14px;
+			color: green;			
+			
+		}
+		/*验证失败*/
+		#emailInput3:invalid+span:after{
+			color: red;
+			font-size: 14px;	
+			
+		}
+		
+	</style>
+</head>
+<body>
+	<p>number</p>
+	<input type="number" name="" step="1" min="10" max="25" disabled value="15">
+	<p>range</p>
+	<input type="range" name="">
+	<p>search</p>
+	<input type="search" name="">
+
+
+	<p>email-H5+CSS实现基础验证效果</p>
+	<input type="email" name="邮箱" id="emailInput1"><span></span>
+
+	<p>email- H5新增的表单验证方法</p>
+	<input type="email" name="邮箱" id="emailInput2"><span></span>
+	<script>
+		let spanText1 = emailInput2.nextSibling;
+		emailInput2.onkeyup  = function () {			
+			//=>checkValidity:H5新提供的表单内容格式验证方法（新表单类型中有内置验证机制的，都可以基于这个方法验证）
+			if(this.checkValidity){
+				spanText1.innerHTML = 'OK';
+			}else {
+				spanText1.innerHTML = 'NO';
+			}
+
+		}
+	</script>
+
+	<p>email- 使用JS完善邮箱验证</p>
+	<input type="email" name="邮箱" id="emailInput3"><span></span>
+	<script>
+		let spanText = emailInput3.nextSibling;
+		emailInput3.onkeyup  = function () {			
+			let val = this.value.trim();
+			if(val.length===0){
+				spanText.innerHTML='请输入邮箱地址';
+				return;	
+			}
+			let reg = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+			if(reg.test(val)){
+				spanText.innerHTML='ok';
+				return;	
+			}else {
+				spanText.innerHTML='NONONO';
+				return;	
+			}
+		}
+	</script>
+
+	<p>下拉框</p>
+	<select name="city" ><!-- multiple 属性 ：多行显示-->
+		<option value="">==请选择==</option>
+		<option value="">100</option>
+		<option value="">200</option>
+		<option value="">300</option>		
+	</select>
+	<!-- 二级下拉框 (模糊匹配的效果)-->
+	<p>datalist 二级下拉框 (模糊匹配的效果)</p>
+	<input list="chooseID" >
+	<datalist id="chooseID">
+		<option value="大大的">大大的</option>
+		<option value="小小的">小小的</option>
+		<option value="好好的">好好的</option>
+	</datalist>
+	
+</body>
+</html>

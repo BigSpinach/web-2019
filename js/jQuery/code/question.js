@@ -1,4 +1,4 @@
-
+{
 	var Fn = function(){
 		
 		//...
@@ -35,3 +35,24 @@
 	// 解决办法就是 Fn()执行，可以创建一个Fn的实例对象
 	// 如何解决呢，让Fn这个构造函数返回一个Fn的实例即可
 	// 
+}
+
+console.log('--------');
+{
+	var Fn = function(){
+		return new Fn.prototype.init()
+	};
+	Fn.prototype = {
+		constructor:Fn,
+		aa:function(){
+			console.log('aaa');
+		},
+		init:function(){}
+	};
+	Fn.prototype.init.prototype = Fn.prototype;
+
+
+	var f= new Fn();
+	f.aa();
+	Fn().aa();
+}

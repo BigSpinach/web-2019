@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>goTop</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.min.css">
+	<script src="js/jquery.min.js"></script>
+
+
+</head>
+<body>
+	<h1>goTop的原理</h1>
+		<p>改变`document.scrollTop`的值</p>
+		<a href="javascript:" id="link" style="display: none;">GoTop</a>
+
+</body>
+<script>
+	~function() {
+		let $link= $('#link');
+
+		//思路
+		//1.监听a标签， 当a标签的scrollTop小于一屏幕的高度时，隐藏，反之，显示
+		//2.给a标签绑定点击事件
+		//   目的：实现回到顶部
+		
+		window.onscroll =function () {
+			 let scrollT = document.documentElement.scrollTop;
+			 let clientH = document.documentElement.clientHeight;
+		}
+
+
+
+
+
+
+
+
+	}();
+</script>
+</html>
