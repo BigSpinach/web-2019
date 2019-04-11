@@ -1,1 +1,222 @@
-@import "reset.min";
+@import "reset.min.less";
+
+html {
+    font-size: 100px;
+    font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
+    // font-family: "Microsoft JhengHei";
+    /*640px的设计稿 1rem=100px,响应式布局就改这里就好了*/
+}
+
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+    background: #F4F4F4;
+}
+
+/*container*/
+.mainBox {
+    margin: 0 auto;
+    max-width: 640px;
+    height: 100%;
+    background: #fff
+}
+
+
+/*公共样式*/
+.loadingBox,
+.phoneBox {
+    // width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/*LOADING BOX*/
+.loadingBox {
+    display: none;
+    background: #000;
+    text-align: center;
+    color: #fff;
+
+    .title {
+        height: 1.4rem;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        // margin-top: -2.2rem;
+        margin-top: -2.6rem;
+
+
+        h1 {
+            line-height: 0.75rem;
+            font-size: 0.5rem;
+        }
+
+        h3 {
+            height: 0.45rem;
+            margin-top: 0.2rem;
+            color: #fff;
+            font-size: 0.26rem;
+            letter-spacing: 0.04rem;
+        }
+    }
+
+    .progress {
+        position: absolute;
+        left: 50%;
+        margin-left: -2.3rem;
+        top: 50%;
+        margin-top: 1.15rem;
+        width: 4.6rem;
+        height: 0.3rem;
+        background: #fff;
+        border-radius: 0.15rem;
+
+        .current {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0%;
+            // width: 0.3rem;
+            height: 100%;
+            // background: red;
+            // background: -webkit-linear-gradient(45deg);
+            // -webkit-background: -webkit-linear-gradient(left bottom ,#5cb85c 0% ,#5cb85c 25% ,#74c274 25%, #74c274 50%,#5cb85c 50%,#5cb85c 75%,#74c274 75%,#74c274 100%);
+            background: -webkit-linear-gradient(left bottom, #5cb85c 0%, #5cb85c 25%, #74c274 25%, #74c274 50%, #5cb85c 50%, #5cb85c 75%, #74c274 75%, #74c274 100%);
+            // -webkit-animation: loadingMove 0.3s linear 0s infinite both;
+            animation: loadingMove 0.3s linear 0s infinite both;
+
+            background-size: 0.3rem 0.3rem;
+            border-radius: 0.15rem;
+
+            /*给CURRENT设置一个过渡动画:当我们在JS中控制它的宽度在变化的时候,给其一个平稳的过渡动画效果(而不是生硬的改变)*/
+            //给current增加过渡效果
+            //transition: all 0.3s linear 0s;
+            //        默认值 动画持续时间 线性  延迟时间
+            transition: 0.3s;
+
+        }
+    }
+
+}
+
+.phoneBox {
+    display: block;
+    background: url('../img/zf_phoneBg.jpg');
+    background-size: cover; //cover采集覆盖的意思
+
+    //意思就是实现盒子铺满，等比铺满盒子
+    .phoneTitle {
+        position: absolute;
+        left: 50%;
+        margin-left: -1.31rem;
+        top: 0.5rem;
+        width: 2.62rem;
+        height: 1.25rem;
+        color: #fff;
+        text-align: center;
+
+        h2 {
+            height: 0.8rem;
+            width: 100%;
+            font-size: 0.45rem;
+            line-height: 0.45rem;
+        }
+
+        h3 {
+            height: 0.45rem;
+            width: 100%;
+            font-size: 0.15rem;
+            line-height: 0.15rem;
+            color: #F4F4F4;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap cursor: pointer;
+        }
+
+        h3:hover {
+            color: blue;
+        }
+
+        span {
+            top: 1.85rem;
+            line-height: 0.3rem;
+            font-size: 0.3rem;
+            //文字间距
+            letter-spacing: 0.05rem;
+            margin-top: 0.1rem;
+            display: none;
+        }
+    }
+
+    .answerBox {
+        width: 5.2rem;
+        height: 3.6rem;
+        position: absolute;
+        bottom: 0.3rem;
+        left: 50%;
+        margin-left: -2.6rem;
+        color: #fff;
+
+        a {
+            display: inline-block;
+            width: 2.6rem;
+            height: 1.8rem;
+
+            img {
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+                // background: url('../img/zf_phoneListen.png') no-repeat;
+
+                
+            }
+            .alarm {
+                background: url('../img/zf_phoneListen.png') no-repeat;
+                background-position: 0 0;
+            }
+
+            .message {
+                background: url('../img/zf_phoneListen.png') no-repeat;
+                background-position: -2.6rem 0;
+            }
+
+            .hangUp {
+                background-position: -1.6rem 1.8rem;
+            }
+
+            .answer {
+                background-position: 1.6rem 1.8rem;
+            }
+        }
+
+        .left {
+            float: left;
+        }
+
+        .right {
+            float: right;
+        }
+
+
+
+
+
+    }
+
+    .hangUpBox {
+        display: none;
+    }
+}
+
+@keyframes loadingMove {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 -.3rem;
+    }
+}
