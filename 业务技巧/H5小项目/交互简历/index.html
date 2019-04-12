@@ -34,7 +34,7 @@
 </head>
 
 <body>
-	<main class="mainBox">
+	<main class="mainBox" id="container">
 		<!--
 			外面套一层MAIN-BOX:控制当前页面的最大宽度,防止把做好的页面在PC端预览的时候满屏展示,这样字体和盒子大小等被肆意拉伸
 		-->
@@ -69,28 +69,34 @@
 
 			<!-- 接听电话box -->
 			<div class="answerBox">
+				<!-- 这个div用于展示接听电话按钮的动画效果 -->
+				<div class="markMove"></div>
+				<!-- a标签用于实现点击接听 -->
+				<a href="javascript:;" class="markLink"></a>
 				<!-- 提醒我 -->
-				<a href="javascript:;" class="alarmClick left">
+				<!-- <a href="javascript:;" class="alarmClick left">
 					<img src="" alt="alarm" class="alarm"/>
-				</a>
+				</a> -->
 
 				<!-- 发短息 -->
-				<a href="javascript:;" class="messageClick left">
+				<!-- <a href="javascript:;" class="messageClick left">
 						<img src="" alt="message" class="message"/>
-				</a>
+				</a> -->
 
 				<!-- 挂断 -->
-				<a href="javascript:;" class="hangUpClick right">
+				<!-- <a href="javascript:;" class="hangUpClick right">
 						<img src="" alt="hangUp" class="hangUp"/>
-				</a>
+				</a> -->
 
 				<!-- 接听 -->
-				<a href="javascript:;" class="answerClick right">
+				<!-- <a href="javascript:;" class="answerClick right">
 						<img src="" alt="answer" class="answer"/>
-				</a>
-			</div>
+				</a> -->
+			</div> -->
 			<div class="hangUpBox">
-				<ul class="menuBox">
+				<!-- 点击挂断按钮实现功能 -->
+				<a href="javascript:;" class="markLink"></a>
+				<!-- <ul class="menuBox">
 					<li>
 						<div>mute</div>
 					</li>
@@ -115,7 +121,7 @@
 						<img src="" alt="hangUp">
 						<span>了解详情</span>
 					</div>
-				</a>
+				</a> -->
 			</div>
 			<!--AUDIO-->
 			<audio src="audio/bell.mp3" loop preload="none" id="answerBell"></audio>
@@ -124,6 +130,8 @@
 	</main>
 	<!-- import zepto -->
 	<script src="js/zepto.min.js"></script>
+	<!-- fastclick 解决浏览器端 click事件的300毫秒延迟的问题 -->
+	<script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.js"></script>
 	<script src="js/index.js"></script>
 </body>
 

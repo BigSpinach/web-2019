@@ -9,6 +9,8 @@ html {
 
 html,
 body {
+    position: relative;
+    z-index: -4;
     height: 100%;
     overflow: hidden;
     background: #F4F4F4;
@@ -16,6 +18,8 @@ body {
 
 /*container*/
 .mainBox {
+    position: relative;
+    z-index: -3;
     margin: 0 auto;
     max-width: 640px;
     height: 100%;
@@ -35,6 +39,7 @@ body {
 /*LOADING BOX*/
 .loadingBox {
     display: none;
+    // display: block;
     background: #000;
     text-align: center;
     color: #fff;
@@ -102,7 +107,18 @@ body {
 
 }
 
+@keyframes loadingMove {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 -.3rem;
+    }
+}
+
 .phoneBox {
+    z-index: -2;
     display: block;
     background: url('../img/zf_phoneBg.jpg');
     background-size: cover; //cover采集覆盖的意思
@@ -133,7 +149,8 @@ body {
             color: #F4F4F4;
             overflow: hidden;
             text-overflow: ellipsis;
-            white-space: nowrap cursor: pointer;
+            white-space: nowrap ;
+            cursor: pointer;
         }
 
         h3:hover {
@@ -159,64 +176,66 @@ body {
         left: 50%;
         margin-left: -2.6rem;
         color: #fff;
+        background: url("../img/zf_phoneListen.png") no-repeat;
+        background-size: 100% 100%;
 
-        a {
-            display: inline-block;
-            width: 2.6rem;
-            height: 1.8rem;
-
-            img {
-                display: inline-block;
-                width: 100%;
-                height: 100%;
-                // background: url('../img/zf_phoneListen.png') no-repeat;
-
-                
-            }
-            .alarm {
-                background: url('../img/zf_phoneListen.png') no-repeat;
-                background-position: 0 0;
-            }
-
-            .message {
-                background: url('../img/zf_phoneListen.png') no-repeat;
-                background-position: -2.6rem 0;
-            }
-
-            .hangUp {
-                background-position: -1.6rem 1.8rem;
-            }
-
-            .answer {
-                background-position: 1.6rem 1.8rem;
-            }
+        .markMove {
+            //遮罩层效果（动画实现）
+            //大小跟接听按钮一般大小
+            position: absolute;
+            right: -0.066rem;
+            bottom: 0.459rem;
+            width: 1.6rem;
+            height: 1.6rem;
+            border: .03rem solid #0F0;
+            border-radius: 0.8rem;
+            //border-radius: 50%;
+            animation: answerMove 1s linear 0s infinite both;
+            //这样动画效果实现了，但是 它在背景图的上方，我们应该改变它的z-index值让它居于 背景图的下方即可
+            z-index: -1;
         }
 
-        .left {
-            float: left;
+        .markLink {
+            .markMove; //把.markMove的东西继承过来
+            z-index: 1;
+            // background: red;
+            border: 0;
+            // border-radius:0;
+            animation: null;
         }
-
-        .right {
-            float: right;
-        }
-
-
-
-
-
     }
 
     .hangUpBox {
-        display: none;
+        position: absolute;
+        bottom: .3rem;
+        left: 50%;
+        margin-left: -2.6rem;
+        width: 5.2rem;
+        height: 6.59rem;
+        background: url('../img/zf_phoneDetail.png') no-repeat;
+        background-size: 100% 100%;
+        //=>初始位置是在PHONE的底部（看不见：溢出内容隐藏），当点击接听按钮后，控制它从底下出来即可（JS中改变样式） “我们可以基于TRANSFORM改变样式的尽量不要使用传统的样式属性，因为TRANSFORM操作开启了浏览器的硬件加速，性能更高一些”
+        transform: translateY(6.89rem);
+        transition: .3s;
+
+        .markLink {
+            position: absolute;
+            bottom: .26rem;
+            left: 50%;
+            z-index: 1;
+            margin-left: -.8rem;
+            width: 1.6rem;
+            height: 1.6rem;
+        }
     }
 }
 
-@keyframes loadingMove {
-    0% {
-        background-position: 0 0;
+@keyframes answerMove {
+    from {
+        transform: scale(1.2);
     }
 
-    100% {
-        background-position: 0 -.3rem;
+    to {
+        transform: scale(0);
     }
 }

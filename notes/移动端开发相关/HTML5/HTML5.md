@@ -186,8 +186,241 @@ input:search/email/tel/number/range/color/date/time/url...
 ```html
  <auido>
  <video>
- =>让我们告别了FLASH时代
+让我们告别了FLASH时代
+     
 ```
+
+### 3.1 audio
+
+```javascript
+/*<audio id="myAudio"></audio>*/
+console.dir(myAudio);
+//
+accessKey: ""
+assignedSlot: null
+attributeStyleMap: StylePropertyMap {size: 0}
+attributes: NamedNodeMap {0: src, 1: loop, 2: preload, 3: id, src: src, loop: loop, preload: preload, id: id, length: 4}
+autocapitalize: ""
+autoplay: false
+baseURI: "http://127.0.0.1:8080/%E4%B8%9A%E5%8A%A1%E6%8A%80%E5%B7%A7/H5%E5%B0%8F%E9%A1%B9%E7%9B%AE/%E4%BA%A4%E4%BA%92%E7%AE%80%E5%8E%86/index.html#phone"
+buffered: TimeRanges {length: 1}
+childElementCount: 0
+childNodes: NodeList []
+children: HTMLCollection []
+classList: DOMTokenList [value: ""]
+className: ""
+clientHeight: 0
+clientLeft: 0
+clientTop: 0
+clientWidth: 0
+contentEditable: "inherit"
+controls: false
+controlsList: DOMTokenList [value: ""]
+crossOrigin: null
+currentSrc: "http://127.0.0.1:8080/%E4%B8%9A%E5%8A%A1%E6%8A%80%E5%B7%A7/H5%E5%B0%8F%E9%A1%B9%E7%9B%AE/%E4%BA%A4%E4%BA%92%E7%AE%80%E5%8E%86/audio/bell.mp3"
+currentTime: 3.153479
+dataset: DOMStringMap {}
+defaultMuted: false
+defaultPlaybackRate: 1
+dir: ""
+disableRemotePlayback: false
+draggable: false
+duration: 6.277375
+ended: false
+error: null
+firstChild: null
+firstElementChild: null
+hidden: false
+id: "answerBell"
+innerHTML: ""
+innerText: ""
+inputMode: ""
+isConnected: true
+isContentEditable: false
+lang: ""
+lastChild: null
+lastElementChild: null
+localName: "audio"
+loop: true
+mediaKeys: null
+muted: false
+namespaceURI: "http://www.w3.org/1999/xhtml"
+networkState: 1
+nextElementSibling: audio#introduction
+nextSibling: text
+nodeName: "AUDIO"
+nodeType: 1
+nodeValue: null
+nonce: ""
+offsetHeight: 0
+offsetLeft: 0
+offsetParent: null
+offsetTop: 0
+offsetWidth: 0
+onabort: null
+onauxclick: null
+onbeforecopy: null
+onbeforecut: null
+onbeforepaste: null
+onblur: null
+oncancel: null
+oncanplay: null
+oncanplaythrough: null
+onchange: null
+onclick: null
+onclose: null
+oncontextmenu: null
+oncopy: null
+oncuechange: null
+oncut: null
+ondblclick: null
+ondrag: null
+ondragend: null
+ondragenter: null
+ondragleave: null
+ondragover: null
+ondragstart: null
+ondrop: null
+ondurationchange: null
+onemptied: null
+onencrypted: null
+onended: null
+onerror: null
+onfocus: null
+onfullscreenchange: null
+onfullscreenerror: null
+ongotpointercapture: null
+oninput: null
+oninvalid: null
+onkeydown: null
+onkeypress: null
+onkeyup: null
+onload: null
+onloadeddata: null
+onloadedmetadata: null
+onloadstart: null
+onlostpointercapture: null
+onmousedown: null
+onmouseenter: null
+onmouseleave: null
+onmousemove: null
+onmouseout: null
+onmouseover: null
+onmouseup: null
+onmousewheel: null
+onpaste: null
+onpause: null
+onplay: null
+onplaying: null
+onpointercancel: null
+onpointerdown: null
+onpointerenter: null
+onpointerleave: null
+onpointermove: null
+onpointerout: null
+onpointerover: null
+onpointerup: null
+onprogress: null
+onratechange: null
+onreset: null
+onresize: null
+onscroll: null
+onsearch: null
+onseeked: null
+onseeking: null
+onselect: null
+onselectionchange: null
+onselectstart: null
+onstalled: null
+onsubmit: null
+onsuspend: null
+ontimeupdate: null
+ontoggle: null
+ontouchcancel: null
+ontouchend: null
+ontouchmove: null
+ontouchstart: null
+onvolumechange: null
+onwaiting: null
+onwaitingforkey: null
+onwebkitfullscreenchange: null
+onwebkitfullscreenerror: null
+onwheel: null
+outerHTML: "<audio src="audio/bell.mp3" loop="" preload="none" id="answerBell"></audio>"
+outerText: ""
+ownerDocument: document
+parentElement: section.phoneBox
+parentNode: section.phoneBox
+paused: false
+playbackRate: 1
+played: TimeRanges {length: 1}
+prefix: null
+preload: "none"
+previousElementSibling: div.hangUpBox
+previousSibling: text
+readyState: 4
+remote: RemotePlayback {state: "disconnected", onconnecting: null, onconnect: null, ondisconnect: null}
+scrollHeight: 0
+scrollLeft: 0
+scrollTop: 0
+scrollWidth: 0
+seekable: TimeRanges {length: 1}
+seeking: false
+shadowRoot: null
+sinkId: ""
+slot: ""
+spellcheck: true
+src: "http://127.0.0.1:8080/%E4%B8%9A%E5%8A%A1%E6%8A%80%E5%B7%A7/H5%E5%B0%8F%E9%A1%B9%E7%9B%AE/%E4%BA%A4%E4%BA%92%E7%AE%80%E5%8E%86/audio/bell.mp3"
+srcObject: null
+style: CSSStyleDeclaration {alignContent: "", alignItems: "", alignSelf: "", alignmentBaseline: "", all: "", …}
+tabIndex: -1
+tagName: "AUDIO"
+textContent: ""
+textTracks: TextTrackList {length: 0, onchange: null, onaddtrack: null, onremovetrack: null}
+title: ""
+translate: true
+volume: 1
+webkitAudioDecodedByteCount: 54753
+webkitVideoDecodedByteCount: 0
+__proto__: HTMLAudioElement
+```
+
+
+
+关于audio的一些常用属性
+
+####3.1.1 属性
+
+```tex
+[属性]
+ *    duration:播放的总时间(S)
+ *    currentTime:当前已经播放的时间(S)
+ *    ended:是否已经播放完成
+ *    paused:当前是否为暂停状态
+ *    volume:控制音量 (0~1)
+```
+
+#### 3.1.2 方法
+
+```tex
+pause() 暂停
+play() 播放
+```
+
+#### 3.1.3 事件
+
+```tex
+ *	  canplay：可以正常播放（但是播放过程中可能出现卡顿）
+ *    canplaythrough：资源加载完毕，可以顺畅的播放了
+ *    ended：播放完成
+ *    loadedmetadata：资源的基础信息已经加载完成
+ *    loadeddata：整个资源都加载完成
+ *    pause:触发了暂停
+ *    play:触发了播放
+ *    playing:正在播放中
+```
+
+
 
 ## 4. canvas
 
@@ -209,3 +442,8 @@ input:search/email/tel/number/range/color/date/time/url...
 > socket.io 客户端和服务器端新的传输方式（即时通讯IM系统基本上很多是基于它完成的）
 >
 > ...
+
+
+
+## 
+
