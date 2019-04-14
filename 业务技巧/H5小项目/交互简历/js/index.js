@@ -1,7 +1,7 @@
 let loadingRender = (function () {
     let $loadingBox = $('.loadingBox');
     let $current = $loadingBox.find('.current');
-
+    $loadingBox.css('display','block');
     let imgData = ["img/icon.png", "img/zf_concatAddress.png", "img/zf_concatInfo.png", "img/zf_concatPhone.png", "img/zf_course.png", "img/zf_course1.png", "img/zf_course2.png", "img/zf_course3.png", "img/zf_course4.png", "img/zf_course5.png", "img/zf_course6.png", "img/zf_cube1.png", "img/zf_cube2.png", "img/zf_cube3.png", "img/zf_cube4.png", "img/zf_cube5.png", "img/zf_cube6.png", "img/zf_cubeBg.jpg", "img/zf_cubeTip.png", "img/zf_emploment.png", "img/zf_messageArrow1.png", "img/zf_messageArrow2.png", "img/zf_messageChat.png", "img/zf_messageKeyboard.png", "img/zf_messageLogo.png", "img/zf_messageStudent.png", "img/zf_outline.png", "img/zf_phoneBg.jpg", "img/zf_phoneDetail.png", "img/zf_phoneListen.png", "img/zf_phoneLogo.png", "img/zf_return.png", "img/zf_style1.jpg", "img/zf_style2.jpg", "img/zf_style3.jpg", "img/zf_styleTip1.png", "img/zf_styleTip2.png", "img/zf_teacher1.png", "img/zf_teacher2.png", "img/zf_teacher3.jpg", "img/zf_teacher4.png", "img/zf_teacher5.png", "img/zf_teacher6.png", "img/zf_teacherTip.png"];
 
     //run=> 预先加载图片
@@ -56,6 +56,7 @@ let loadingRender = (function () {
         //$loadingBox.remove();
         let timer = setTimeout(() => {
             $loadingBox.remove();
+            phoneRender.init();
             //目的：停留1秒钟，让用户看到加载完成了
         }, 1000);
     }
@@ -75,6 +76,7 @@ let phoneRender = (function phoneRender() {
     //接听按钮
     //挂断按钮
     let $phoneBox = $('.phoneBox');
+    $phoneBox.css('display','block');
     let $phoneTitle = $phoneBox.find('.phoneTitle');
     let $showTimeBox = $phoneTitle.find('span');
     let $answerBox = $phoneBox.find('.answerBox');
@@ -159,7 +161,7 @@ let phoneRender = (function phoneRender() {
 
     //点击挂断电话
     let hangUpMarkTouch = function hangUpMarkTouch() {
-        
+       
         let promise = computedTime();
         isHangUp = true;
         promise.then((elapsedTime) => {
@@ -177,7 +179,8 @@ let phoneRender = (function phoneRender() {
             $showTimeBox.html(`通话时长${minutes}` + ':' + `${seconds}`);
             setTimeout(() => {
                 //520毫秒秒后移除 phoneBOX
-                //$phoneBox.remove();
+                $phoneBox.remove();
+                alert('xxx');
             }, 520);           
         });
 
@@ -192,14 +195,31 @@ let phoneRender = (function phoneRender() {
         answerBell.play();
 
         //点击answerMarkLink 让answerBell 声音暂停并关闭,并且移除 answerBox
-        $answerMarkLink.on('click', answerMarkTouch);
+        //$answerMarkLink.on('click', answerMarkTouch);
+        $answerMarkLink.tap( answerMarkTouch);
         //answerMarkTouch();
         //然后让hangUpBox 显示，显示后播放 introduction的audio
-        $hangUpMarkLink.on('click', hangUpMarkTouch);
+        // $hangUpMarkLink.on('click', hangUpMarkTouch);
+        $hangUpMarkLink.tap( hangUpMarkTouch);
     };
 
     return {
         init: function () {
+            run();
+        }
+    }
+})();
+
+//messageRender
+let messageRender = (function messageRender(){
+    //获取要操作的元素
+
+    let run = function run(){
+        console.log('messageBox');
+    };
+
+    return {
+        init:function(){
             run();
         }
     }
@@ -215,4 +235,9 @@ switch (hash) {
         break;
     case 'phone':
         phoneRender.init();
+        break;
+    case 'message':
+        messageRender.init();
+    default :
+        loadingRender.init();
 };

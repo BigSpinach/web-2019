@@ -370,7 +370,7 @@ shadowRoot: null
 sinkId: ""
 slot: ""
 spellcheck: true
-src: "http://127.0.0.1:8080/%E4%B8%9A%E5%8A%A1%E6%8A%80%E5%B7%A7/H5%E5%B0%8F%E9%A1%B9%E7%9B%AE/%E4%BA%A4%E4%BA%92%E7%AE%80%E5%8E%86/audio/bell.mp3"
+src: "http://127.0.0.1:8080/.../audio/a.mp3"
 srcObject: null
 style: CSSStyleDeclaration {alignContent: "", alignItems: "", alignSelf: "", alignmentBaseline: "", all: "", …}
 tabIndex: -1
