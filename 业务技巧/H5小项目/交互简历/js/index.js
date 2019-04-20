@@ -1,7 +1,7 @@
 let loadingRender = (function () {
     let $loadingBox = $('.loadingBox');
+    //$loadingBox.css('display','block');
     let $current = $loadingBox.find('.current');
-    $loadingBox.css('display','block');
     let imgData = ["img/icon.png", "img/zf_concatAddress.png", "img/zf_concatInfo.png", "img/zf_concatPhone.png", "img/zf_course.png", "img/zf_course1.png", "img/zf_course2.png", "img/zf_course3.png", "img/zf_course4.png", "img/zf_course5.png", "img/zf_course6.png", "img/zf_cube1.png", "img/zf_cube2.png", "img/zf_cube3.png", "img/zf_cube4.png", "img/zf_cube5.png", "img/zf_cube6.png", "img/zf_cubeBg.jpg", "img/zf_cubeTip.png", "img/zf_emploment.png", "img/zf_messageArrow1.png", "img/zf_messageArrow2.png", "img/zf_messageChat.png", "img/zf_messageKeyboard.png", "img/zf_messageLogo.png", "img/zf_messageStudent.png", "img/zf_outline.png", "img/zf_phoneBg.jpg", "img/zf_phoneDetail.png", "img/zf_phoneListen.png", "img/zf_phoneLogo.png", "img/zf_return.png", "img/zf_style1.jpg", "img/zf_style2.jpg", "img/zf_style3.jpg", "img/zf_styleTip1.png", "img/zf_styleTip2.png", "img/zf_teacher1.png", "img/zf_teacher2.png", "img/zf_teacher3.jpg", "img/zf_teacher4.png", "img/zf_teacher5.png", "img/zf_teacher6.png", "img/zf_teacherTip.png"];
 
     //run=> 预先加载图片
@@ -55,7 +55,9 @@ let loadingRender = (function () {
     let done = function done() {
         //$loadingBox.remove();
         let timer = setTimeout(() => {
+            $loadingBox.css('display', 'none');
             $loadingBox.remove();
+            //console.log('done');
             phoneRender.init();
             //目的：停留1秒钟，让用户看到加载完成了
         }, 1000);
@@ -63,6 +65,7 @@ let loadingRender = (function () {
 
     return {
         init: function () {
+            $loadingBox.css('display','block');
             run(done);
             maxDelay(done);
         }
@@ -76,7 +79,7 @@ let phoneRender = (function phoneRender() {
     //接听按钮
     //挂断按钮
     let $phoneBox = $('.phoneBox');
-    $phoneBox.css('display','block');
+    
     let $phoneTitle = $phoneBox.find('.phoneTitle');
     let $showTimeBox = $phoneTitle.find('span');
     let $answerBox = $phoneBox.find('.answerBox');
@@ -119,7 +122,7 @@ let phoneRender = (function phoneRender() {
 
     //计算展示的通话时间
     let computedTimer = null;
-    
+
     let isHangUp = false; //用于标记是否挂断电话
     let computedTime = function computedTime() {
         //let duration = introduction.duration;
@@ -127,7 +130,7 @@ let phoneRender = (function phoneRender() {
         //因为一点击接听就开始执行 computedTime，此时资源可能没加载出来
         //所以对 intruction搞一个监听事件
         let duration = 0;
-        introduction.oncanplay = function(){
+        introduction.oncanplay = function () {
             duration = introduction.duration;
             //或者将获取播放总时间duration的操作放到定时器中（异步）
             //异步的特点，加载完成才进行下一个
@@ -152,16 +155,16 @@ let phoneRender = (function phoneRender() {
                     return;
                 };
                 $showTimeBox.html(`${minutes}` + ':' + `${seconds}`);
-                
+
             }, 1000);
         });
 
     };
- 
+
 
     //点击挂断电话
     let hangUpMarkTouch = function hangUpMarkTouch() {
-       
+
         let promise = computedTime();
         isHangUp = true;
         promise.then((elapsedTime) => {
@@ -179,9 +182,11 @@ let phoneRender = (function phoneRender() {
             $showTimeBox.html(`通话时长${minutes}` + ':' + `${seconds}`);
             setTimeout(() => {
                 //520毫秒秒后移除 phoneBOX
+                $phoneBox.css('display', 'none');
                 $phoneBox.remove();
-                alert('xxx');
-            }, 520);           
+                //console.log('removePhoneBox');
+                messageRender.init();
+            }, 520);
         });
 
     }
@@ -192,43 +197,187 @@ let phoneRender = (function phoneRender() {
         //基于面向对象查看audio的api
         //console.dir(answerBell);
         answerBell.volume = 0.6;
+        //console.dir(answerBell);
         answerBell.play();
 
         //点击answerMarkLink 让answerBell 声音暂停并关闭,并且移除 answerBox
         //$answerMarkLink.on('click', answerMarkTouch);
-        $answerMarkLink.tap( answerMarkTouch);
+        $answerMarkLink.tap(answerMarkTouch);
         //answerMarkTouch();
         //然后让hangUpBox 显示，显示后播放 introduction的audio
         // $hangUpMarkLink.on('click', hangUpMarkTouch);
-        $hangUpMarkLink.tap( hangUpMarkTouch);
+        $hangUpMarkLink.tap(hangUpMarkTouch);
     };
 
     return {
         init: function () {
+            $phoneBox.css('display','block');
             run();
         }
     }
 })();
 
 //messageRender
-let messageRender = (function messageRender(){
+let messageRender = (function messageRender() {
+    //console.log('messageRender');
     //获取要操作的元素
+    let $messageBox = $('.messageBox');
+    let $liBox = $messageBox.find('.warpper');
+    let $liList = $liBox.find('li');
+    let $keyBoardBox = $messageBox.find('.keyBoardBox');
+    let $inputText = $keyBoardBox.find('#inputText');
+    let $submit = $keyBoardBox.find('.submit');
+    let messageBGM = $('#messageBGM')[0];
 
-    let run = function run(){
-        console.log('messageBox');
+    let step = -1,
+        autoTimer = null,
+        total = $liList.length + 1; //自己发送一条，所以要+1
+    interval = 1000;
+
+    //展示信息
+    let showMessage = function showMessage() {
+        messageBGM.play();
+        ++step;
+        if (step === 2) {
+            handsSendMessage();
+            clearInterval(autoTimer);
+            //让键盘显示
+            //点击submit，实现发送消息的功能
+            $submit.tap(submitSend);
+            return;
+        };
+        let $cur = $liList.eq(step);
+        $cur.addClass('active');
+
+        if (step >= 3) {
+            //获取当前的li的高度
+            //重新设置liBox的高度为 新的高度
+            let curH = $cur[0].offsetHeight;
+            let liBoxT = parseFloat($liBox.css('top'));
+            $liBox.css('top', liBoxT - curH);
+
+        }
+
+        if (step >= total - 1) {
+            clearInterval(autoTimer);
+            closeMessage();
+        }
+
+    }
+
+
+    //手动发送消息
+    let handsSendMessage = function handsSendMessage() {
+        $keyBoardBox.css('transform', 'translateY(0)').one('transitionend', () => {
+            //监听键盘出来的动画是否完成，完成后才做其他的事
+            //onTransitionEnd
+            //transitionend 事件执行的次数跟监听的元素改变的css样式属性值的个数有关，有几个样式改变，那么transitionend事件就会执行几次
+            //所以一般这里改用one，因为我们之心往这里的代码执行一次
+            //console.log('ok');
+            //实现打字机效果
+            let timer = null;
+            let str = '好的，大佬牛逼！';
+            let len = str.length;
+            let n = -1;
+            timer = setInterval(() => {
+                ++n;
+                let innerText = $inputText[0].value; //获得文本框中的内容
+                //console.dir( $inputText[0].value);
+                //后边给它拼接
+                if (n >= len) {
+                    clearInterval(timer);
+                    //让submit按钮显示
+                    $submit.css('display', 'block');
+                    return;
+                }
+                //实现打字机效果
+                innerText += str[n];
+                //console.log($inputText[0]);
+                $inputText[0].value = innerText;
+            }, 100);
+        });
+
+    }
+
+    //点击submit按钮实现发送效果
+    let submitSend = function submitSend() {
+        //这里的主要功能是，给liList中插入一条数据，插入的位置是 索引2的位置
+        //由于zepto的插入跟DOM没有映射机制，所有插入后我们需要重新获取liList的集合
+        //重新获取input中的值，并且拼接一个 li的数据，然后追加到 索引step的位置
+        let val = $inputText.val();
+        //console.log(val);//好的，大佬牛逼！
+        //拼接
+        /*
+            <li class="self">
+                <i class="arrow"></i>
+                <img src="img/zf_messageStudent.png" alt="" class="pic">
+                你好啊！哈哈哈哈
+            </li>
+        */
+        let insertLi = `<li class="self">
+                            <i class="arrow"></i>
+                            <img src="img/zf_messageStudent.png" alt="" class="pic">
+                            ${val}
+                        </li>`;
+
+        //$liBox.append(step,insertLi);
+        //console.log($liList);
+        //$(insertLi).insertAfter($liList[step-1]);
+        $(insertLi).insertAfter($liList.eq(step - 1)).addClass('active');
+        //console.log(insertLi);
+
+         //=>把新创建的LI增加到页面中第二个LI的后面
+        
+        //让输入框文字清空
+        $inputText[0].value = '';
+        $submit.css('display', 'none');
+        //让键盘隐藏
+        $keyBoardBox.css('transform', 'translateY(3.7rem)');
+        
+
+        //插入完成后继续执行 发送消息的定时器
+        //插入数据与DOM之间没有映射，所以需要重新获取
+        $liList = $liBox.find('li');
+        autoTimer = setInterval(function () {
+           showMessage();
+            //第二条出来的时候就要让键盘显示了 
+            //判断是否滚动数据
+            //listenScrollHeight();
+        }, interval);
+    }
+
+    let closeMessage = function closeMessage() {
+        let delayTimer = null;
+
+        delayTimer = setTimeout(() => {
+            messageBGM.pause();
+            $(messageBGM).remove();
+            $messageBox.remove();
+            clearTimeout(delayTimer);
+        }, 500);
+    }
+
+    let run = function run() {
+        $messageBox.css('display', 'block');
+        showMessage();
+        autoTimer = setInterval(showMessage, interval);
     };
 
     return {
-        init:function(){
+        init: function () {
+            $messageBox.css('display', 'block');
             run();
         }
     }
 })();
 
 
+//
+
 let url = window.location.href;
 let well = url.indexOf('#');
 let hash = well === -1 ? null : url.substr(well + 1);
+
 switch (hash) {
     case 'loding':
         loadingRender.init();
@@ -238,6 +387,7 @@ switch (hash) {
         break;
     case 'message':
         messageRender.init();
-    default :
+        break;
+    default:
         loadingRender.init();
 };

@@ -67,9 +67,9 @@ A:LAST-CHILD
        ...
 
   background-clip: 背景图片裁切
-      border-box
-      padding-box
-      content-box
+      border-box	=> 背景被裁剪到边框盒。
+      padding-box	=> 背景被裁剪到内边距框。
+      content-box	=> 背景被裁剪到内容框。
 
   background-origin：设置背景图的起始点
       border-box
@@ -91,6 +91,7 @@ A:LAST-CHILD
      matrix 矩阵(按照自己设定的矩阵公式实现变形)
   transform-style:preserve-3d 实现3D变形
   transform-origin：变形的起点
+  transform-origin： left top;//从左上角开始缩放
 
   //=>过渡动画
   transition:
