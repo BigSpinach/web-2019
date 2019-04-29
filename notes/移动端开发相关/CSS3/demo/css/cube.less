@@ -1,0 +1,88 @@
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  // position: relative;
+}
+
+/* 使用less编写css */
+.cubeContainer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -284px 0 0 -160px;
+  width: 320px;
+  height: 568px;
+  background: url("../img/zf_cubeBg.jpg") no-repeat;
+  background-size: cover;
+}
+
+.cubeBox {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -(unit(255/2, px)) 0 0 -(unit(255/2, px));
+  width: 255px;
+  height: 255px;
+
+  li {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// 实现魔方
+@v_1:unit(255/2,px);
+@v_2:unit(-255/2,px);
+
+.cubeContainer {
+  
+  // 第一步：视距
+  perspective: 1000px;
+
+  .cubeBox {
+    //第二步 ：启动3d模式
+    transform-style: preserve-3d;
+
+    //为了初始的时候可以看出3d效果，我们将魔方需按住啊一点点角度
+    transform: scale(0.7) rotateX(-45deg) rotateY(45deg);
+    animation: cubeMove 6s linear infinite both;
+    //第三步：实现3d变形
+    li{
+      //1,2是左右两个面 ，主要实现的是左右移动(x轴)并且旋转90度
+      &:nth-child(1){
+        transform: translateX(@v_2) rotateY(-90deg);
+      }
+      &:nth-child(2){
+        transform: translateX(@v_1) rotateY(90deg);
+      }
+      //3,4是前后两个面 ，主要实现的是距离中心点位置 改变z轴的位置
+      &:nth-child(3){
+        transform: translateZ(@v_1);
+      }
+      &:nth-child(4){
+        transform: translateZ(@v_2) rotateX(180deg);
+      }
+       //5,6是上下两个面 ，主要实现的是距离中心点位置 改变y轴的位置
+      &:nth-child(5){
+        transform: translateY(@v_2) rotateX(-90deg);
+      }
+      &:nth-child(6){
+        transform: translateY(@v_1) rotateX(90deg);
+      }
+    }
+  }
+}
+
+@keyframes cubeMove {
+  0%,100%{
+    transform: scale(0.7) rotateX(-30deg) rotateY(45deg);
+  }
+  50%{
+    transform: scale(0.7) rotateX(150deg) rotateY(135deg);
+  }
+  
+}

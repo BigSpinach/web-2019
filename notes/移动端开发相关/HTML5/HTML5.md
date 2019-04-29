@@ -6,7 +6,99 @@
 
 # HTML5
 
+
+
+## HTML 基础
+
+### 标签和标签属性
+
+### 元素和元素分类
+
+#### 元素
+
+#### 行内元素& 块级元素
+
+【display:inline】
+
+```
+* span
+* a
+* b
+* strong
+* i
+* em
+* s
+* br 
+* u
+* textarea
+* input
+* select
+* label
+* img
+* sup
+* sub
+* big
+* small
+* ...
+```
+
+> 行内元素是指自身属性 为`diaplay:inline` 的元素
+>
+> 行内元素的特点
+>
+> + 不独占一行，和其他元素从左至右在一行显示
+> + 排列方式 ：从左至右依次排列
+> + 不能直接控制其宽高，以及盒子模型先关的css属性，可以设置内外边距的值
+> + 内联元素的高度由自身的内容的大小决定
+> + 只能容纳文本或者其他内联元素
+
+【display:block】
+
+```tex
+* div
+* h1-h6
+* hr
+* menu
+* ol
+* ul
+* li
+* dl
+* dt
+* dd 
+* table
+* p
+* form
+* ...
+```
+
+> `块级元素`
+>
+> 本身属性 `display:block`
+>
+> 特点
+>
+> + 独占一行
+> + 排列方式： 从上到下依次排列
+> + 可以直接控制其宽高以及css盒子模型相关的属性
+> + 在不设置宽度的情况下，块级元素宽度是它父级元素内容的宽度，高度是它本身的内容的高度
+> + 可以嵌套行内元素
+> + ul/ol 下只能是 li，dl下只能是dt 、dd，p不能包p本身以及其他块级元素
+
+
+
+
+
+#### 元素之间的相互转换
+
++ 块级 => 行内 ： `diaplay:inline`
++ 行内  =>  块级:  `diaplay:block`
++ 行内块  ：  `diaplay:inline-block`
+
+
+
 ## 1. 新增加的语义化标签
+
+### 1.1 新增语义化标签
 
 ```html
 <hedaer>		------头部
@@ -24,6 +116,28 @@
 <progress> 进度条
 ...
 ```
+
+
+
+### 1.2 标签语义化的好处
+
+![1556508936509](C:\Users\82113\AppData\Roaming\Typora\typora-user-images\1556508936509.png)
+
+
+
+
+
+### 1.3 标签语义化的法则
+
+![1556508968457](C:\Users\82113\AppData\Roaming\Typora\typora-user-images\1556508968457.png)
+
+
+
+### 1.4 标签语义化的含义
+
+![1556508989208](C:\Users\82113\AppData\Roaming\Typora\typora-user-images\1556508989208.png)
+
+
 
 ## 2. 关于表单元素的新改革
 
@@ -425,7 +539,7 @@ play() 播放
 ## 4. canvas
 
 ```html
-<canvas>
+<canvas></canvas>
 ```
 
 ## 5.提供了一些新的API

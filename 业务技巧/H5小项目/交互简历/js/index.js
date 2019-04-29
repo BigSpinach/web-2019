@@ -372,7 +372,21 @@ let messageRender = (function messageRender() {
 })();
 
 
-//
+//cubeBox
+let cubeRender = (function cubeBox(){
+    let $cubeBox = $('.cubeBox');
+
+    let run =function(){
+        console.log('cubeBoxRunning');
+    };
+
+    return {
+        init:function(){
+            $cubeBox.css('display', 'block');
+            run();
+        }
+    }
+})();
 
 let url = window.location.href;
 let well = url.indexOf('#');
@@ -387,6 +401,9 @@ switch (hash) {
         break;
     case 'message':
         messageRender.init();
+        break;
+    case 'cube':
+        cubeRender.init();
         break;
     default:
         loadingRender.init();
