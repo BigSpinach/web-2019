@@ -28,17 +28,21 @@ body {
 
 
 /*公共样式*/
-.loadingBox, .phoneBox, .messageBox, .cubeBox{
+.loadingBox,
+.phoneBox,
+.messageBox,
+.cubeBox,
+.detailBox {
     // width: 100%;
-    display:none;
+    display: none;
     height: 100%;
     position: relative;
-    overflow: hidden;   
+    overflow: hidden;
 }
 
 /*LOADING BOX*/
 .loadingBox {
-    display:none;
+    display: none;
     background: #000;
     text-align: center;
     color: #fff;
@@ -116,8 +120,8 @@ body {
     }
 }
 
-.phoneBox {  
-    display:none;  
+.phoneBox {
+    display: none;
     z-index: -2;
     // display: block;
     background: url('../img/zf_phoneBg.jpg');
@@ -149,7 +153,7 @@ body {
             color: #F4F4F4;
             overflow: hidden;
             text-overflow: ellipsis;
-            white-space: nowrap ;
+            white-space: nowrap;
             cursor: pointer;
         }
 
@@ -241,13 +245,14 @@ body {
 }
 
 .messageBox {
-    display:none;
+    display: none;
     position: relative;
-    
+
     // width: 100%;
     // height: 100%;
     background: #eaeaea;
-    .warpper{
+
+    .warpper {
         width: 100%;
         // height: 
         position: absolute;
@@ -255,8 +260,8 @@ body {
         left: 0;
         transform: 0.3s;
 
-        li{
-           
+        li {
+
             position: relative;
             max-width: 3.6rem;
             padding: 0.25rem;
@@ -264,54 +269,58 @@ body {
             border-radius: 0.1rem;
             line-height: 0.4rem;
             font-size: 0.26rem;
-            opacity: 0;//刚开始的时候让所有的li隐藏，根据需求让其出来
-            
+            opacity: 0; //刚开始的时候让所有的li隐藏，根据需求让其出来
+
             //border:1px solid red;
 
 
-            .pic{
+            .pic {
                 position: absolute;
-                top:0;
-                width:0.82rem;
+                top: 0;
+                width: 0.82rem;
                 height: 0.82rem;
                 border-radius: 50%;
             }
 
-            .arrow{                
+            .arrow {
                 position: absolute;
                 top: 0.2rem;
                 width: 0.1rem;
                 height: 0.2rem;
             }
 
-            &.active{
+            &.active {
                 animation: messageListMove 0.3s linear 0s both;
             }
-            
-            &.self{
+
+            &.self {
                 float: left;
                 background: #fff;
                 border: 0.02rem solid #cacaca;
-                margin-left:1.25rem;
-                .pic{
-                    left : -1rem;
+                margin-left: 1.25rem;
+
+                .pic {
+                    left: -1rem;
                 }
-                .arrow{
+
+                .arrow {
                     background: url('../img/zf_messageArrow1.png') no-repeat;
                     background-size: 100% 100%;
                     left: -0.1rem;
                 }
             }
 
-            &.interviewer{
+            &.interviewer {
                 float: right;
                 background: #a2e45c;
                 border: 0.02rem solid #96b474;
-                margin-right:1.25rem;
-                .pic{                    
+                margin-right: 1.25rem;
+
+                .pic {
                     right: -1rem;
                 }
-                .arrow{
+
+                .arrow {
                     background: url('../img/zf_messageArrow2.png') no-repeat;
                     background-size: 100% 100%;
                     right: -0.1rem;
@@ -319,46 +328,46 @@ body {
             }
         }
 
-        
+
     }
 
     //keyBoardBox 
-    .keyBoardBox{
-        width:100%;
+    .keyBoardBox {
+        width: 100%;
         height: 5.16rem;
         position: absolute;
         left: 0;
         bottom: -0.54rem;
-        background: url('../img/zf_messageKeyboard.png') no-repeat; 
+        background: url('../img/zf_messageKeyboard.png') no-repeat;
         background-size: 100% 100%;
-        
-        transform: translateY(3.7rem) ;
+
+        transform: translateY(3.7rem);
         transition: 0.3s;
-        
-        #inputText{
+
+        #inputText {
             border: none;
             position: absolute;
             left: 0.9rem;
-            top:0.35rem;
+            top: 0.35rem;
             // border:1px solid red;
             width: 4rem;
-            height: 0.4rem; 
+            height: 0.4rem;
             font-size: 0.25rem;
         }
 
-        .submit{
+        .submit {
             display: none;
             position: absolute;
             width: 1.49rem;
             height: 0.74rem;
-            right:0.1rem;
-            bottom:0.6rem;
+            right: 0.1rem;
+            bottom: 0.6rem;
             // border: 1px solid red;
             background: url('../img/zf_messageChat.png') no-repeat;
             background-size: 100% 100%;
         }
-        
-        
+
+
     }
 
 
@@ -370,7 +379,9 @@ body {
         opacity: 0;
         //位置从应该所处位置向下偏移100px~正常位置
         transform: translateY(1rem);
-    }to{
+    }
+
+    to {
         opacity: 1;
         transform: translateY(0rem);
     }
@@ -379,7 +390,456 @@ body {
 
 
 
-/*cubeBox*/
-.cubeBox{
-    background: #000;
+/*cubeBox 基础样式*/
+.cubeBox {
+    background: url('../img/zf_cubeBg.jpg') no-repeat;
+    background-size: cover;
+
+    .cube {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -2.55rem 0 0 -2.55rem;
+        width: 5.1rem;
+        height: 5.1rem;
+
+        li {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+}
+
+/*cubeBox 3D动画样式*/
+.cubeBox {
+    @V-1: unit(5.1/2, rem);
+    @V-2: -(unit(5.1/2, rem));
+    //第一步：给要实现3D效果的元素的盒子容器（父级盒子）设置视距 1000-2000px之间
+    perspective: 1000px;
+
+
+    .cube {
+        //第二步：给需要实现3D效果的元素开启3d效果模式
+        transform-style: preserve-3d;
+
+        //第三步：设置对应的3d变形效果
+        li {
+
+            //1,2 魔方的前后两个面
+            &:nth-child(1) {
+                //前面：相对于Z轴 向z轴正方向移动 0.5倍魔方宽度的距离            
+                transform: translateZ(@V-1);
+            }
+
+            &:nth-child(2) {
+                //后面：相对于Z轴 向z轴负方向移动 0.5倍魔方宽度的距离 ，并且绕X轴旋转180度
+                transform: translateZ(@V-2) rotateY(180deg);
+
+            }
+
+            //3,4魔方的左右两个面
+            &:nth-child(3) {
+                transform: translateX(@V-2) rotateY(90deg);
+            }
+
+            &:nth-child(4) {
+                transform: translateX(@V-1) rotateY(-90deg);
+            }
+
+            //5,6魔方的上下两个面
+            &:nth-child(5) {
+                transform: translateY(@V-2) rotateX(90deg);
+            }
+
+            &:nth-child(6) {
+                transform: translateY(@V-1) rotateX(-90deg);
+            }
+        }
+
+        //这样写完 没有3d效果 ，只有给cube 设置了旋转角度我们才能看到3d效果
+        transform:scale(0.6) rotateX(45deg) rotateY(-60deg);
+        //为了能让他自己动起来，加上自定义动画
+        //animation: cubeAutoMove 5s linear 0s infinite both;
+        transition: 0.3s; //=>后期让魔方旋转的时候有一个平稳的过渡动画效果
+
+    }
+}
+
+@keyframes cubeAutoMove {
+
+    0%,
+    100% {
+        transform: scale(0.6) rotateX(45deg) rotateY(-60deg);
+    }
+
+    50% {
+        transform: scale(0.6) rotateX(235deg) rotateY(260deg);
+    }
+}
+
+@keyframes cubeAutoMoveStop {
+
+    0%,
+    100% {
+        transform: scale(0.6) rotateX(45deg) rotateY(-60deg);
+    }
+}
+
+
+
+/*swiperBox*/
+.detailBox {
+
+    .swiper-container {
+        height: 100%;
+        overflow: hidden;
+
+
+        .swiper-slide {
+            position: relative; //每一个页面中的子元素，相对于自己的页面定位
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            overflow: hidden;
+
+            &:nth-child(1) {
+                background: write;
+            }
+
+            &:nth-child(2) {
+                background: #fff9c1;
+            }
+
+            &:nth-child(3) {
+                background: green;
+            }
+
+            &:nth-child(4) {
+                background: gray;
+            }
+
+            &:nth-child(5) {
+                background: pink;
+            }
+
+            &:nth-child(6) {
+                background: yellow;
+            }
+
+
+        }
+
+
+
+
+
+    }
+
+    //background: #0F0;
+
+    //page1
+    .page1 {
+        dl {
+            position: absolute;
+            width: 5.4rem;
+            height: 7.2rem;
+
+            // margin-top: -2.7rem ;
+            // margin-left: -3.6rem;
+            //引入makisu插件后，这个插件会在实现3D折叠效果的父元素上设置transform:1200px;
+            //这样操作后就会覆盖我们这里设置的transform属性的值，所以我们不用这个属性设置居中，换一种方式
+            //left: 50%;
+            //top: 50%;
+            //transform: translate(-50%, -50%);
+
+            //不知道宽高的情况实现居中
+            /*
+            left:0;
+            top:0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            */
+            //知道宽高实现居中
+            left: 50%;
+            top: 50%;
+            margin: -3.6rem 0 0 -2.7rem;
+
+            dt,
+            dd {
+                box-sizing: border-box;
+                height: 0.6rem;
+                line-height: 0.6rem;
+                background-color: #5cb85c;
+            }
+
+            dt {
+                text-align: center;
+                font-size: 0.4rem;
+                color: #0F0;
+            }
+
+            dd {
+                border-top: 0.02rem dashed rgba(255, 255, 255, .3);
+                position: relative;
+
+                em {
+                    position: absolute;
+                    margin-top: -.18rem;
+                    width: .36rem;
+                    height: .42rem;
+                    left: .15rem;
+                    top: 50%;
+                    font-size: .2rem;
+                    color: #fff;
+                    font-style: normal;
+                    background: red;
+                    border-radius: 50%;
+                    line-height: .42rem;
+                    text-align: center;
+                    // background: url("../img/zf_outline.png") no-repeat;
+                    // background-size: 100% 100%;
+                }
+
+                a {
+                    position: relative;
+                    display: block;
+                    margin-left: .66rem;
+                    font-size: .28rem;
+                    color: #000;
+
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+
+                }
+
+                em,
+                a {
+                    z-index: 1000; //基于makisu实现3D折叠效果，为了保证内容不被makisu创建的span标签遮挡住，设置高级别的zindex
+                }
+            }
+        }
+
+    }
+
+
+    //page2
+    .page2 {
+        position: relative;
+
+        h2 {
+            position: absolute;
+            width: 100%;
+            height: 0.9rem;
+            line-height: 0.9rem;
+            top: 0.8rem;
+            color: #665c50;
+            font-size: 0.6rem;
+            text-align: center;
+            font-weight: normal;
+
+            opacity: 0;
+        }
+
+        img {
+            display: block;
+            position: absolute;
+            widows: 1rem;
+            height: 1rem;
+            left: 50%;
+            top: 50%;
+            //transform: -0.5rem -0.5rem;
+            margin: -.5rem 0 0 -0.5rem;
+
+        }
+
+        // img .monery{
+        //     width: 1.32rem;
+        //     height: 1.7rem;
+        // }
+        &:nth-last-of-type(1) {
+            margin: -.85rem 0 0 -0.66rem;
+            width: 1.32rem;
+            height: 1.7rem;
+
+        }
+
+    }
+
+
+   
+
+}
+
+ /*
+   * 基于seiper实现切换到哪一个页卡，让哪一个页卡中的后代元素有动画效果
+   *   1.除了编写正常的CSS样式(都写在.PAGE-X中)，把需要实现动画的元素所对应的动画写在#PAGE-X中(Id选择器优先级高)
+   *   2.在swiper插件的某些回调函数中(例如:onTransitionEnd...)获取当前展示SLIDE的索引，根据索引为其设置对应的ID值，当前展示的SLIDE有ID，其余的没有ID
+   *   3.为了保证切换到这一页面的时候，元素是动画运动出来的（也就是开始啥都看不见），每个元素都是基于动画显示的（在初始样式中.PAGE? 把所有需要运动的元素透明度设置为零  加ID后执行动画效果，在动画的最后一帧位置让透明度为1即可）
+*/
+
+#page2 {
+    h2 {
+        animation: bounceInLeft 1s both;
+    }
+
+    img {
+        &:nth-last-of-type(1) {
+          animation: shake 1s both;
+        }
+  
+        &:not(:nth-last-of-type(1)) {
+          opacity: 1;
+          animation: tada 1s .5s infinite both;
+        }
+  
+        &:nth-of-type(1) {
+          margin-top: -2.9rem; /*-.5-2.4*/
+        }
+  
+        &:nth-of-type(2) {
+          margin-top: -1.7rem;
+          margin-left: 1.5rem;
+        }
+  
+        &:nth-of-type(3) {
+          margin-top: .7rem;
+          margin-left: 1.5rem;
+        }
+  
+        &:nth-of-type(4) {
+          margin-top: 1.9rem;
+        }
+  
+        &:nth-of-type(5) {
+          margin-top: .7rem;
+          margin-left: -2.5rem;
+        }
+  
+        &:nth-of-type(6) {
+          margin-top: -1.7rem;
+          margin-left: -2.5rem;
+        }
+      }
+}
+
+
+@keyframes bounceInLeft {
+
+    from,
+    60%,
+    75%,
+    90%,
+    to {
+        -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(-3000px, 0, 0);
+        transform: translate3d(-3000px, 0, 0);
+    }
+
+    60% {
+        opacity: 1;
+        -webkit-transform: translate3d(25px, 0, 0);
+        transform: translate3d(25px, 0, 0);
+    }
+
+    75% {
+        -webkit-transform: translate3d(-10px, 0, 0);
+        transform: translate3d(-10px, 0, 0);
+    }
+
+    90% {
+        -webkit-transform: translate3d(5px, 0, 0);
+        transform: translate3d(5px, 0, 0);
+    }
+
+    to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+
+@keyframes shake {
+
+    from,
+    to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        -webkit-transform: translate3d(-10px, 0, 0);
+        transform: translate3d(-10px, 0, 0);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        -webkit-transform: translate3d(10px, 0, 0);
+        transform: translate3d(10px, 0, 0);
+    }
+}
+
+@keyframes tada {
+    from {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    10%,
+    20% {
+        -webkit-transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+        transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+    }
+
+    30%,
+    50%,
+    70%,
+    90% {
+        -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+        transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    }
+
+    40%,
+    60%,
+    80% {
+        -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+        transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    }
+
+    to {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
 }

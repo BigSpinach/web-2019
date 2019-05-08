@@ -5,6 +5,10 @@
 	<meta charset="UTF-8">
 	<title>个人交互简介</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- swiper -->
+	<!-- <link rel="stylesheet" href="dist/css/swiper.min.css"> -->
+	<link href="https://cdn.bootcss.com/Swiper/4.5.0/css/swiper.min.css" rel="stylesheet">
+	<!-- <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css" rel="stylesheet"> -->
 	<!--dev 开发环境下 -->
 	<link rel="stylesheet/less" type="text/css" href="css/index.less" />
 	<!-- <script src="https://cdn.bootcss.com/less.js/3.9.0/less.min.js"></script> -->
@@ -205,25 +209,88 @@
 			<!-- 底部键盘操作信息 -->
 			<div class="keyBoardBox">
 				<!-- 展示输入文字的区域 -->
-				<input type="text" id="inputText" value="" autofocus >
+				<input type="text" id="inputText" value="" autofocus>
 				<!-- <span ></span> -->
 				<!--  一哈哈哈哈哈 -->
 				<a href="javascript:;" class="submit "></a>
 			</div>
 			<audio src="audio/music.mp3" loop preload="none" id="messageBGM"></audio>
-			
+
 		</session>
 
 		<!-- cubeBox -->
 		<section class="cubeBox">
-			
+			<ul class="cube">
+				<li><img src="img/zf_cube1.png" alt=""></li>
+				<li><img src="img/zf_cube2.png" alt=""></li>
+				<li><img src="img/zf_cube3.png" alt=""></li>
+				<li><img src="img/zf_cube4.png" alt=""></li>
+				<li><img src="img/zf_cube5.png" alt=""></li>
+				<li><img src="img/zf_cube6.png" alt=""></li>
+			</ul>
+			<img src="img/zf_cubeTip.png" alt="" class="tip">
 		</section>
+
+		<!-- detailBox -->
+		<section class="detailBox">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<!-- page1 -->
+					<div class="swiper-slide page1">
+						<dl>
+							<dt>掌握技能</dt>
+							<dd><em>01</em><a href="javascript:;">HTML(5)+CSS(3)</a></dd>
+							<dd><em>02</em><a href="javascript:;">JS核心：堆栈内存，闭包，this</a></dd>
+							<dd><em>03</em><a href="javascript:;">js中的面向对象编程，可以给予面向对象封装组件和插件</a></dd>
+							<dd><em>04</em><a href="javascript:;">ES6中的新特性以及数组中的常用方法</a></dd>
+							<dd><em>05</em><a href="javascript:;">js中的同步和异步编程，以及Promise设计模式</a></dd>
+							<dd><em>06</em><a href="javascript:;">js中的事件（事件委托，事件池机制），掌握发布订阅设计模式</a></dd>
+							<dd><em>07</em><a href="javascript:;">js中的DOM操作以及重绘和回流的优化</a></dd>
+							<dd><em>08</em><a href="javascript:;">
+								http交互协议以及ajax库的封装以及跨域数据共享
+							</a></dd>
+							<dd><em>09</em><a href="javascript:;">
+								vue、vue-cli、vu-router、vuex、vue element
+							</a></dd>
+							<dd><em>10</em><a href="javascript:;">
+								react：react-router、react-redux、dev、axios、ant-design等
+							</a></dd>
+							<dd><em>11</em><a href="javascript:;">
+								node、git、webpack等
+							</a></dd>
+						</dl>
+					</div>
+					<!-- page2 -->
+					<div class="swiper-slide page2">
+						<h2>课程体系</h2>
+						<img src="img/zf_course1.png" alt="">
+						<img src="img/zf_course3.png" alt="">
+						<img src="img/zf_course2.png" alt="">
+						<img src="img/zf_course4.png" alt="">
+						<img src="img/zf_course5.png" alt="">
+						<img src="img/zf_course6.png" alt="">
+						<img src="img/zf_course.png" alt="" class="monery">
+
+					</div>
+					<div class="swiper-slide">Slide 3</div>
+					<div class="swiper-slide">Slide 4</div>
+					<div class="swiper-slide">Slide 5</div>
+					<div class="swiper-slide">Slide 6</div>
+				</div>
+			</div>
+		</section>
+
 
 	</main>
 	<!-- import zepto -->
 	<script src="js/zepto.min.js"></script>
 	<!-- fastclick 解决浏览器端 click事件的300毫秒延迟的问题 -->
 	<script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.js"></script>
+	<!-- swiper第二步:引入js文件 -->
+	<!-- <script src="dist/js/swiper.min.js"></script> -->
+	<script src="https://cdn.bootcss.com/Swiper/4.5.0/js/swiper.min.js"></script>
+	<!-- <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.min.js"></script> -->
+	<script src="js/makisu.min.js"></script>
 	<script src="js/index.js"></script>
 </body>
 

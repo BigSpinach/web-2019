@@ -65,7 +65,7 @@ let loadingRender = (function () {
 
     return {
         init: function () {
-            $loadingBox.css('display','block');
+            $loadingBox.css('display', 'block');
             run(done);
             maxDelay(done);
         }
@@ -79,7 +79,7 @@ let phoneRender = (function phoneRender() {
     //接听按钮
     //挂断按钮
     let $phoneBox = $('.phoneBox');
-    
+
     let $phoneTitle = $phoneBox.find('.phoneTitle');
     let $showTimeBox = $phoneTitle.find('span');
     let $answerBox = $phoneBox.find('.answerBox');
@@ -211,7 +211,7 @@ let phoneRender = (function phoneRender() {
 
     return {
         init: function () {
-            $phoneBox.css('display','block');
+            $phoneBox.css('display', 'block');
             run();
         }
     }
@@ -326,20 +326,20 @@ let messageRender = (function messageRender() {
         $(insertLi).insertAfter($liList.eq(step - 1)).addClass('active');
         //console.log(insertLi);
 
-         //=>把新创建的LI增加到页面中第二个LI的后面
-        
+        //=>把新创建的LI增加到页面中第二个LI的后面
+
         //让输入框文字清空
         $inputText[0].value = '';
         $submit.css('display', 'none');
         //让键盘隐藏
         $keyBoardBox.css('transform', 'translateY(3.7rem)');
-        
+
 
         //插入完成后继续执行 发送消息的定时器
         //插入数据与DOM之间没有映射，所以需要重新获取
         $liList = $liBox.find('li');
         autoTimer = setInterval(function () {
-           showMessage();
+            showMessage();
             //第二条出来的时候就要让键盘显示了 
             //判断是否滚动数据
             //listenScrollHeight();
@@ -354,6 +354,8 @@ let messageRender = (function messageRender() {
             $(messageBGM).remove();
             $messageBox.remove();
             clearTimeout(delayTimer);
+            //清除messageBox区域完毕后 ，执行魔方区域
+            cubeRender.init();
         }, 500);
     }
 
@@ -373,20 +375,170 @@ let messageRender = (function messageRender() {
 
 
 //cubeBox
-let cubeRender = (function cubeBox(){
+let cubeRender = (function cubeRender() {
     let $cubeBox = $('.cubeBox');
+    let $cube = $('.cube');
+    let $cubeList = $cube.find('li');
 
-    let run =function(){
-        console.log('cubeBoxRunning');
+    let start = function start(ev) {
+        //记录当前盒子的位置绑定到当前元素自定义属性上
+        //=>记录手指按在位置的起始坐标
+        let point = ev.changedTouches[0];
+
+        this.strX = point.clientX;
+        this.strY = point.clientY;
+        this.changeX = 0;
+        this.changeY = 0;
+
+        //console.log('start');
+        //停止自动动画效果
+        //$cube.css('animation', 'cubeAutoMoveStop 0.2s linear 0s 1 both;');
+        //此处遗漏一个问题：当设置了css3动画后，停止动画后，动画的旋转角度无法获取到
+        //导致的结果就是不能实现 刚开始 自动css3动画，鼠标移入停止动画，鼠标移动，魔方跟着旋转
+        //后期需要大神指点
     };
 
+    let move = function move(ev) {
+        //=>用最新手指的位置-起始的位置，记录X/Y轴的偏移
+        let point = ev.changedTouches[0];
+        this.changeX = point.clientX - this.strX;
+        this.changeY = point.clientY - this.strY;
+        //console.log('move');
+    };
+
+    let end = function end(ev) {
+        //console.log('end');
+        //=>获取CHANGE/ROTATE值
+        let {
+            changeX,
+            changeY,
+            rotateX,
+            rotateY
+        } = this,
+        isMove = false;
+        //=>验证是否发生移动（判断滑动误差）
+        Math.abs(changeX) > 10 || Math.abs(changeY) > 10 ? isMove = true : null;
+        //=>只有发生移动再处理
+        if (isMove) {
+            //1.左右滑=>CHANGE-X=>ROTATE-Y (正比:CHANGE越大ROTATE越大)
+            //2.上下滑=>CHANGE-Y=>ROTATE-X (反比:CHANGE越大ROTATE越小)
+            //3.为了让每一次操作旋转角度小一点，我们可以把移动距离的1/2作为旋转的角度即可
+            rotateX = rotateX - changeY / 2;
+            rotateY = rotateY + changeX / 2;
+            //=>赋值给魔方盒子
+
+            $(this).css('transform', `scale(0.6) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`);
+            //=>让当前旋转的角度成为下一次起始的角度
+            this.rotateX = rotateX;
+            this.rotateY = rotateY;
+        }
+        //=>清空其它记录的自定义属性值
+        ['strX', 'strY', 'changeX', 'changeY'].forEach(item => this[item] = null);
+    };
+
+
     return {
-        init:function(){
+        init: function () {
             $cubeBox.css('display', 'block');
-            run();
+            //=>手指操作CUBE,让CUBE跟着旋转
+            let cube = $cube[0];
+            cube.rotateX = -35;
+            cube.rotateY = 35; //=>记录初始的旋转角度（存储到自定义属性上）
+            $cube.on('touchstart', start)
+                .on('touchmove', move)
+                .on('touchend', end);
+
+            //点击 魔方每一个面进入对应的detail页面
+            detailRender.init();
         }
     }
 })();
+
+let detailRender = (function () {
+    let $detailBox = $('.detailBox');
+    //console.log($detailBox);
+    let swiper = null; //当前的swiper的实例
+    $dl = $('.page1>dl');
+
+    //初始化 swiper
+    let swiperInit = function swiperInit() {
+        /*
+        swiper = new Swiper('.swiper-container', {
+            effect: 'coverflow',
+            onInit: move,
+            onTransitionEnd: move
+        });
+        
+        */
+        swiper = new Swiper(
+            '.swiper-container', {
+                effect: 'cube',
+                slidesPerView: 3,
+                spaceBetween: 30,
+                on: {
+                    init: move,
+                    transitionEnd: move,
+                }
+            });
+    };
+
+    let move = function move() {
+        
+        //=> this:表示的是当前的swiper实例（swiper 4.0版本）
+
+        //1. 判断当前slide是否是第一个slide，如果是,就让他3d展开，不是就收起3D菜单
+
+        let activeIn = this.activeIndex;
+        let slideAry = Array.prototype.slice.call(this.slides,0);
+        
+        if (activeIn === 0) {           
+            //实现折叠效果
+            $dl.makisu({
+                selector: 'dd',
+                overlap: 0.5,
+                speed: 0.8
+            });
+            $dl.makisu('toggle');
+        } else {
+            //other page
+            //console.log('other pages');
+            $dl.makisu({
+                selector: 'dd',
+                overlap: 0.5,
+                speed: 0
+            });
+            $dl.makisu('close');
+        };
+
+        //2.根据index，判断当前是哪个页面需要有id样式动画
+        //滑动到哪个页面，给哪个页面设置id选择器（这个id选择器里有我们搞的css3动画）
+        slideAry.forEach((item,index)=>{
+            if(activeIn===index){
+                item.id = `page${index+1}`;
+                return;
+            }
+                item.id=null;
+            
+        });
+        
+       
+
+       
+
+    };
+
+    return {
+        init: function () {
+            $detailBox.css('display', 'block');
+            //初始换swiper插件
+            swiperInit();
+
+
+        }
+    }
+})();
+
+
 
 let url = window.location.href;
 let well = url.indexOf('#');
@@ -404,6 +556,9 @@ switch (hash) {
         break;
     case 'cube':
         cubeRender.init();
+        break;
+    case 'detail':
+        detailRender.init();
         break;
     default:
         loadingRender.init();
