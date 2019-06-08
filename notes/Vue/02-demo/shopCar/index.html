@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <title>03-shopCar复习</title>
+</head>
+
+<body>
+  <div id="app" class="container">
+    <div class="row">
+      <table class="table table-bordered table-stried ">
+        <caption style="caption-side: top" class="h1 text-danger">购物车</caption>
+        <tr>
+          <th>商品名称</th>
+          <th>商品价格</th>
+          <th>操作</th>
+        </tr>
+        <tr v-for="item in list">
+          <td>{{item.name}}</td>
+          <td>{{item.price|add$('$')}}</td>
+          <td><button class="btn btn-danger btn-small" @click='remove(item)'>删除</button></td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-center" v-show="list.length"><button class="btn btn-danger btn-lg"
+              @click="delAll">全部删除</button></td>
+        </tr>
+      </table>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="name" class="col-sm-2 control-label">商品名称</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" id="name" v-model="name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="price" class="col-sm-2 control-label">商品价格</label>
+          <div class="col-sm-6">
+            <input type="number" step="0.01" class="form-control" id="price" v-model="price">
+          </div>
+        </div>
+        <div class="form-group ">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success btn-lg" @click="submit">添加</button>
+            <button type="reset" class="btn btn-warning btn-lg" @click="reset">重置</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+  </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+  integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+  let vm = new Vue({
+    el: "#app",
+    data: {
+      list: [{
+          name: "iPhone16",
+          price: '$16.16'
+        },
+        {
+          name: "华为28",
+          price: '￥6666'
+        },
+        {
+          name: "BigSpinach",
+          price: '888888888'
+        },
+      ],
+      name: '',
+      price: ''
+    },
+    filters: {
+      add$(target, val = "$") {
+        //判断target是否有 ￥ | $,
+        //没有就加上 val传入的值
+        let reg = /^(\$|￥)/g;
+        //console.log(val);
+        return target = reg.test(target) ? (target) : (val + target);
+      }
+    },
+    methods: {
+      delAll() {
+        this.list = [];
+
+      },
+      remove(item) {
+        //当前这个itme就是页面中传入的itme
+        //此时如果想要获取时间对象，需要在页面中 加 remove($event)
+        //循环遍历数组中的每一项，移除当前项
+        this.list = this.list.filter(i => {
+          return item != i;
+        });
+      },
+      reset(e) {
+        //将表单中的内容清空
+        this.name = '';
+        this.price = '';
+        e.preventDefault();
+        //console.log('reset');
+      },
+      submit(e) {
+        //将表单中的数据追加到list数组中
+        let obj = {};
+        obj.name = this.name;
+        obj.price = this.price;
+
+        //this.list.push(obj);
+        //obj=null;
+        //this.list.push({name:this.name,price:Number(this.price)});
+        //console.log(this.list);
+
+        //传递的obj中的每一项的值都必须存在
+
+        let flag = false;
+        Object.keys(obj).forEach(item => {
+          //console.log(obj[item]);
+          if (obj[item]) {
+            flag =true;
+            
+          }else{
+            flag = false;
+            alert(item + "不能为空！");
+          }
+        });
+        if(flag){
+          this.list.push(obj);
+          this.name = '';
+        this.price = '';
+
+        }
+       
+        obj = null;
+        e.preventDefault();
+        //console.log('submit');
+      }
+    }
+
+  });
+</script>
+
+</html>

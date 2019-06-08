@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>07-使用ref属性实现父组件操作子组件的方法</title>
+</head>
+
+<body>
+  <div id="app">
+      <button @click="toggle">点我啊</button>
+      <my-com ref="hide" ></my-com>  
+  </div>
+  
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+let myCom= {
+    template:`<div v-show="flg" > 
+                我来了               
+                <h2 ref="sonRef">嘻嘻</h2>
+              </div>`,
+    data(){
+      return {
+        flg:true,
+      }
+    },
+    methods:{
+      change(){
+        this.flg=!this.flg;
+      },
+    }
+  };
+
+  let vm = new Vue({
+    el: "#app",
+    methods:{
+      toggle(){
+        //console.log(this.$refs);
+        //this.$refs 拿到的是子组件对象
+        this.$refs.hide.change();
+        //获取子组件中，子组件里的ref属性集合
+        //this.$refs.hide.$refs
+        //console.log(this.$refs.hide.$refs);
+        this.$refs.hide.$refs.sonRef.style.color="red";
+      }
+    },
+    components:{myCom}
+  });
+</script>
+
+</html>

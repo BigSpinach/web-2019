@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: aqua;
+    }
+    /*自定义vue中transition过渡组件的6个样式类*/
+    .myTransitionBox-enter{
+      opacity: 0;
+      background-color: red
+    }
+    .myTransitionBox-enter-active{
+     transition: all  2s ease 1s;
+      
+    }
+    .myTransitionBox-enter-to{
+      opacity: 1;
+      background-color:yellow;
+    }
+    .myTransitionBox-leave{
+      opacity: 1;
+      background-color:yellow;
+    }
+    .myTransitionBox-leave-active{
+      transition: all  1s ease;
+      background-color:pink;
+      opacity: 0;
+    }
+    .myTransitionBox-leave-to{
+      opacity: 0;
+    }
+  </style>
+  <title>013-vue中内置组件之transition</title>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="flag=!flag">点我切换</button>
+    <transition name="myTransitionBox">
+      <!-- vue 通过多transition name属性的判断来设定对应的过度元素应该拥有的过度效果
+        它将 过渡效果分写在了6个样式类中
+        通过 
+            myTransitionBox-enter
+            myTransitionBox-enter-active
+            myTransitionBox-enter-to
+            myTransitionBox-leave
+            myTransitionBox-leave-active
+            myTransitionBox-leave-to
+        需要我们对这6个样式进行对应的设置操作
+      -->
+      <div class="box" v-show="flag"></div>
+    </transition>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+  let vm = new Vue({
+    el: "#app",
+    data: {
+      flag: true,
+    },
+
+  });
+</script>
+
+</html>

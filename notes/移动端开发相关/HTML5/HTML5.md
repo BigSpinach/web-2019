@@ -231,7 +231,7 @@ input:search/email/tel/number/range/color/date/time/url...
 
 **checkValidity**
 
-```HTM
+```html
 <p>email- H5新增的表单验证方法</p>
 	<input type="email" name="邮箱" id="emailInput2"><span></span>
 	<script>

@@ -260,7 +260,7 @@ li:after{
 
 ### 3.2 属性继承
 
-### 3.3 nackground属性的使用技巧
+### 3.3 background属性的使用技巧
 
 ### 3.4 雪碧图
 
@@ -397,9 +397,15 @@ A:LAST-CHILD
   ...
 ```
 
-### 4 CSS3的核心
 
-#### 4.1 `transform`  变形
+
+## 4 CSS3的核心
+
+
+
+### 4.1 `transform`  变形
+
+
 
 【传统2D变形效果】
 
@@ -480,7 +486,7 @@ transform-origin
 
 
 
-#### 4.2 `animation` 动画
+### 4.2 `animation` 动画
 
 默认值 animation：none 0 ease 0 1 normal
 
@@ -532,3 +538,30 @@ transform-origin
 >
 >   ​	
 
+
+
+
+
+### 4.3 `transition`  过渡
+
+【语法】
+
+```css
+transition: property duration timing-function delay;
+```
+
+
+
+[定义和用法]
+
+```css
+/*默认值*/
+transition:all 0 ease 0;
+```
+
+> `transition `属性是一个简写属性，用于设置四个过渡属性：
+>
+> + transition-property     规定设置过渡效果的 CSS 属性的名称。
+> + transition-duration     规定完成过渡效果需要多少秒或毫秒。
+> + transition-timing-function     规定速度效果的速度曲线。
+> + transition-delay     定义过渡效果何时开始。

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>03-双向数据绑定的原理</title>
+</head>
+
+<body>
+  <div id="app">
+    <input v-model='name'>
+    <input v-model='age'>
+    <p>{{name}}</p>
+    <p>{{age}}</p>
+    <!-- <p>只绑定一次</p>
+    <div v-once>
+      {{name}}----{{age}}
+    </div>
+    <p>动态-activitity</p> -->
+    
+
+
+  </div>
+</body>
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script> -->
+<script>
+  // let vm = new Vue({
+  //   el: "#app",
+  //   data: {
+  //     name: "BigSpinach",
+  //     age: 26,
+  //   }
+  // });
+
+
+  /*
+    实现效果：当input中的数据发生该变，映射其他地方使用到的绑定的数据
+    原理： 
+        1.给每一个input标签设定自定义属性 v-model
+        2.然后遍历所有的input标签，获取到有v-model属性的input标签
+        3.获取所有拥有`{{val}}` 的字符串
+        4.遍历拥有v-model属性的input标签，并且把v-model='val'的值获取到，
+          添加onchange方法：当val值发生变化，给第三步中拥有 “{{val}}”的变量赋值
+          从而实现双向数据绑定
+  */
+
+  let data = {name: "BigSpinach", age: 26};
+  let app = document.getElementById('app');
+  let inputs = app.getElementsByTagName('input');
+  
+  for(let item of inputs){
+    if(item.getAttribute('v-model')){
+      item.value=data[item.getAttribute('v-model')];
+    }
+  }
+
+  //获取app下面除了input之外的所有子元素节点
+  let childNodeList = [...app.children].filter(item=>item.nodeName!="INPUT");
+  //console.log(childNodeList);
+  let reg = /\{\{(\w+)}}/;
+  childNodeList.forEach(item=>{
+    if(reg.test(item.innerHTML)){
+      item.innerHTML = item.innerHTML.replace(reg,function(...arg){
+        return data[arg[1]];
+      })
+    }
+  });
+
+  //使用Object.defineProperties ,以代理的方式管控data
+  Object.defineProperties(data,{
+    name:{
+      set(val){
+        data.name = '刘凯';
+      }
+    },
+    age:{}
+  });
+
+</script>
+
+</html>

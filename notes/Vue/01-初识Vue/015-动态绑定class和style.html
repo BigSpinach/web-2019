@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    .box1 {
+      border: 1px solid black;
+      width: 800px;
+      height:50px;
+      background-color: aqua;
+    }
+    .box2{
+      width: 500px;
+      height:50px;
+      color: red;
+      text-align: center;
+      line-height: 50px;
+    }
+
+  
+  </style>
+  <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="./css/animate.css"> -->
+  <title>015-动态绑定class和style</title>
+</head>
+
+
+<body>
+  <div id="app">
+    <h1>动态绑定class</h1>
+    <div :class="box1">:class="box1"</div>
+    <div :class="{box1:1}">:class={box1:1}</div>
+    <div :class="{box1:0}">:class={box1:0}</div>
+    <div :class="{box1:true}">:class={box1:true}</div>
+    <div :class="{box1:false}">:class={box1:false}</div>
+    <hr>
+    <div :class="{box1:false,box2:false}">:class={box1:false,box2:false}</div>
+    <div :class="{box1:false,box2:true}">:class={box1:false,box2:true}</div>
+    <div :class="{box1:true,box2:true}">:class={box1:true,box2:true}</div>
+
+    <hr>
+    <p>：class绑定的是一个数组</p>
+    <div :class="['box1','box2']">:class=['box1','box2']</div>
+    <div :class="['box1','box2'][0]">:class=['box1','box2'][0]</div>
+
+    <input type="text" v-model='flag' @keyup.enter="val=flag;flag=''">
+    <ul >
+      <li :class={box2:val==item}  v-for="item in arr">{{item}}</li>
+    </ul>
+
+    <hr>
+    <h1>动态绑定style</h1>
+    <div :style="{width:'100px',height:'100px',color:'greenYellow'}">黄绿</div>
+    <br>
+    <div :style="[sty1,sty2]">[sty1,sty2]</div>
+
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+  let vm = new Vue({
+    el: "#app",
+    data: {
+      val:'',
+      flag:'',
+      box1: "box1",
+      box2:"box2",
+      arr:['嘻嘻','嘿嘿','哈哈','呵呵','哼哼'],
+      sty1:{color:'red'},
+      sty2:{backgroundColor:'blue'}
+    },
+  });
+</script>
+
+</html>

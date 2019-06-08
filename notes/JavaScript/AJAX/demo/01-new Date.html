@@ -31,11 +31,11 @@
 	
 	let autoTimer =null;
 	//获取当前时间
-	//定义中止时间
+	//定义终止时间
 	
 	let computedTime=function computedTime() {
 		let nowTime = new Date();
-		let abortTime = new Date('2019-02-26 19:00:00');
+		let abortTime = new Date('2019-05-13 19:00:00');
 
 		//计算时分秒
 		//计算时间差
@@ -44,7 +44,6 @@
 		if(timeDif<=0){
 			timeSpan.innerHTML = `抢购结束，洗洗睡吧！`;
 			clearInterval(autoTimer);
-
 		}else {
 			let hours = Math.floor(timeDif/1000/60/60);
 			let minutes = Math.floor((timeDif-hours*1000*3600)/1000/60);

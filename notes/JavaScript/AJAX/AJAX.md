@@ -561,3 +561,604 @@ socket.onmessage =function(event){
 
 
 
+## 7.`jQuery`中的`AJAX`
+
+`$.ajax([URL],[OPTIONS]) 或者 $.ajax([OPTIONS])`
+
+> 在OPTIONS中有一个URL字段代表请求的URL地址
+> `$.get / $.post / $.getJSON / $.getScript `这些方法都是基于`$.ajax`构建出来的快捷方法，项目中最常使用的还是`$.ajax`
+
+```javascript
+/*
+     * URL：请求的API接口地址
+     * METHOD：请求的方式
+     *
+     * DATA：传递给服务器的信息可以放到DATA中
+     *   如果是GET请求是基于问号传参传递过去的
+     *   如果是POST请求是基于请求主体传递过去的
+     *
+     *   DATA的值可以是对象也可以是字符串(一般常用对象)
+     *     如果是对象类型，JQ会把对象转换为 xxx=xxx&xxx=xxx 的模式(x-www-form-urlencoded)
+     *     如果是字符串，我们写的是什么就传递什么
+     *
+     * DATA-TYPE：预设置获取结果的数据格式 TEXT/JSON/JSONP/HTML/SCRIPT/XML...（服务器返回给客户端的响应主体中的内容一般都是字符串[JSON格式居多]），而设置DATA-TYPE='JSON'，JQ会内部把获取的字符串转为JSON格式的对象 =>“他不会影响服务返回的结果，只是把返回的结果进行了二次处理”
+     *
+     * ASYNC：设置同步或者异步（TRUE->异步 FALSE->同步）
+     * CACHE：设置GET请求下是否建立缓存（默认TRUE->建立缓存 FALSE->不建立缓存），当我们设置FALSE，并且当前请求是GET请求，JQ会在请求的URL地址末尾追加随机数（时间辍）
+     *
+     * SUCCESS：回调函数，当AJAX请求成功执行，JQ执行回调函数的时候会把从响应主体中获取的结果(可能二次处理了)当做参数传递给回调函数
+     * ERROR：请求失败后执行的回调函数
+     */
+
+
+$.ajax({
+        url: 'https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp/list',
+        method: 'GET',
+        data: {
+            name: 'BigSpinach',
+            age: 26
+        },
+        dataType: 'json',
+        async: true,
+        cache: false,
+        success: (result, textStatus, xhr) => {
+            //=>RESULT就是从服务器获取的结果
+            console.log(result);
+            console.log(textStatus);
+            console.log(xhr.getResponseHeader('date')
+            );//=>jqXHR
+        },
+        error: () => {
+
+        }
+    });
+```
+
+## 8. 使用`Promise`管控`ajax`
+
+```javas
+/*
+ * Promise是ES6中新增加的内置类：目的是为了管理异步操作的
+ *   1.new Promise() 创建类的一个实例，每一个实例都可以管理一个异步操作
+ *    ->必须传递一个回调函数进去（回调函数中管理你的异步操作）,不传递会报错
+ *    ->回调函数中会有两个参数
+ *      resolve：异步操作成功做的事情（代指成功后的事件队列 =>成功后要做的所有的事情都存放到成功这个事件队列中）
+ *      reject：异步操作失败做的事情（代指失败后的事件队列）
+ *    ->new Promise的时候立即把回调函数执行了（Promise是同步的）
+ *
+ *  2.基于Promise.prototype.then方法（还有catch/finally两个方法）向成功队列和失败队列中依次加入需要处理的事情
+ *
+ *  3.如果是多个THEN调用，不是像我们想象的依次把增加的方法执行
+ *    异步操作成功或者失败，先把第一个THEN中的方法执行，每当执行一个THEN会返回一个新的Promise实例，这个实例管控的是第一个THEN中方法执行的是成功还是失败
+ *
+ */
+/*let promise1 = new Promise((resolve, reject) => {
+    $.ajax({
+        url: 'json/data2.json',
+        success(result) {
+            resolve(result);
+        },
+        error(msg) {
+            reject('no');
+        }
+    });
+});
+promise1.then(
+    result => {
+        console.log('THEN1 OK', result);
+        return 100;
+    },
+    msg => {
+        console.log('THEN1 NO', msg);
+        return 100;
+    }
+).then(
+    result => {
+        console.log('THEN2 OK', result);
+    },
+    msg => {
+        console.log('THEN2 NO', msg);
+    }
+);*/
+
+//=>建议不要使用THEN中的第二个参数（这样看起来很乱），而是建议我们使用Promise.prototype.catch来管理失败的情况
+/*let promise1 = new Promise((resolve, reject) => {
+    $.ajax({
+        url: 'json/data2.json',
+        success(result) {
+            resolve(result);
+        },
+        error(msg) {
+            reject('no');
+        }
+    });
+});
+promise1.then(result => {
+    console.log('THEN1 OK', result);
+    100();
+    return 100;
+}).catch(msg => {
+    //=>第一个CATCH
+    //1.异步请求失败会执行它
+    //2.第一个THEN方法失败也会执行它
+    console.log('CATCH1', msg);
+}).then(result => {
+    console.log('THEN2 OK', result);
+}).catch(msg => {
+    console.log('CATCH2', msg);
+});*/
+
+//=>JS中的异常捕获（目的：把抛出异常的错误捕获到，不让其阻断浏览器的继续执行）
+/*
+try {
+    //=>正常执行的JS代码(可能会报错)
+    1();
+} catch (e) {
+    //=>TRY中的代码报错了会执行CATCH
+    console.log(e.message);
+} finally {
+    //=>不管TRY中的代码成功还是失败都会执行
+}
+*/
+
+
+let A = function A() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve();
+        }, 1000);
+    });
+};
+
+let B = function B() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve();
+        }, 1000);
+    });
+};
+
+let promise = A();
+promise.then(() => {
+    console.log(1);
+    return B();//=>如果方法中返回的一个具体值，而且执行中没有错误异常，会立即执行下一个THEN中的方法（不写RETURN也是返回的了具体值：undefined），但是如果返回的是一个PROMISR实例（并且管控了一个异步操作），只能等PROMISE完成，把成功后的结果当做具体的值返回，才能进入下一个函数执行
+}).then(() => {
+    console.log(2);
+});
+```
+
+
+
+
+
+## 9 .axios
+
+> Axios： 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。
+>
+> 1. 提供了对应请求方式的方法（例如：get/post/head/delete/put/options...）
+>    axios.get() 向服务器发送一个请求，基于的是GET方式
+> 2. 支持的参数配置
+>    axios.get([URL],[OPTIONS])
+> 3. 基于GET或者POST方法发请求，返回的结果都是PROMISE实例
+
+### 9.1 axios初步使用,基础语法
+
+【get】
+
+```javascript
+axios.get('urlAPI地址', {
+        params: {//=>GET请求中，会把PARAMS中的键值对拼接成URLENCODE格式的字符串，然后以问号传递参数的方式，传递给服务器，类似于JQ-AJAX中的DATA（或者自己基于URL后面拼接也可以，不用PARAMS）
+            name: 'BigSpinach',
+            age: 26
+        }
+    });
+```
+
+【post】
+
+```javascript
+ axios.post('urlAPI地址', {
+        //=>配置项中传递的内容都相当于基于请求主体专递给服务器，但是传递给服务器的内容格式是RAW(JSON格式的子字符串)，不是X-WWW-FORM-URLENCODED
+         name: 'BigSpinach',
+         age: 26
+    });
+```
+
+【axios的案例】
+
+```javascript
+let promise = axios.get('urlAPI地址', {
+        params: {
+            lx: 12
+        }
+    });
+promise.then(result => {
+        // console.log(result);//=>获取的结果是一个对象
+        /!*
+         * data：从服务器获取的响应主体内容
+         * headers：从服务器获取的响应的头信息
+         * request：创建的AJAX实例
+         * status：状态码
+         * statusText：状态码的描述
+         * config：基于AXIOS发送请求的时候做的配置项
+         *!/
+ }).catch(msg => {
+        console.log(msg);//=>请求失败的原因
+ });
+```
+
+[`axios`解决回调地狱]
+
+```javascript
+axios.get('https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp/info', {
+        params: {
+            lx: 12
+        }
+    }).then(result => {
+        let {data} = result;
+        //...
+        console.log(data);
+
+        return axios.post('https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp/add');
+    }).then(result => {
+        let {data} = result;
+        console.log(data);
+    });
+```
+
+
+
+
+
+### 9.2 `axios`的请求合并以及参数配置
+
+
+
+问题引入
+
+```javascript
+//需求：同时满足两个或者多个条件后才能执行后边的代码
+//解决思路：定义全局变量接收每一个条件成立所得到的结果
+
+let reuslt = null;//全局变量，用于接收第一次异步操作得到的结果
+axios.get('A').then(resultA=>{
+	result =  resultA;
+  return axios.get('B');//满足A条件后又要满足B条件
+  											//（promise的执行机制）
+}).then(resultB=>{
+  //A和B都成功执行后，这里的代码才会执行
+  //resultB是 axios.get('B')成功后的结果，如何得到A呢，全局变量
+  //全局变量result 是A 的成功后的结果
+});
+```
+
+
+
+`axios`中的请求合并(一次并发多个请求)
+
+```javascript
+let setAry = [
+	axios.get('api地址A')，
+  axios.get('api地址B')，
+  axios.get('api地址C')，
+  axios.get('api地址D')
+];
+
+axios.all(setAry).then(result=>{
+  //当setAry中的所有请求都满足后才执行这里的代码
+  //此时的result的结果是一个数组
+  //分别存储每一个请求的结果
+  console.log(result);
+});
+
+//管控all里所有执行成功的结果
+axios.all(setAry).then(axios.spread((A,B,C,D)=>{
+	console.log(A,B,C,D);//原理？js看源码
+}));
+
+/*
+	//源码
+	moudle.export = function spread(callback){
+		return function wrap(arr){
+			return callback.apply(null,arr);
+		}
+	};
+	
+	//源码解读
+	调用axios.spread(callback),
+	返回一个函数    warp(arr)
+		这个函数中的arr形参就是 axios.all().then(result=>{})
+		中的 result【也就是arr】
+	然后执行 这个warp函数中的 中return的代码段
+		return callback.apply(null,arr);
+		
+	
+	
+*/
+```
+
+
+
+### 9.3 axios起别名
+
+
+
+[请求配置]
+
+> 这些是创建请求时可以用的配置选项。只有 `url` 是必需的。如果没有指定 `method`，请求将默认使用 `get`方法。
+
+```javascript
+//config
+{
+   // `url` 是用于请求的服务器 URL
+  url: '/user',
+
+  // `method` 是创建请求时使用的方法
+  method: 'get', // default
+
+  // `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL。
+  // 它可以通过设置一个 `baseURL` 便于为 axios 实例的方法传递相对 URL
+  baseURL: 'https://some-domain.com/api/',
+
+  // `transformRequest` 允许在向服务器发送前，修改请求数据
+  // 只能用在 'PUT', 'POST' 和 'PATCH' 这几个请求方法
+  // 后面数组中的函数必须返回一个字符串，或 ArrayBuffer，或 Stream
+  transformRequest: [function (data, headers) {
+    // 对 data 进行任意转换处理
+    return data;
+  }],
+     // `transformResponse` 在传递给 then/catch 前，允许修改响应数据
+  transformResponse: [function (data) {
+    // 对 data 进行任意转换处理
+    return data;
+  }],
+
+  // `headers` 是即将被发送的自定义请求头
+  headers: {'X-Requested-With': 'XMLHttpRequest'},
+
+  // `params` 是即将与请求一起发送的 URL 参数
+  // 必须是一个无格式对象(plain object)或 URLSearchParams 对象
+  params: {
+    ID: 12345
+  },
+   // `paramsSerializer` 是一个负责 `params` 序列化的函数
+  // (e.g. https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)
+  paramsSerializer: function(params) {
+       return Qs.stringify(params, {arrayFormat: 'brackets'})
+  },
+
+  // `data` 是作为请求主体被发送的数据
+  // 只适用于这些请求方法 'PUT', 'POST', 和 'PATCH'
+  // 在没有设置 `transformRequest` 时，必须是以下类型之一：
+  // - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams
+  // - 浏览器专属：FormData, File, Blob
+  // - Node 专属： Stream
+  data: {
+    firstName: 'Fred'
+  },
+
+  // `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
+  // 如果请求话费了超过 `timeout` 的时间，请求将被中断
+  timeout: 1000,
+
+   // `withCredentials` 表示跨域请求时是否需要使用凭证
+  withCredentials: false, // default
+
+  // `adapter` 允许自定义处理请求，以使测试更轻松
+  // 返回一个 promise 并应用一个有效的响应 (查阅 [response docs](#response-api)).
+  adapter: function (config) {
+    /* ... */
+  }, // `auth` 表示应该使用 HTTP 基础验证，并提供凭据
+  // 这将设置一个 `Authorization` 头，覆写掉现有的任意使用 `headers` 设置的自定义 `Authorization`头
+  auth: {
+    username: 'janedoe',
+    password: 's00pers3cret'
+  },
+
+   // `responseType` 表示服务器响应的数据类型，可以是 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
+  responseType: 'json', // default
+
+  // `responseEncoding` indicates encoding to use for decoding responses
+  // Note: Ignored for `responseType` of 'stream' or client-side requests
+  responseEncoding: 'utf8', // default
+
+   // `xsrfCookieName` 是用作 xsrf token 的值的cookie的名称
+  xsrfCookieName: 'XSRF-TOKEN', // default
+
+  // `xsrfHeaderName` is the name of the http header that carries the xsrf token value
+  xsrfHeaderName: 'X-XSRF-TOKEN', // default
+
+   // `onUploadProgress` 允许为上传处理进度事件
+  onUploadProgress: function (progressEvent) {
+    // Do whatever you want with the native progress event
+  },
+ // `onDownloadProgress` 允许为下载处理进度事件
+  onDownloadProgress: function (progressEvent) {
+    // 对原生进度事件的处理
+  },
+
+   // `maxContentLength` 定义允许的响应内容的最大尺寸
+  maxContentLength: 2000,
+
+  // `validateStatus` 定义对于给定的HTTP 响应状态码是 resolve 或 reject  promise 。如果 `validateStatus` 返回 `true` (或者设置为 `null` 或 `undefined`)，promise 将被 resolve; 否则，promise 将被 rejecte
+  validateStatus: function (status) {
+    return status >= 200 && status < 300; // default
+  },
+
+  // `maxRedirects` 定义在 node.js 中 follow 的最大重定向数目
+  // 如果设置为0，将不会 follow 任何重定向
+  maxRedirects: 5, // default
+
+  // `socketPath` defines a UNIX Socket to be used in node.js.
+  // e.g. '/var/run/docker.sock' to send requests to the docker daemon.
+  // Only either `socketPath` or `proxy` can be specified.
+  // If both are specified, `socketPath` is used.
+  socketPath: null, // default
+     // `httpAgent` 和 `httpsAgent` 分别在 node.js 中用于定义在执行 http 和 https 时使用的自定义代理。允许像这样配置选项：
+  // `keepAlive` 默认没有启用
+  httpAgent: new http.Agent({ keepAlive: true }),
+  httpsAgent: new https.Agent({ keepAlive: true }),
+
+  // 'proxy' 定义代理服务器的主机名称和端口
+  // `auth` 表示 HTTP 基础验证应当用于连接代理，并提供凭据
+  // 这将会设置一个 `Proxy-Authorization` 头，覆写掉已有的通过使用 `header` 设置的自定义 `Proxy-Authorization` 头。
+  proxy: {
+    host: '127.0.0.1',
+    port: 9000,
+    auth: {
+      username: 'mikeymike',
+      password: 'rapunz3l'
+    }
+  },
+
+  // `cancelToken` 指定用于取消请求的 cancel token
+  // （查看后面的 Cancellation 这节了解更多）
+  cancelToken: new CancelToken(function (cancel) {
+  })
+}
+```
+
+
+
+```javascript
+axios.request(config);
+axios.get(url[, config]);
+axios.delete(url[, config]);
+axios.head(url[, config]);
+axios.options(url[, config]);
+axios.post(url[, data[, config]]);
+axios.put(url[, data[, config]]);
+axios.patch(url[, data[, config]]);
+```
+
+
+
+### 9.4 默认配置
+
+【一般常用配置项】
+
+初始化常用的配置项
+
+```javascript
+//baseConfig
+axios.defaults.baseUrl = '基础url地址’；
+
+
+//使用
+axios.get('/list').then(result=>{
+  //就相当于向 基础url地址/LIST 这个地址发送请求
+  
+});
+
+//自定义成功失败的状态码（axios默认是2开头）
+axios.defaults.validateStatus = function validateStatus(status){
+  //自定义成功失败的规则，200 300 都算成功
+ 	return /^(2|3)/d{2}$/.test(status);
+  //默认是
+  //return status>=200 && status<300;
+}
+
+
+
+//设置响应拦截器
+//啥意思呢？就是 在发送请求获得服务器响应信息之前（then（result=>{}）,首先会执行拦截器里的方法
+axios.interceptors.response.use(function success(res){
+  //分别设置响应成功和失败的拦截信息
+  console.log(res);
+  //将拦截的信息返回给 then（result=>{}）;
+  //如果这里没有返回  没有 return ，返回undefined
+  //此时 ，axios.get('urlxxx').then(result=>{conosle.log(result);//undefined})
+  
+  //如果要 then方法中有值 ，这里就得加上return ，当然我们可以对返回的信息进行处理
+  //return res.data;
+},function error(){
+  
+});
+
+//简写拦截器
+axios.interceptors.response.use（result=>result.data）;
+
+
+
+
+//设置在post请求中基于请求主体向服务器发送的内容格式，默认是RAW，项目中常用的是url-encoded格式
+axios.defaults.headers.post['content-Type']='application/x-www-form-urlencoded';
+//改完请求头还不行，还得改发给服务器的数据格式
+axios.defaults.transformRequest = data=>{
+	//data :这里默认传递的给服务器的是 paw格式的数据 {name:'BigsPinach',age：26}
+  //服务器一般要的是 -x-www-form-urlencoded格式的数据
+  //也就是 name='BigsPinach'&age=26
+  //所以 
+  let str=``;
+  for(let attr in data ){
+    if(data.hasOwnPorperty){
+      str+= `${attr} = ${data[attr]}&` ;
+    }
+  }
+  return str.stringfy(0,str.length-1);
+}
+```
+
+
+
+
+
+## 10.fetch
+
+>[Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) 提供了一个 JavaScript接口，用于访问和操纵HTTP管道的部分，例如请求和响应。它还提供了一个全局 [`fetch()`](https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalFetch/fetch)方法，该方法提供了一种简单，合理的方式来跨网络异步获取资源。
+
+`fetch`不是`AJAX`，它诞生的目的是为了代替AJAX，它是JS中内置的API：基于FETCH可以实现客户端和服务器端的信息通信
+
+> 1. `FETCH`是ES2018规范中新增的API，所以浏览器的支持度不是特别好（可以基于BABEL的最新语法解析包，把其进行解析），想要兼容性好一些，需要使用 “fetch polyfill”
+>
+> 2. 使用`fetch`发送请求
+>
+>    - GET/HEAD等请求不能设置BODY
+>
+>    - 不管服务器返回的状态是多少，FETCH都不认为是失败（那怕是4或者5开头的状态码），都执行的是THEN中的方法（需要我们自己进行异常抛出处理）,仅当网络故障时或请求被阻止时，才会标记为 reject。
+>
+>    - 默认情况下，fetch 不会从服务端发送或接收任何 cookies, 如果站点依赖于用户 session，则会导致未经认证的请求（要发送 cookies，必须设置 credentials 选项）。自从2017年8月25日后，默认的credentials政策变更为same-originFirefox也在61.0b13中改变默认值
+
+```javascript
+fetch('urlApiAddress', {
+        method: 'GET',
+        headers: {
+            //=>设置请求头
+            'content-type': 'x-www-form-urlencoded'
+        },
+        //=>不管同源还是跨域请求都带着COOKIE信息
+        credentials: 'include'
+    }).then(result => {
+        console.log(result);
+        /*
+         * headers：{} 包含响应头信息
+         * redirected：false 是否重定向
+         * status：状态码
+         * statusText
+         * type：'basic'/'cors'
+         * url：请求的地址
+         *
+         * __proto__:Response
+         *   arrayBuffer()
+         *   blob()
+         *   json()
+         *   text()
+         *   ...
+         *   基于这些方法可以快速的把从服务器获取的结果找到
+         */
+    });
+
+```
+
+### 10.1 进行 fetch 请求
+
+```javascript
+fetch('http://example.com/movies.json')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    console.log(myJson);
+  });
+```
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    .active{
+      color:red;
+    }
+  </style>
+  <title>02-vue-router初使用</title>
+</head>
+<body>
+    <div id="app">
+     <!-- router-link 最终被渲染成 a标签 -->
+     <!-- 可以指定router-link 窜让成什么样的标签  tag="标签名" -->
+      <!-- <router-link to="/home"> <button>Home  </button></router-link>
+      <router-link to="/list"> <button>List  </button></router-link> -->
+      <router-link to="/home" tag="button"> Home </router-link>
+      <router-link to="/list"> List </router-link>
+
+      <br>
+      <!-- router-view路由对应的组件显示的位置 -->
+      你好
+      <router-view></router-view>
+      组件
+    </div>
+</body>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script>
+  let Home ={template:'<h1>home组件</h1>'};
+  let List ={template:'<h1>list组件</h1>'};
+
+  //路由默认映射问题
+  //路由匹配规则：从上到下依次匹配，所以将/* 放在最后
+  let routes = [
+    {path:'/',component:Home},
+    {path:'/home',component:Home},
+    {path:'/list',component:List},
+    // {path:'/*',component:Home},
+    {path:'/*',redirect:'/home'},//重定向，避免显示手动输入的乱七八糟的地址值
+
+  ];
+
+  let router = new VueRouter({
+    // mode:'history',
+    routes,
+    linkActiveClass:"active"
+  });
+
+  let vm =new Vue({
+    el:"#app",
+    data:{},
+    router,
+  });
+</script>
+</html>

@@ -4,7 +4,9 @@
   "description": "for a job",
   "main": "index.js",
   "dependencies": {
-    "jquery": "^3.3.1"
+    "jquery": "^3.4.1",
+    "less": "^3.9.0",
+    "vue": "^2.6.10"
   },
   "devDependencies": {},
   "scripts": {

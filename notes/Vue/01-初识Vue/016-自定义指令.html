@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    .box {
+      width: 400px;
+      height: 400px;
+      background-color: aqua;
+      cursor: move;
+      position: absolute;
+    }
+  </style>
+  <title>016-自定义指令</title>
+</head>
+
+<body>
+  <div id="app">
+    <div v-myorder class="box">自定义指令之myorder</div>
+
+    <div v-color="'green'" class="box">自定义指令之v-color="传递一个字符串，用于控制当前盒子的背景颜色"</div>
+
+    <!-- 可以拖拽 -->
+    <div class="box" v-drag>点我可以拖拽</div>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+  let vm = new Vue({
+    el: "#app",
+    data: {
+      str: ''
+    },
+    directives: {
+      //自定义指令不加参数的写法
+      myorder() {
+        //加上这个指令后这个方法会默认执行一次
+        //console.log(1);
+        //console.log(arguments);
+        //第一个参数是当前元素
+        arguments[0].style.color = 'red';
+      },
+
+      color() {
+        console.log(arguments);
+        //arguments[0]还是当前元素
+        //arguments[1]是一个对象，这个对象中有我们传递的值
+        console.log(arguments[1]);
+        /*
+          def: {bind: ƒ, update: ƒ}
+          expression: "'green'"
+          modifiers: {}
+          name: "color"
+          rawName: "v-color"
+          value: "green"
+          __proto__: Object
+        */
+        arguments[0].style.backgroundColor = arguments[1].value;
+      },
+
+      //自定义拖拽指令：当加上这个指令，这个元素就可以实现拖拽效果
+      drag(target, data) {
+        //target 是当前元素
+        //data 是传递的参数，是一个对象  data.value是传递的值
+        //拖拽三步：onmousedown onmousemove onmouseup
+        target.onmousedown = function (e) {
+          //鼠标的位移差就是盒子的位移差 （需要四个变量）
+          //换个角度：盒子用的距离就是鼠标移动的距离
+          //记录当前盒子相对于鼠标的起始位置
+          this.l = e.clientX - this.offsetLeft;
+          this.t = e.clientY - this.offsetTop;
+          document.onmousemove = (e) => {
+            //重新计算设定盒子的位置
+            this.style.left = e.clientX - this.l + "px";
+            this.style.top = e.clientY - this.t + "px";
+          };
+
+          document.onmouseup = (e) => {
+            document.onmousemove = null;
+            document.onmouseup = null;
+          }
+          e.preventDefault();
+        };
+
+
+      }
+    }
+  });
+</script>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>012-计算属性</title>
+</head>
+
+<body>
+  <div id="app">
+    <input type="number" v-model="a">
+    <input type="number" v-model="b">
+    <input type="number" v-model="sum" disabled>
+    <!-- <span v-model="sum">{{sum  }}</span> -->
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+  let vm = new Vue({
+    el: "#app",
+    data: {
+      a: 0,
+      b: 0,
+    },
+    computed: {
+      //这里声明的属性跟 data中声明的属性一样，不能重复声明
+      //使用操作这里的属性  直接就是 vm.xxx
+      sum: {
+        get() {
+          return Number(this.a)+Number(this.b);
+        },
+        set(val) {},
+      }
+    },
+  });
+</script>
+
+</html>

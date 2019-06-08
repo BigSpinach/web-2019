@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>09-v-for</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 循环数字 -->
+    <!-- <ul>
+      <li v-for="item in 3">{{item}}</li>
+    </ul> -->
+
+    <!-- 循环数组 -->
+    <ul>
+      <li v-for="item in arr">{{item}}</li>
+    </ul>
+
+    <hr>
+
+    <!-- 循环对象 -->
+    <ul >
+        <li v-for="(value,key) in obj">{{value}}---{{key}}</li>
+    </ul>
+   
+    <hr>
+    <!-- 嵌套循环 -->
+    <ul v-for="item in arrs">
+        <li v-for="(value,key)  in item">{{value}}---{{key}}</li>
+    </ul>
+    
+
+  </div>
+</body>
+
+</html>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+  let vm = new Vue({
+    el: "#app",
+    data: {
+      //sel: null //初始化可以是任意数据，之后会被覆盖
+      //sel: null //如果是多选的时候，初始化应该为一个array数据类型的值，不能是其他，否则报错，但仍然能正常执行
+      //vue.js:634 [Vue warn]: <select multiple v-model="sel"> expects an Array value for its binding, but got Null
+      arr: [,1, 3, 4, 56, 7, 33],
+      obj:{name:"BigSpinach",age:26},
+      arrs:[{name:"BigSpinach111",age:26},{name:"BigSpinach222",age:26},{name:"BigSpinach333",age:26}],
+    }
+  });
+</script>

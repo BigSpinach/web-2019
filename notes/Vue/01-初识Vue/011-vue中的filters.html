@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>011-vue中的过滤器filters </title>
+</head>
+
+<body>
+  <!-- 
+    值|过滤器   ---过滤器是一个函数
+    这个过滤器就是用来处理前边这个值的
+  
+  -->
+
+  <div id="app">
+    
+    <p>{{552.5646546|toFixed(6)}}</p>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: "#app",
+      data: {
+        className: 'container',
+        list: [1, 2, 3, 4, 5, 67, 8, 9, ]
+      },
+      filters:{
+        toFixed(n){
+          //n表示保留几位小数
+          //console.log(this);//window
+          //console.log(arguments);//Arguments(2) [552.5646546, 2, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+          return arguments[0].toFixed(arguments[1]);
+          
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

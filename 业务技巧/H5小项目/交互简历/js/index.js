@@ -2,7 +2,7 @@ let loadingRender = (function () {
     let $loadingBox = $('.loadingBox');
     //$loadingBox.css('display','block');
     let $current = $loadingBox.find('.current');
-    let imgData = ["img/icon.png", "img/zf_concatAddress.png", "img/zf_concatInfo.png", "img/zf_concatPhone.png", "img/zf_course.png", "img/zf_course1.png", "img/zf_course2.png", "img/zf_course3.png", "img/zf_course4.png", "img/zf_course5.png", "img/zf_course6.png", "img/zf_cube1.png", "img/zf_cube2.png", "img/zf_cube3.png", "img/zf_cube4.png", "img/zf_cube5.png", "img/zf_cube6.png", "img/zf_cubeBg.jpg", "img/zf_cubeTip.png", "img/zf_emploment.png", "img/zf_messageArrow1.png", "img/zf_messageArrow2.png", "img/zf_messageChat.png", "img/zf_messageKeyboard.png", "img/zf_messageLogo.png", "img/zf_messageStudent.png", "img/zf_outline.png", "img/zf_phoneBg.jpg", "img/zf_phoneDetail.png", "img/zf_phoneListen.png", "img/zf_phoneLogo.png", "img/zf_return.png", "img/zf_style1.jpg", "img/zf_style2.jpg", "img/zf_style3.jpg", "img/zf_styleTip1.png", "img/zf_styleTip2.png", "img/zf_teacher1.png", "img/zf_teacher2.png", "img/zf_teacher3.jpg", "img/zf_teacher4.png", "img/zf_teacher5.png", "img/zf_teacher6.png", "img/zf_teacherTip.png"];
+    let imgData = ["img/icon.png"];
 
     //run=> 预先加载图片
     let n = 0; //已经加载的图片个数
@@ -449,7 +449,12 @@ let cubeRender = (function cubeRender() {
                 .on('touchend', end);
 
             //点击 魔方每一个面进入对应的detail页面
-            detailRender.init();
+            $cubeList.tap(function () {
+                $cubeBox.css('display', 'none');
+                let index = $(this).index();
+                console.log(index);
+                detailRender.init(index);
+            });
         }
     }
 })();
@@ -480,18 +485,20 @@ let detailRender = (function () {
                     transitionEnd: move,
                 }
             });
+
+
     };
 
     let move = function move() {
-        
+
         //=> this:表示的是当前的swiper实例（swiper 4.0版本）
 
         //1. 判断当前slide是否是第一个slide，如果是,就让他3d展开，不是就收起3D菜单
 
         let activeIn = this.activeIndex;
-        let slideAry = Array.prototype.slice.call(this.slides,0);
-        
-        if (activeIn === 0) {           
+        let slideAry = Array.prototype.slice.call(this.slides, 0);
+
+        if (activeIn === 0) {
             //实现折叠效果
             $dl.makisu({
                 selector: 'dd',
@@ -512,28 +519,25 @@ let detailRender = (function () {
 
         //2.根据index，判断当前是哪个页面需要有id样式动画
         //滑动到哪个页面，给哪个页面设置id选择器（这个id选择器里有我们搞的css3动画）
-        slideAry.forEach((item,index)=>{
-            if(activeIn===index){
+        slideAry.forEach((item, index) => {
+            if (activeIn === index) {
                 item.id = `page${index+1}`;
                 return;
             }
-                item.id=null;
-            
+            item.id = null;
         });
-        
-       
-
-       
-
     };
 
     return {
-        init: function () {
+        init: function (index=0) {
             $detailBox.css('display', 'block');
             //初始换swiper插件
-            swiperInit();
+            if (!swiper) {
+                //防止重复初始化swiper实例
+                swiperInit();
+            }
 
-
+            swiper.slideTo(index,0);//直接让页面切换到指定屏，0表示没有动画时间，立即切换
         }
     }
 })();

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>08-select</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 单选 -->
+    <!-- v-modle中是一个值，存放的是选中的option的value值，如果没有value值，就是啥也不显示 -->
+    <!-- <select v-model='sel'>
+      <option value="1">休闲鞋</option>
+      <option value="2">运动鞋</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="">5</option>
+    </select>
+    <br>
+    {{sel}} -->
+    <!-- <input type="text" value="$sel" v-model="sel"> -->
+
+    <!-- 多选multiple -->
+    <select v-model='sel' multiple>
+      <option value="1">休闲鞋</option>
+      <option value="2">运动鞋</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="">5</option>
+    </select>
+    <br>
+    {{sel}}
+  </div>
+</body>
+
+
+</html>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+  let vm = new Vue({
+    el: "#app",
+    data: {
+      //sel: null //初始化可以是任意数据，之后会被覆盖
+      //sel: null //如果是多选的时候，初始化应该为一个array数据类型的值，不能是其他，否则报错，但仍然能正常执行
+      //vue.js:634 [Vue warn]: <select multiple v-model="sel"> expects an Array value for its binding, but got Null
+      sel:[]
+    }
+  });
+</script>

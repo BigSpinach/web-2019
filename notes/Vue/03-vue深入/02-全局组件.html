@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>01-生命周期函数</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 
+    HTML中使用全局组件
+      * html标签不区分大小写：js中采用驼峰命名法的 这里用     '-'代替  比如 js中 myDiv  HTML中用 my-div
+      * 或者跟 js中完全保持一致
+  -->
+  <!-- 3. 使用组件 -->
+    <my-div></my-div>
+
+    <my-div>{{msg}}</my-div>
+  </div>
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+  //1. 声明全局组件
+  Vue.component('myDiv', {
+    template: "<div><h2>{{msg}}</h2></div>",
+    data() {
+      //全局组件中，data数据书写方式是 一个函数
+      //并且  必须返回一个对象的形式
+      return {
+        msg: '我是全局组件的数据'
+      }
+    }
+  });
+  let vm = new Vue({
+    el: "#app",
+    data: {
+      msg: '局部数据'
+    },
+    /*
+    定义的全局组件不需要在根组件中注册就可以使用
+    components:{
+      //2.注册组件
+    }
+    */
+  });
+</script>
+
+</html>

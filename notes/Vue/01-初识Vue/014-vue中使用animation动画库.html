@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: aqua;
+    }
+  </style>
+  <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="./css/animate.css"> -->
+  <title>014-vue中使用animate动画库</title>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="flag=!flag">点我切换</button>
+    <transition enter-active-class="animated bounceInDown" leave-active-class="animated bounceInLeft">
+      <div class="box" v-show="flag">
+          <h1>哈哈</h1>
+      </div>
+     
+    </transition>
+
+    <!-- 组动画 -->
+    <transition-group enter-active-class="animated zoomInLeft" leave-active-class="animated rollOut">
+        <h1 :key="1" v-show="flag">哈哈</h1>
+        <h1 :key="2" v-show="flag">嘻嘻</h1>
+        <h1 :key="3" v-show="flag">嘿嘿</h1>
+    </transition-group>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+  let vm = new Vue({
+    el: "#app",
+    data: {
+      flag: true,
+    },
+
+  });
+</script>
+
+</html>

@@ -27,7 +27,7 @@ let fn = function fn(x,y){
 		//y => undefined
 		console.log(this.val);			
 	};
-	let obj = {name:"BigSpinach",age:28};
+	let obj = {name:"BigSpinach",age:26};
 
 	document.body.onclick = fn;//fn中的this是 document.body
 ```
@@ -70,7 +70,7 @@ Function.prototype.myBind = function myBind(context,...arg) {
     	//innerArg 用于接收调用者 _this(跟外部的this保持一致)
     	//context 是
     	//_this.call(context,arg.concat(innerArg));
-    	_this.apply(context,arg,concat(innerArg));
+    	_this.apply(context,arg.concat(innerArg));
     }();
 }
 
@@ -82,6 +82,158 @@ document.body.onclick = fn.myBind(obj, 1, 2);
 
 
 ## 4. Promise
+
+
+
+### 4.1 `Promise`的基本使用
+
+```javascript
+let pro = new Promise((resolve, reject) => {
+    //=>执行一个异步操作
+    let xhr = new XMLHttpRequest();
+    xhr.open('get', 'js/1.js', true);
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            val = xhr.responseText;
+            resolve(val);
+        }
+        if (xhr.status !== 200) {
+            //=>失败
+            reject();
+        }
+    };
+    xhr.send(null);
+});
+pro.then((res) => {
+    console.log(res);
+    //=>数据绑定
+    return 100;//=>它返回的结果传递给第二个THEN了...
+}, () => {
+    console.log('no');
+}).then((res) => {
+    //=>当第一个THEN中的函数执行完，会执行第二个
+    console.log(res);
+}, () => {
+
+}).then(() => {
+    //=>当第二个THEN中的函数执行完，会执行第三个
+}, () => {
+
+});
+```
+
+
+
+
+
+### 4.2 Promise深入
+
+```javascript
+let promise1 = new Promise((resolve, reject) => {
+    $.ajax({
+        url: 'json/data2.json',
+        success(result) {
+            resolve(result);
+        },
+        error(msg) {
+            reject('no');
+        }
+    });
+});
+promise1.then(
+    result => {
+        console.log('THEN1 OK', result);
+        return 100;
+    },
+    msg => {
+        console.log('THEN1 NO', msg);
+        return 100;
+    }
+).then(
+    result => {
+        console.log('THEN2 OK', result);
+    },
+    msg => {
+        console.log('THEN2 NO', msg);
+    }
+);
+```
+
+
+
+```javascript
+//=>建议不要使用THEN中的第二个参数（这样看起来很乱），而是建议我们使用Promise.prototype.catch来管理失败的情况
+let promise1 = new Promise((resolve, reject) => {
+    $.ajax({
+        url: 'json/data2.json',
+        success(result) {
+            resolve(result);
+        },
+        error(msg) {
+            reject('no');
+        }
+    });
+});
+promise1.then(result => {
+    console.log('THEN1 OK', result);
+    100();
+    return 100;
+}).catch(msg => {
+    //=>第一个CATCH
+    //1.异步请求失败会执行它
+    //2.第一个THEN方法失败也会执行它
+    console.log('CATCH1', msg);
+}).then(result => {
+    console.log('THEN2 OK', result);
+}).catch(msg => {
+    console.log('CATCH2', msg);
+});
+
+//=>JS中的异常捕获（目的：把抛出异常的错误捕获到，不让其阻断浏览器的继续执行）
+/*
+try {
+    //=>正常执行的JS代码(可能会报错)
+    1();
+} catch (e) {
+    //=>TRY中的代码报错了会执行CATCH
+    console.log(e.message);
+} finally {
+    //=>不管TRY中的代码成功还是失败都会执行
+}
+*/
+```
+
+`Promise`管控异步操作，解决回调地狱
+
+```javascript
+let A = function A() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve();
+        }, 1000);
+    });
+};
+
+let B = function B() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve();
+        }, 1000);
+    });
+};
+
+let promise = A();
+promise.then(() => {
+    console.log(1);
+    return B();//=>如果方法中返回的一个具体值，而且执行中没有错误异常，会立即执行下一个THEN中的方法（不写RETURN也是返回的了具体值：undefined），但是如果返回的是一个PROMISR实例（并且管控了一个异步操作），只能等PROMISE完成，把成功后的结果当做具体的值返回，才能进入下一个函数执行
+}).then(() => {
+    console.log(2);
+});
+
+
+```
+
+
 
 
 

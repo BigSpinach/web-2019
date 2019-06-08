@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link  rel="stylesheet" href="../css/index.css"  media="all">
+  <title>shoppingCact-vue</title>
+</head>
+
+<body>
+  <div id="app" class="container">
+    <!-- 使用bootstrap搭建购物车结构 -->
+    <div class="row">
+      <table class="table table-hover">
+        <caption style="caption-side: top" class="h1 text-center text-danger">购物车</caption>
+        <tr>
+          <!-- 表头 -->
+          <th>全选
+            <input type="checkbox" v-model="isAll" >
+          </th>
+          <th>商品名称</th>
+          <th>单价</th>
+          <th>数量</th>
+          <th>小计</th>
+          <th>操作</th>
+        </tr>
+        <tr v-for="(item,index) in products">
+          <!-- 内容 -->
+          <th class="line-height "><input type="checkbox" v-model="item.isSelected" ></th>
+          <th>
+            <img :src="item.productCover" :alt="item.productInfo" class="productSmall" style=" width: 75px;
+            height: 100px;
+            overflow: hidden;">
+            <span>{{item.productName}}</span>
+          </th>
+          <th style="line-height:100px">￥：{{item.productPrice}}</th>
+          <th style="line-height:30px; padding-top:45px;">
+            <input type="number" v-model="item.productCount">
+          </th>
+          <th style="line-height:100px">
+            ￥：{{item.productPrice*item.productCount|toFixed(2)}}
+          </th>
+          <th style="line-height:100px">
+            <button class="btn btn-danger" @click="remove(index)">删除</button>
+          </th>
+        </tr>
+        <tr>
+          <!-- 表的底部 -->
+          <td colspan="6">总价：￥{{sumPrice|toFixed(2)}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+  integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+<script src="js/index.js"></script>
+
+</html>

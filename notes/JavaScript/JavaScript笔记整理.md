@@ -824,6 +824,52 @@ sum(10,20,30); //=>n=10 m=20  30没有形参变量接收
 
 封装一个函数实现一些功能，有时候发现实现功能的原材料不足，需要执行函数的时候传递给我们才可以，此时我们可以给函数设置几个入口，我们把函数的入口称之为：“形参变量”(入口是变量)
 
+#### 2.4.1 函数的`neme`属性
+
++ 1.通过构造函数创建的函数`name` 都是 `anonymous`
+
+```javascript
+//一个参数
+let f = new Function('let a=1;console.log(1);');
+console.log(f.name);//'anonymous'
+
+//多个参数
+let f = new Function('a,b',' a=1;console.log(a,b);');
+console.log(f.name);//'anonymous'
+```
+
+
+
++ 2.通过`bind`得到的函数的名字 都是 `bound 函数名`
+
+  ```javascript
+  let fn =function(){};
+  let f = fn.bind(null);
+  console.log(f.name);//"bound fn"
+  ```
+
+面试题：
+
+```javascript
+let a='[1,3,4,6]';
+let f = new Function('return'+a);
+f();//=>  [1, 3, 4, 6]
+
+//分析
+/*
+	new Function('return'+a)
+	=>  new Function('return'+'[1,3,4,6]');
+	=>  new Function('return [1,3,4,6]');
+	所以 ...
+
+*/
+
+```
+
+
+
+
+
 
 ###2.5  `Math`
 

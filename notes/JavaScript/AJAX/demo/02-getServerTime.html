@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>02-获取服务器时间完成倒计时案例</title>
+  <style>
+    #timeBox {
+      width: 100%;
+      height: 52px;
+      line-height: 52px;
+      text-align: center;
+      font-size: 36px;
+      margin: 0 auto;
+      border: 1px dotted #ddd;
+    }
+
+    #timeBox span {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="timeBox">
+    距离抢购还有&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span>-- : -- : --</span>
+  </div>
+</body>
+
+<!-- <script>
+  ~(function () {
+    //获取要操作的元素：显示时间的span
+    let timeBox = document.getElementById('timeBox');
+    let timeSpan = timeBox.querySelector('span');
+
+    //定义自动刷新定时器
+    let autoTimer = null;
+
+    //基于promise管理获取到的服务器时间
+    let promiseServerTime = function promiseServerTime(){
+      
+      let serverTime=null;
+      
+      
+      return new Promise((resove,reject)=>{
+        let xhr = new XMLHttpRequest();
+        xhr.open('head','../AJAX.md',false);
+        xhr.onreadystatechange = ()=>{
+          if(xhr.readyState===2 && /^(2|3)\d{2}$/.test(xhr.status)){
+            //xhr.getResponseHeader('data');
+            let serverTime = new Date(xhr.getResponseHeader('dara'));
+          };
+        }
+        xhr.send(null);
+        return serverTime;
+      });
+    };
+
+    //计算当前显示的时间
+    let computedTime = function computedTime() {
+      //获取当前时间
+      let promise = promiseServerTime();
+      promise.then();
+      //定义终止时间
+      let abortTime = new Date('2019-05-13 19:00:00');
+
+      //计算时分秒
+      //计算时间差
+      let timeDif = abortTime - nowTime;
+
+      if (timeDif <= 0) {
+        timeSpan.innerHTML = `抢购结束，洗洗睡吧！`;
+        clearInterval(autoTimer);
+      } else {
+        let hours = Math.floor(timeDif / 1000 / 60 / 60);
+        let minutes = Math.floor((timeDif - hours * 1000 * 3600) / 1000 / 60);
+        let seconds = Math.floor((timeDif - hours * 1000 * 3600 - minutes * 1000 * 60) / 1000);
+        //console.log(hours,minutes,seconds);//3 47 53
+        hours < 10 ? (hours = '0' + hours) : null;
+        minutes < 10 ? (minutes = '0' + minutes) : null;
+        seconds < 10 ? (seconds = '0' + seconds) : null;
+        timeSpan.innerHTML = `${hours}:${minutes}:${seconds}`;
+
+      }
+    }
+
+  })(window);
+</script> -->
+<script src="getServerTime.js"></script>
+</html>

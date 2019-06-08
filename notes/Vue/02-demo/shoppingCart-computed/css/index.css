@@ -1,0 +1,11 @@
+.container .row .table .h1{
+  font-size: 36px;
+  font-weight: 400;
+  color:blueviolet;
+}
+
+.productSmall{
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+}

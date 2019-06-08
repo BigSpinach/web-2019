@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    h2 {
+      background-color: aqua;
+    }
+  </style>
+  <title>04-子传父以及.sync的使用</title>
+
+</head>
+
+<body>
+  <div id="app1">
+    <h2>子传父的一般做法</h2>
+    <!-- ---------- -->
+    根（父）组件的数据：{{rootDate}}
+    <my-component :sendtoson="rootDate" @change-money="change"></my-component>
+  </div>
+  <hr>
+
+
+
+  <div id="app2">
+    <h2>使用.sync语法糖</h2>
+    <!-- ---------- -->
+    根（父）组件的数据：{{rootDate}}
+    <my-component2 :sendtoson.sync="rootDate"></my-component2>
+  </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+  let MyComponent = {
+    template: `<div>
+                  子组件中使用父组件的数据：{{sendtoson}}
+                  <!-- 子组件告诉父组件修改父组件的数据 -->
+                  <button @click="getMore">点我可以触发修改父亲数据的效果</button>
+              </div>`,
+    data() {
+      return {
+        sonData: 200
+      }
+    },
+    props: ['sendtoson'],
+    methods: {
+      getMore() {
+
+        this.$emit('change-money', 250);
+      }
+    }
+  };
+
+  let vm1 = new Vue({
+    el: "#app1",
+    data: {
+      rootDate: 100,
+    },
+
+    components: {
+      MyComponent
+    },
+    methods: {
+      change(val) {
+        this.rootDate = Number(this.rootDate) + val;
+      }
+    },
+  });
+</script>
+
+<script>
+  let MyComponent2 = {
+      template: `<div>
+                  子组件中使用父组件的数据：{{sendtoson}}
+                  <!-- 子组件告诉父组件修改父组件的数据 -->
+                  <button @click="getMore">点我可以触发修改父亲数据的效果</button>
+              </div>`,
+    props: ['sendtoson'],
+    methods: {
+      getMore() {
+        //this.$emit('change-money', 250);
+        this.$emit('update:sendtoson',1);
+        //将 sendtoson的值更新为1 
+      }
+    },
+  };
+
+  let vm2 = new Vue({
+    el: "#app2",
+    data: {
+      rootDate: 100,
+    },
+
+    components: {
+      MyComponent2
+    },
+  });
+</script>
+
+</html>

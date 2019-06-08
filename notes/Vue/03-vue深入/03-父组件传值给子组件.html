@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>03-父组件给子组件传值</title>
+  <style>
+    h2{background-color: aqua;}
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h2>在根组件下直接使用注册的 fatherComponent和sonComponent</h2>
+    <!-- 父组件和子组件中使用的数据分别是自己组件中定义的msg -->
+    <!-- 各个组件是相对独立的 -->
+    <father-component>{{msg}}</father-component>
+    <son-component>{{msg}} </son-component>
+    <hr>
+
+    <h2>父组件给子组件传值</h2>
+    <father-component>
+
+    </father-component>
+    
+
+  </div>
+
+  <template id="fatherTemplate">
+    <div>
+      父组件的数据：{{msg}}
+      <br>
+      <input type="text" v-model="fatherval">
+      <!-- 父组件使用子组件 -->
+      <!-- 父组件向子组件传值 -->
+      <!-- <son-component sendToSon="fatherVal"></son-component> -->
+      <!-- html dom 不区分大小写 -->
+      <son-component :sendtoson="fatherval"></son-component>
+    </div>
+  </template>
+
+  <template id="sonTemplate">
+    <div>
+        子组件的数据：{{msg}}
+        
+      <h3>父组件传递的值是：{{sendtoson}}</h3>
+    </div>
+  </template>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+  // 1.1定义组件--定义儿子组件
+  let sonComponent = {
+    template: "#sonTemplate",
+    data() {
+      return {
+        msg: '我是sonComponent数据'
+      }
+    },
+    //子组件接收父组件传递过来的数据
+    props: ['sendtoson'],
+  };
+  //1.2定义组件--定义父亲组件
+  let fatherComponent = {
+    template: "#fatherTemplate",
+    data() {
+      return {
+        msg: '我是fatherComponent数据',
+        fatherval: ""
+      }
+    },
+    components: {
+      sonComponent
+    }
+  };
+
+  let vm = new Vue({
+    el: "#app",
+    data: {
+      msg: '根组件的数据'
+    },
+    // 2. 注册组件
+    //这里是在app 根组件下注册，所以使用也应该在跟组件下使用才能生效
+    components: {
+      fatherComponent,
+      sonComponent
+    }
+  });
+</script>
+
+</html>
