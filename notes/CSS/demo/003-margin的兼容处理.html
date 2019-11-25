@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>003-margin的兼容处理</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    html,body{
+      width:100%;
+      height: 100%;
+    }
+    div{
+      width: 100px;
+      height: 100px;
+      /* float: left; */
+    }
+    /*1. margin重叠规则 */
+    .box1{
+      background-color: aqua;
+      margin-bottom: 20px;
+    }
+
+    .box2{
+      background-color:sandybrown;
+      margin-top: 50px;
+    }
+
+
+
+    /*2. margin-top的传递问题*/
+    /*大盒子里边嵌套小盒子，给小盒子设置margin，
+      效果没实现，
+    结果整体盒子下移动
+    */
+
+    /*解决方案一： overflow:hidden*/
+    
+    .outer{
+      width: 200px;
+      height: 200px;
+      background-color:greenyellow;
+      /*父级盒子加上overflow:hidden,解决子盒子 margin-top传递的问题，实现父子分离*/
+      /*注意：此处并不表示溢出隐藏，表示的是解决margin传递*/
+      overflow: hidden;
+    } 
+   
+
+    /*解决方案二：给父级元素设置padding-top值*/
+    .outer{
+      width: 200px;
+      height: 199px;
+      background-color:greenyellow;
+     	padding-top:1px;/*不好，有1px的误差*/
+    }
+
+    /*解决方案三：给父级元素设置	 border-top的值*/
+  .outer{
+      width: 200px;
+      height: 199px;
+      background-color:greenyellow;
+     	border-top:1px solid transform;/*透明最优，也可设置为跟父元素一样的颜色*/
+    }
+
+
+    .inner{
+      background-color:red;
+      margin-top: 10px;
+    }
+  
+    /*解决方案四：给父级元素设置	padding值，撑开，子元素不需要设置margin的值*/
+    .outer{
+      width: 200px;
+      height: 190px;/*缺点*/
+      background-color:greenyellow;
+     	padding-top:10px;/*缺点*/
+    }
+
+
+    .inner{
+      background-color:red;
+      /* margin-top: 10px; */
+    }
+  </style>
+</head>
+<body>
+  <div class="box1"></div>
+  <div class="box2"></div>
+
+  <hr>
+
+  <div class="outer">
+    <div class="inner"></div>
+  </div>
+</body>
+</html>

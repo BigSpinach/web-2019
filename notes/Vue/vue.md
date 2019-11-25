@@ -1,4 +1,8 @@
-[TOC]
+[toc]
+
+
+
+
 
 
 
@@ -57,6 +61,14 @@ vm.a // => 3
 ```
 
 此时`data`中的数据会影响所有页面中绑定的`data`数据,当修改一处`data`中的值，页面中所有用到`data`值的地方都会发生改变
+
+**自我总结**
+
+```javascript
+//vue实例中的所有自定义属性和方法都存储在data这个对象中
+//只不过这个data对象是供给vue实例内部使用的对象
+//换句话说，就是这个data是方便vue自身使用而定义的用来存储实例所用到的一些数据
+```
 
 
 
@@ -700,7 +712,7 @@ let vm = new Vue({
     },
     watch: {
       a: function (newVal, oldVal) {
-        console.log(newVal,newVal);
+        console.log(newVal,oldVal);
       },
       // 方法名
       b: 'someMethod',

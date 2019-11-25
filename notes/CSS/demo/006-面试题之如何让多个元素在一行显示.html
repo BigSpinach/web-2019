@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>006-面试题之 如何让多个元素在一行显示</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    /*
+      面试题：如何让多个元素在一行显示
+
+      1.用display:inline,将元素设置为行内元素，【但是设置宽高不起作用】
+      2. 用display:inline-block可以让元素在一行显示，【但是会受空格和换行的影响，产生默认间距】（IE6以下不兼容  需要给设置display:inline-block 同时设置 *display:inline;*zoom:1;）
+
+      3. 使用 浮动
+
+        
+
+      解决之道
+      1> 去掉空格和换行符，让标签都在一行 【但是代码书写好恶心】
+      2> 给display:inline-block的 父元素 增加一个属性 font-size:0;【但是，这个属性有传递性，其子元素的字体需要重新设置】
+
+
+    */
+    .warp {
+      font-size: 0;
+    }
+
+    .innerBox1 {
+      width: 200px;
+      height: 200px;
+      background: #666;
+
+      display: inline;
+      font-size: 20px;
+
+      /*IE低版本的兼容写法*/
+      *display: inline;
+      /* css hack *IE 浏览器可识别*/
+      *zoom: 1;
+      /* 触发css hack的layout*/
+    }
+
+    .innerBox2 {
+      width: 200px;
+      height: 200px;
+      background: #336963;
+
+      display: inline;
+      font-size: 15px;
+
+      /*IE低版本的兼容写法*/
+      *display: inline;
+      /* css hack *IE 浏览器可识别*/
+      *zoom: 1;
+      /* 触发css hack的layout*/ 
+    }
+  </style>
+</head>
+
+<body>
+  <div class="warp">
+    <div class="innerBox1">内容1</div>
+    <div class="innerBox2">内容2</div>
+
+  </div>
+
+  <br>
+  <div class="leftBox"></div>
+  <div class="centerBox"></div>
+  <div class="rightBox"></div>
+
+</body>
+
+</html>

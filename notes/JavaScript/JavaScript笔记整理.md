@@ -1029,7 +1029,7 @@ String
 	String.fromCharCode(66);//"B"
 ```
 
-##### 2.6.1.2 **`indexOf/lastIndexOf`**
+##### 2.6.1.2 **`indexOf/lastIndexOf`**和includes()
 > 获取字符在字符串中第一次或者最后一次出现位置的索引，有这个字符，返回大于等于零的索引，不包含这个字符，返回的结果是-1，
 > 所以可以基于这两个方法，验证当前字符串中是否包含某个字符
 
@@ -1039,6 +1039,9 @@ String
 		//=>条件成立说明包含@符号
 	}
 
+	if (!str.includes('@')) {
+		console.log('当前字符串不包含@');
+	}
 ```
 
 ##### 2.6.1.3  **`slice`**、**`substring`**、**`substr`**

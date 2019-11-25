@@ -98,7 +98,7 @@
 
 > git config --global user.name = xxx
 >
-> git config --global user,email = xx@xx.com
+> git config --global user.email = xx@xx.com
 
 
 
@@ -183,7 +183,7 @@
 
 `git checkout xxx.xx`
 
- 暂存区内容没有消失，只是把工作去最新修改的信息给覆盖了，让工作区和暂存区保持一致
+ 暂存区内容没有消失，只是把工作区最新修改的信息给覆盖了，让工作区和暂存区保持一致
 
 
 
@@ -237,7 +237,7 @@
 
 #### 4.1.1 `第一种`：基于本地提交的方式，把基础内容提交到中央仓库中
 
-> 1. 把新增加的基础信息教教到本地仓库的历史区中
+> 1. 把新增加的基础信息提交到本地仓库的历史区中
 >    `$ git add .`
 >     `$ git commit -m "提交信息说明"`
 > 2. 让本地仓库和远程库建立连接

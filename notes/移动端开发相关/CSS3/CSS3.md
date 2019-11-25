@@ -409,13 +409,15 @@ A:LAST-CHILD
 
 【传统2D变形效果】
 
-> + translate 位移
->
->   + translate(x,y)
->
->   + translateX()
->
->   + translateY()
+
+
+> + transrorm-origin 旋转的基准点
+>+ translate 位移
+> + translate(x,y)
+>  
+> + translateX()
+>  
+> + translateY()
 >
 >     
 >
@@ -565,3 +567,57 @@ transition:all 0 ease 0;
 > + transition-duration     规定完成过渡效果需要多少秒或毫秒。
 > + transition-timing-function     规定速度效果的速度曲线。
 > + transition-delay     定义过渡效果何时开始。
+
+
+
+### 4.4 border-radius
+
+语法
+
+> border-radius: 1-4 length|% / 1-4 length|%;
+
+四个方向的宽高
+
+```css
+border-radius: 1px;
+/*等价于*/
+border-top-left-radius:1px|1px;
+border-top-right-radius:1px|1px;
+border-bottom-right-radius:1px|1px;
+border-bottom-left-radius:1px|1px;
+/*上边框的 圆角边框 宽度为1px，高度1px*/
+```
+
+
+
+### 4.5 linear-gradient
+
++ linear-gradient（[<起点>|| <角度>，]？<点>，<点>，...）
++ 只能用在背景上
++ 颜色是沿着一条直线轴变化
++ 参数
+  + 起点
+    left 、top、left top
+  + 角度
+    xxx deg
+  + 点
+    red 50%
++ 重复线性渐变 repeating-linear-gradient
+
+
+
+
+
+### 4.6  radial-gradient 
+
+ ![1569404439632](C:\Users\82113\AppData\Roaming\Typora\typora-user-images\1569404439632.png)
+
+
+
+### 4.7 box-shadow 盒子阴影
+
+![1569404625391](C:\Users\82113\AppData\Roaming\Typora\typora-user-images\1569404625391.png)
+
+### 4.8 text-shadow 文本阴影
+
+![1569404832223](C:\Users\82113\AppData\Roaming\Typora\typora-user-images\1569404832223.png)

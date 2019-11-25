@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>4.1-transition  过渡</title>
+  <style>
+    *{
+      list-style: none;
+    }
+    body,html{
+      background: #666666;
+    }
+    .box1{
+      width: 100px;
+      height: 100px;
+      border: 1px solid #666666;
+      /* transition: background-color 1s  linear 1s ; */
+      transition: all 1s  ease-in-out 1s ;
+    }
+    .box1:hover{
+      background: green;
+      width: 200px;
+    }
+
+    .imgBox{
+      width: 200px;
+      height: 200px;
+      background: #666666 url(https://avatars1.githubusercontent.com/u/31435638?s=460&v=4) no-repeat center center;
+      border-radius: 50%;
+      margin:10px auto;
+      background-size: contain;
+      box-shadow :0 0 0 20px transparent;
+      transition: box-shadow 0.5s linear ;
+    }
+    .imgBox:hover{
+      box-shadow :0 0 0 20px rgba(255,255,255,0.5);
+    }
+
+  </style>
+</head>
+<body>
+  <h3>过渡效果</h3>
+  <p>实现效果：鼠标滑入背景渐变-变色</p>
+  <div class="box1"></div>
+
+  <hr>
+  <h3>实例分析步骤</h3>
+  <ul>
+    <li>1.分析过渡属性</li>
+    <li>2.找到过渡属性的起始值</li>
+    <li>3.在合适的位置加上transition</li>
+  </ul>
+
+  <div class="imgBox">
+    
+  </div>
+</body>
+</html>

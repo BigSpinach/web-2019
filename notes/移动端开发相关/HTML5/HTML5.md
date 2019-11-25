@@ -6,7 +6,38 @@
 
 # HTML5
 
+HTML5的变化
 
++ doctype及其字符编码
+
+  ```html
+  <!--html5的文档声明-->
+  <!DOCTYPE html>
+  
+  <!--html5的字符编码-->
+  <meta charset="UTF-8">
+  ```
+
+  
+
++ 大小写都可以
+
+  ```HTML
+  <Input type="Radio"/>
+  ```
+
++ 具有布尔值属性
+
+  ```html
+  <!--默认checked=true-->
+  <input type="checkboxo" checked/>
+  ```
+
++ 部分标签可以省略
+
+  ![1569399818589](C:\Users\82113\AppData\Roaming\Typora\typora-user-images\1569399818589.png)
+
+  
 
 ## HTML 基础
 
@@ -96,6 +127,35 @@
 
 
 
+
+
+### 全局属性
+
+
+
+contentEditable
+
+designMode：整个页面是否可编辑（只能在js脚本里被修改on、off）
+
+hidden
+
+spellcheck 输入文本检查
+
+tabindex 通过按 tab键 切换控件（可以让没有焦点的元素获得焦点）
+
+```html
+<a href="#" tabindex="1">1</a>
+<ul tabindex="3">
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+</ul>
+```
+
+
+
+
+
 ## 1. 新增加的语义化标签
 
 ### 1.1 新增语义化标签
@@ -117,7 +177,9 @@
 ...
 ```
 
+解决IE低版本浏览器不兼容HTML5新标签
 
+![1568388771305](C:\Users\82113\AppData\Roaming\Typora\typora-user-images\1568388771305.png)
 
 ### 1.2 标签语义化的好处
 
@@ -141,10 +203,10 @@
 
 ## 2. 关于表单元素的新改革
 
-【传统表单】
+### 2.1 【传统表单】
 
 ```html
-    input:text/password/radio/checkbox/file/hidden/button/submit/reset...
+input:text/password/radio/checkbox/file/hidden/button/submit/reset...
 select
 textarea 文本域
 button
@@ -153,7 +215,7 @@ label
 ...
 ```
 
- [新增一些表单元素或者是表单类型]
+### 2.2  [新增一些表单元素或者是表单类型]
 
 ```html
 input:search/email/tel/number/range/color/date/time/url...
@@ -162,6 +224,58 @@ input:search/email/tel/number/range/color/date/time/url...
 
 <input type="range" name="">
 ```
+
+
+
+### 2.3 表单新特性
+
++ placeholder
+
++ autocomplete
+  是否保存用户输入的值，默认是on
+
+  ```html
+  <input autocomlaete="off">
+  ```
+
++ autofocus
+
++ required
+
++ Pattern  正则
+
++ form  表单关联（一般通过id关联，同时提交多个表单）
+
++ formnovalidate和 novalidate  表示不需要验证表单，直接提交
+
+  + novalidate用于form标签
+  + formnovalidate用于 submit类型的提交按钮
+
+
+
+### 2.4 表单验证对象
+
+`validity`对象 ,通过下列的valid可以查看验证是否通过
+
+- oText.addEvenListener('invalid',fn1,false);
+- valid : 验证不通过时返回false
+- valueMissing ：输入值为空时
+- typeMismatch ：空间值与预期值不匹配
+- patternMismatch ： 输入的值不满足 pattern 正则
+- customError  ： 不符合自定义验证
+  + setCuetomValidity(); 自定义验证
+
+```javascript
+//查看validity对象
+oDiv.addEventListener("invalid" ,fn ,false);
+function fn(){
+	console.log(this.validity);
+}
+```
+
+
+
+###2.5 demo
 
 [demo-age]
 

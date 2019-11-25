@@ -15,7 +15,7 @@
     <input v-model='a'>
     <input v-model='b'>
     <div>
-      {{a}}
+      {{a}}-{{b}}={{a-b}}
     </div>
   </div>
 </body>
@@ -24,8 +24,8 @@
   let vm = new Vue({
     el: "#app",
     data: {
-      a: "aaaa",
-      b: "bbbb",
+      a: 1,
+      b: 2,
     }
   });
 </script>
