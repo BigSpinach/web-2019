@@ -111,9 +111,9 @@
 
 **基础语法**
 
-> ![1567573431382](C:\Users\82113\AppData\Roaming\Typora\typora-user-images\1567573431382.png)
 
 
+![](https://www.w3school.com.cn/i/ct_css_selector.gif)
 
 **命名规范**
 
@@ -512,7 +512,7 @@ margin
 
 #### 2.5.1 传统css盒子模型
 
-![1567592936804](C:\Users\82113\AppData\Roaming\Typora\typora-user-images\1567592936804.png)
+
 
 
 
@@ -1004,7 +1004,7 @@ float的值：`left`、`right`、`none`、`inherit(继承父元素的float的值
 
 
 
-**z-index属性有作用必须跟定位一起使用**
+
 
 #### 2.9.2 `position:relative`
 
@@ -1033,24 +1033,339 @@ float的值：`left`、`right`、`none`、`inherit(继承父元素的float的值
  `z-index`属性的特点
 
 > 1. 默认是书写顺序在后的定位元素覆盖在顺序前的定位元素
->
-> 2. 可以使用z-index属性修改定位元素的层级关系
->
+>2. 可以使用z-index属性修改定位元素的层级关系
 > 3. 所有定位元素的z-index默认值都是一样的
->
-> 4. z-index值支持负数，没有单位，默认值为0
->
+>4. z-index值支持负数，没有单位，默认值为0
 > 5. 一般都是同级元素进行层级比较
+>6. z-index属性不会继承
+> 
+
+
+
+**z-index属性有作用必须跟定位一起使用**
+
+
+
+
+
+### 2.11 基线对齐 vertical-align
+
+定义
+
+> vertical-align 属性设置元素的垂直对齐方式。
+
+
+
+值
+
+> baseline			默认。元素放置在父元素的基线上。
 >
-> 6. z-index属性不会继承
+> sub				 垂直对齐文本的下标。
 >
->    
+> super			   垂直对齐文本的上标
+>
+> text-top			把元素的顶端与行中最高元素的顶端对齐
+>
+> middle			  把元素的顶端与父元素字体的顶端对齐
+>
+> bottom
+>
+> text-bottom
+>
+> length
+>
+> %
+>
+> inherit
 
 
 
 ## 3 实战
 
-### 3.1 使用百分比 实现窗口自适应布局
+### 3.1 布局
+
+
+
+#### 3.1.1 行布局
+
+1. 水平居中布局效果
+
+```html
+<div class="container">内容内容</div>
+<style>
+	.container{
+      margin: 0 auto;/*水平居中*/
+      width: 1200px;
+      height: 2500px;
+      background: cyan;
+    }
+</style>
+```
+
+
+
+2. 水平居中并且自适应
+
+```html
+<div class="container">内容内容</div>
+<style>
+	.container{
+      margin: 0 auto;
+      width: 90%;/*自适应水平居中*/
+      max-width: 1000px;
+    
+      height: 2500px;
+      background: cyan;
+    }
+</style>
+```
+
+
+
+3. 水平垂直居中
+
+```HTML
+<div class="container">内容内容</div>
+<style>
+	 .container{
+      width:1000px;
+      height: 200px;
+      background: cyan;
+
+      /*使用绝对定位*/
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      /*移动container盒子的，使其在居中的位置*/
+      margin-top:-100px;
+      margin-left: -500px;
+    }
+</style>
+```
+
+
+
+4. 行布局之固定宽度
+
+```html
+<header>头部</header>
+<nav>导航</nav>
+<section>内容</section>
+<footer>脚部</footer>
+
+ <style>
+   body {
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      margin: 0 auto;
+      width: 1000px;/*固定宽度*/
+      height: 50px;
+      background: darkblue;
+    }
+
+    nav {
+      margin: 0 auto;
+      width: 1000px;/* 固定宽度 */     
+      height: 250px;
+      background: greenyellow;
+    }
+
+    section {
+      margin: 0 auto;
+      width: 1000px;/*固定宽度*/
+      height: 500px;
+      background: sandybrown;
+    }
+
+    footer {
+      margin: 0 auto;
+      width: 1000px;/*固定宽度*/
+      height: 150px;
+      background: green;
+    }
+  </style>
+```
+
+5. 行布局之某部分自适应
+
+```html
+<header>头部</header>
+<nav>导航</nav>
+<section>内容</section>
+<footer>脚部</footer>
+
+ <style>
+   ...
+    nav {
+      margin: 0 auto;
+      /* width: 1000px;固定宽度 */
+      /*固定宽度改为自适应宽度*/
+      width: 100%;
+      
+      height: 250px;
+      background: greenyellow;
+    }
+
+   ...
+  </style>
+```
+
+6. 行布局之随屏幕滚动
+
+```html
+<header>头部</header>
+<nav>导航</nav>
+<section>内容</section>
+<footer>脚部</footer>
+
+ <style>
+   header {
+      margin: 0 auto;
+      width: 1000px;/*固定宽度*/
+      height: 50px;
+      background: darkblue;
+      
+      position:fixed;  
+   }
+    
+   ...
+  </style>
+```
+
+
+
+####  3.1.2 列布局
+
+1. 列布局之**定宽**两列布局
+
+```html
+<div class="container">
+    <div class="leftBox">左侧</div>
+    <div class="rightBox">右侧</div>
+ </div>
+<style>
+ 	 ...
+    .leftBox{
+      width: 600px;
+      height: 666px;
+      background: #666666;
+      float: left;
+    }
+    .rightBox{
+      width: 800px;
+      height: 999px;
+      background: greenyellow;
+      float:right;
+    }
+  </style>
+```
+
+
+
+2. 列布局之**自适应**两列布局
+
+```html
+<div class="container">
+    <div class="leftBox">左侧</div>
+    <div class="rightBox">右侧</div>
+ </div>
+<style>
+  	...
+    .leftBox{
+      /* width: 600px; */
+      width: 40%;
+      height: 666px;
+      background: #666666;
+      float: left;
+    }
+    .rightBox{
+     width: 60%;;
+      height: 999px;
+      background: greenyellow;
+      float:right;
+    }
+```
+
+
+
+
+
+3. 列布局之三列**定宽**布局
+
+```html
+<div class="container">
+    <div class="leftBox">左侧</div>
+    <div class="centerBox">中</div>
+    <div class="rightBox">右侧</div>
+ </div>
+ <style>
+   ...
+
+    .leftBox{
+      /* width: 600px; */
+      width: 400px;
+      height: 666px;
+      background: #666666;
+      float: left;
+    }
+
+    .centerBox{
+      width: 400px;
+      height: 666px;
+      background: #335555;
+      float: left;
+    }
+
+    .rightBox{
+      width: 400px;
+      height: 999px;
+      background: greenyellow;
+      float:right;
+    }
+  </style>
+```
+
+
+
+4. 列布局之三列**自适应**布局
+
+```html
+<div class="container">
+    <div class="leftBox">左侧</div>
+    <div class="centerBox">中</div>
+    <div class="rightBox">右侧</div>
+ </div>
+<style>
+    ...
+
+    .leftBox{
+      /* width: 600px; */
+      width: 30%;
+      height: 666px;
+      background: #666666;
+      float: left;
+    }
+
+    .centerBox{
+      width: 50%;
+      height: 666px;
+      background: #335555;
+      float: left;
+    }
+
+    .rightBox{
+      width: 20%;
+      height: 999px;
+      background: greenyellow;
+      float:right;
+    }
+  </style>
+```
+
+
 
 ### 3.2 箭头和小三角效果
 
@@ -1189,7 +1504,7 @@ p{
 
 [0~1]
 
-####3.5.3 `display:none` 
+#### 3.5.3 `display:none` 
 
 
 
@@ -1211,7 +1526,7 @@ p{
 
 
 
-#### 
+
 
 
 

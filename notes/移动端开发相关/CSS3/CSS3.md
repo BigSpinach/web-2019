@@ -223,10 +223,10 @@ input[type='text']{
 
 ![1556511485718](C:\Users\82113\AppData\Roaming\Typora\typora-user-images\1556511485718.png)
 
-####2.10 .1   :first-line  第一行起作用
-####2.10 .2  :first-letter  第一个文字内容
-####2.10 .3  :before  在元素之前添加
-####2.10 .4  :after 在元素之后添加
+#### 2.10 .1   :first-line  第一行起作用
+#### 2.10 .2  :first-letter  第一个文字内容
+#### 2.10 .3  :before  在元素之前添加
+#### 2.10 .4  :after 在元素之后添加
 
 ```css
 li:after{

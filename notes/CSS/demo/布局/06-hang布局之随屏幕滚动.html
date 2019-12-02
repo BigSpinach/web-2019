@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>06-行布局之随屏幕滚动</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      /* color:#fff; */
+      /* text-align: center; */
+    }
+
+    header {
+      margin: 0 auto;
+      width: 100%;
+      height: 50px;
+      background: darkblue;
+
+      position: fixed;
+    
+    }
+
+    nav {
+      margin: 0 auto;
+      /* width: 1000px;固定宽度 */
+      /*固定宽度改为自适应宽度*/
+      width: 100%;
+      
+      height: 250px;
+      background: greenyellow;
+
+      padding-top: 50px;
+    }
+
+    section {
+      margin: 0 auto;
+      width: 1000px;
+      /*固定宽度*/
+      height: 1500px;
+      background: sandybrown;
+    }
+
+    footer {
+      margin: 0 auto;
+      width: 1000px;
+      /*固定宽度*/
+      height: 150px;
+      background: green;
+      position: fixed;
+      bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <header>头部</header>
+  <nav>导航</nav>
+  <section>内容</section>
+  <footer>脚部</footer>
+</body>
+
+</html>

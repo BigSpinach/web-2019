@@ -1,6 +1,4 @@
-## 04 面向对象编程（Object  Oriented 
-Programming）
-
+## 04 面向对象编程（Object  Oriented Programming）
 ### 4.1  单例设计模式（Singleton  Pattern）
 
 #### 表现形式
@@ -490,7 +488,7 @@ console.log(res);
 
 ### 4.6 原型深入
 
-####【函数的3种角色】
+#### 【函数的3种角色】
 
 ```javascript
 function Fn() {
@@ -608,7 +606,7 @@ new Foo().getName();//=>B:new Foo() =>B.getName() =>3
 console.log(new new Foo().getName());//=>C:new Foo() =>new C[Foo的实例].getName() =>D:C.getName =>new D(); =>3  (先计算new Foo()创建一个实例f，然后new f.getName()，先找到f.getName，在把这个函数new一下，最后其实相当于把f.getName当做一个类，返回这个类的一个实例)
 ```
 
-####【原型链机制】
+#### 【原型链机制】
 
 ```javascript
 let n = 10,

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>013-圣杯布局疑问解决</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+   body{
+     width: 100%;
+     min-width: 650px;
+   }
+
+    .container {
+      /*盒子宽度为 body的宽度的60%+左右padding值*/
+      /* width: 60%; */
+      /* width设置的是内容的宽度，并不是盒子的宽度 */
+      min-width: 200px;
+      border: 10px solid #e4393c;
+      height: 200px;
+      background: chartreuse;
+      margin: 0 auto;
+      padding: 0 250px 0 200px;
+      overflow: hidden;
+    }
+
+    .centerBox,.leftBox,.rightBox{
+      float: left;
+    }
+    .centerBox{
+      width: 100%;/*设为100% 可以将leftBox 和rightBox挤下去*/
+      height: 200px;
+      background: crimson;
+    }
+    .leftBox{
+      width: 200px;
+      height: 200px;
+      background: pink;
+
+      margin-left: -100%;/*将leftBox移动到内容盒子的左侧*/
+      /*它会覆盖centerBox盒子的位置*/
+      position:relative;
+      right: 200px;
+    }
+    .rightBox{
+      width: 250px;
+      height: 200px;
+      background: blue;
+      margin-right: -250px;/*负margin会改变浮动元素的显示位置，即使我的元素写在DOM的后面，我也能让它显示在最前面。*/
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+   
+    
+  -->
+
+
+  <div class="container ">
+    <div class="centerBox">center内容</div>
+    <div class="leftBox">左侧</div>
+    <div class="rightBox">右侧</div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>012-圣杯布局</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body{
+      width: 100%;
+      min-width: 650px;/*怎么算的？？？*/
+    }
+
+
+    .header {
+      width: 100%;
+      height: 50px;
+      background: #111111;
+    }
+
+    .container {
+      width: 60%;
+      /*不能设置宽度？？？why*/
+      
+      margin: 0 auto;
+
+      /*重点：利用padding填充的方式给左右预留位置*/
+      padding: 0 250px 0 200px;
+      /* padding-left: 200px; */
+      /* padding-right: 250px; */
+      /*左侧预留200px 右侧250px*/
+      overflow: hidden;
+    }
+
+    .centerBox,
+    .leftBox,
+    .rightBox {
+      float: left;
+    }
+
+    .centerBox {
+      width: 100%;
+      height: 200px;
+      background: red;
+    }
+
+    .leftBox {
+      width: 200px;
+      height: 200px;
+      background: greenyellow;
+
+      margin-left: -100%;
+      /*占据了center的位置，使用定位调整*/
+      position: relative;
+      right: 200px;
+    }
+
+    .rightBox {
+      width: 250px;
+      height: 200px;
+      background: blue;
+
+      margin-right: -250px;
+    }
+
+    .footer {
+      width: 100%;
+      height: 50px;
+      background: #123456;
+    }
+
+    .clearfix:after {
+      display: block;
+      clear: both;
+      content: "";
+      height: 0;
+      font-size: 0;
+      overflow: hidden;
+      visibility: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+    圣杯布局： 
+    两侧宽度固定，中间宽度自适应
+    中间部分在DOM结构上优先，以便先行渲染
+    允许三列中的任意一列成为最高列
+    只需要使用一个额外的<div>标签 
+  -->
+  <div class="header">头部</div>
+
+  <div class="container clearfix">
+    <div class="centerBox">中间部分在DOM结构上优先，以便先行渲染</div>
+    <div class="leftBox">左侧</div>
+    <div class="rightBox">右侧</div>
+  </div>
+
+  <div class="footer">底部</div>
+</body>
+
+</html>

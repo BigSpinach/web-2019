@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>09-列布局之三列自适应布局</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+
+    .container{
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .leftBox{
+      /* width: 600px; */
+      width: 30%;
+      height: 666px;
+      background: #666666;
+      float: left;
+    }
+
+    .centerBox{
+      width: 50%;
+      height: 666px;
+      background: #335555;
+      float: left;
+    }
+
+    .rightBox{
+      width: 20%;
+      height: 999px;
+      background: greenyellow;
+      float:right;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="leftBox">左侧</div>
+    <div class="centerBox">中</div>
+    <div class="rightBox">右侧</div>
+  </div>
+
+</body>
+</html>
