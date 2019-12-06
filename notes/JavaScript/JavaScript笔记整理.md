@@ -870,8 +870,7 @@ f();//=>  [1, 3, 4, 6]
 
 
 
-
-###2.5  `Math`
+### 2.5  `Math`
 
 ```javascript
 Math
@@ -921,7 +920,7 @@ Math
 	Symbol(Symbol.toStringTag): "Math"
 	__proto__: Object
 ```
-####2.5.1 Math中提供的常用方法
+#### 2.5.1 Math中提供的常用方法
 **`abs`**：取绝对值
 
 **`ceil/floor`**：向上或者向下取整
@@ -1029,7 +1028,7 @@ String
 	String.fromCharCode(66);//"B"
 ```
 
-##### 2.6.1.2 **`indexOf/lastIndexOf`**和includes()
+##### 2.6.1.2 **`indexOf/lastIndexOf`**和`includes()`
 > 获取字符在字符串中第一次或者最后一次出现位置的索引，有这个字符，返回大于等于零的索引，不包含这个字符，返回的结果是-1，
 > 所以可以基于这两个方法，验证当前字符串中是否包含某个字符
 
@@ -1112,7 +1111,7 @@ String
 
 ##### 2.6.1.5 **`split`**支持正则
 
-**`**stringObject.split(separator,howmany)**`**
+**`stringObject.split(separator,howmany)`**
 
 > **separator**  必需。字符串或正则表达式，从该参数指定的地方分割 stringObject。 
 >
@@ -1150,6 +1149,7 @@ String
 参数：原有字符，要替换的新字符
 返回：替换后的字符串
 原字符串不发生改变
+
 ```javascript
 	let str= 'Big-Spi-nach';
 	let return_replace= str.replace('-','哈哈');
@@ -1170,6 +1170,7 @@ console.log(str,return_replace);
 ##### 2.6.1.7  **`trim`** 、 **`trimLeft`** 、 **`trimRight`** 
 
 `兼容性不太好`
+
 > 去除`首尾`的空格
 > 返回新字符串
 > 原字符串不发生改变
@@ -1380,7 +1381,8 @@ let str_data='2018-11-2 0:5:19' ;
 }(String.prototype);
 ```
 
-###2.7 Array
+### 2.7 Array
+
 ```javascript
 []
 	length: 0
@@ -2123,7 +2125,7 @@ console.log(bubbleSort(ary));//[ 5, 12, 33, 34, 34, 67 ]
 > `构成递归需具备的条件：`
 1. 子问题须与原始问题为同样的事，且更为简单；
 2. 不能无限制地调用本身，须有个出口，化简为非递归状况处理。
-  在数学和计算机科学中，递归指由一种（或多种）简单的基本情况定义的一类对象或方法，并规定其他所有情况都能被还原为其基本情况。
+    在数学和计算机科学中，递归指由一种（或多种）简单的基本情况定义的一类对象或方法，并规定其他所有情况都能被还原为其基本情况。
 
 > `递归的缺点`
 > 递归算法解题相对常用的算法如普通循环等，运行效率较低

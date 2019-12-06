@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>跑马灯效果的实现方式</title>
+  <style>
+    *{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    marquee{
+      display: block;
+      margin: 0 auto;
+      width: 800px;
+      height: 50px;
+      border:2px dotted #666666;
+    }
+
+    .marqueeBox{
+      width: 500px;
+      height: 100px;
+      margin: 20px auto;
+      border: 1px solid green;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wrapper{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 600px;
+      height: 100px;    
+    }
+
+    .wrapper li{
+      width: 100px;
+      height: 100px;
+      line-height: 100px;
+      text-align: center;
+      float: left;
+    }
+
+    .wrapper li:nth-child(3n+1){
+      background: greenyellow;
+    }
+    .wrapper li:nth-child(3n+2){
+      background: pink;
+    }
+    .wrapper li:nth-child(3n+3){
+      background: blueviolet;
+    }
+  </style>
+</head>
+<body>
+  <h1>1.使用&lt;marquee&gt;标签实现</h1>
+  <marquee behavior="" direction="">夫君子之行，静以修身，俭以养德。非淡泊无以明志，非宁静无以致远。夫学须静也，才须学也，非学无以广才，非志无以成学。淫慢则不能励精，险躁则不能治性。年与时驰，意与日去，遂成枯落，多不接世，悲守穷庐，将复何及！</marquee>
+  <hr>
+
+  <h1>2.使用 js 利用<span style="color: brown;">视觉差</span>实现</h1>
+  <div class="marqueeBox">
+    <ul class="wrapper">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+  </div>
+
+</body>
+
+<script src="js/utils.js"></script>
+<!-- <script>
+  //控制 wrapper 在 marqueeBox 里边移动
+  //利用定位，改变left的值即可
+  let wrapper = document.querySelector('.wrapper');
+  //js最优动画间隔时间 13~17ms
+  let timer= setInterval(()=>{
+    let wrapperLeft = utils.css(wrapper,'left');
+    wrapperLeft-=3;
+    utils.css(wrapper,{
+      left:wrapperLeft
+    });
+  },13);
+</script> -->
+
+<script>
+  //实现无缝轮播
+  let wrapper = document.querySelector('.wrapper');
+  // let wrapperList = document.querySelectorAll('.wrapper>li');
+  // let frg = document.createDocumentFragment();
+  // [].forEach.call(wrapperList,item=>{
+  //   frg.appendChild(item.cloneNode(true));
+  // });
+  // wrapper.appendChild(frg);
+  // frg=null;
+
+  // =>1.克隆一份数据到wrapper后边
+  wrapper.innerHTML+=wrapper.innerHTML;
+  utils.css(wrapper,{
+    width:utils.css(wrapper,'width')*2
+  });
+
+  // =>2.实现动画
+  let timer= setInterval(()=>{
+    let wrapperLeft = utils.css(wrapper,'left');
+    wrapperLeft-=3;
+    utils.css(wrapper,{
+      left:wrapperLeft
+    });
+    // =>3. 实现无缝
+    //当克隆的那一份刚好替换掉第一组原 数据的时候，立马让原数据显示在最初的位置（视觉差）
+    let curL = Math.abs(wrapper.offsetLeft);
+    if(curL>=(utils.css(wrapper,'width')/2)){
+      utils.css(wrapper,{
+        left:0
+      })
+    }
+  },13);
+
+ 
+
+</script>
+</html>

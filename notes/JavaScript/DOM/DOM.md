@@ -20,6 +20,7 @@
  + 3级DOM通过引入统一方式载入和保存文档和文档验证方法对DOM进行进一步扩展，DOM3包含一个名为“DOM载入与保存”的新模块，DOM核心扩展后可支持XML1.0的所有内容，包括XML Infoset、 XPath、和XML Base。
 
 **`O级别DOM`**
+
 > 当阅读与DOM有关的材料时，可能会遇到参考0级DOM的情况。`需要注意的是并没有标准被称为0级DOM`，它仅是DOM历史上一个参考点（0级DOM被认为是在Internet Explorer 4.0 与Netscape Navigator4.0支持的最早的DHTML）。
 
 **优点和缺点**
@@ -79,8 +80,6 @@
 </html>
 
 ```
-
-![1550554725501](C:\Users\82113\AppData\Roaming\Typora\typora-user-images\1550554725501.png)
 
 
 
@@ -309,9 +308,7 @@ console.log(queryAllById('HAHA'));
 
 
 
-![1571082891463](C:\Users\82113\AppData\Roaming\Typora\typora-user-images\1571082891463.png)
-
-每一种类型的节点都会有一些属性区分自己的特性和特征
+节点都会有一些属性区分自己的特性和特征
 
 - nodeType：节点类型
 
@@ -753,7 +750,7 @@ document.documentElement.scrollHeight || document.body.scrollHeight
  *   在JS盒子模型13个属性中，只有scrollTop/scrollLeft是**“可读写”**属性，其余都是“只读”属性
    
  *   操作浏览器的盒子模型属性，我们一般都要写两套，用来兼容各种模式下的浏览器
-   
+
 
 ### 5.2  **获取元素具体的某个样式值**
 

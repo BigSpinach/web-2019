@@ -2,7 +2,7 @@
 
 # AJAX
 
-## 1.`[ajax]`相关概念概念解读
+## 1.`ajax`相关概念概念解读
 
 ### 1.1 ajax
 
@@ -616,7 +616,7 @@ $.ajax({
 
 ## 8. 使用`Promise`管控`ajax`
 
-```javas
+```javascript
 /*
  * Promise是ES6中新增加的内置类：目的是为了管理异步操作的
  *   1.new Promise() 创建类的一个实例，每一个实例都可以管理一个异步操作

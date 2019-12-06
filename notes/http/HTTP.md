@@ -101,9 +101,7 @@
 >   +  URN：统一资源名称
 ### 1.2 一个完整的url的详细说明
 
-![1550763894204](C:\Users\82113\AppData\Roaming\Typora\typora-user-images\1550763894204.png)
-
-
+[![Image from Gyazo](https://i.gyazo.com/6e27427df3b88390683807f8243c394e.png)](https://gyazo.com/6e27427df3b88390683807f8243c394e)
 
 #### 1.2.1【传输协议】
 
@@ -315,7 +313,7 @@ DNS及HTTP通信方式的优化
 >
 > 4. 减少对DOM的操作（主要是减少DOM的重绘和回流(重排)）
 >        A:关于重排的分离读写
->      B:使用文档碎片或者字符串拼接做数据绑定(DOM的动态创建)
+>        B:使用文档碎片或者字符串拼接做数据绑定(DOM的动态创建)
 >
 >    
 >

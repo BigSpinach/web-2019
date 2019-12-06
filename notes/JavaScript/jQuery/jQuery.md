@@ -100,7 +100,7 @@ $.isFunction() //=>把JQ当做一个普通对象，直接的使用对象上扩�
 
 
 
-###2.1 `jQuery([selector,[context]])`
+### 2.1 `jQuery([selector,[context]])`
 
 
 
@@ -135,7 +135,7 @@ $.each([1,23,4,5,6],(index,item){
 ​	
 
 ```javascript
-Object.prototypr.aaa = 250;
+Object.prototype.aaa = 250;
 	$.each({name:"BigSpinach",age:28},function(key,value){
        	console.log(key,value);
     });

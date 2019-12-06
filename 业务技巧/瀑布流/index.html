@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>瀑布流案例</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .container{
+      width: 1200px;
+      margin: 0 auto;
+    }
+
+    .flowBox {
+      width: 100%;
+    }
+    .flowBox li{
+      float: left;
+      margin-right: 2%;
+      width: 32%;
+      /* border: 1px solid #353535; */
+    }
+
+    .flowBox li:nth-last-child(1){
+      margin-right: 0;
+    }
+
+
+    .flowBox li a{
+      display: block;
+      margin-bottom: 10px;
+      padding: 10px;
+      background: #ffffff;
+      box-shadow:  3px 3px 10px 0 #666;
+      text-decoration:none;
+    }
+
+/* .flowBox li a div{
+  background: url("./img/default.gif");
+} */
+
+.flowBox li a div img{
+  display: block;
+  width: 100%;
+}
+
+.flowBox li  a span{
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #555;
+  line-height: 20px;
+}
+
+
+
+
+
+
+    .clearfix:after{
+      display: block;
+      content: "";
+      clear: both;
+
+      height: 0;
+      font-size: 0;
+      overflow: hidden;
+      visibility: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container clearfix">
+    <ul class="flowBox">
+      <li>
+        <!-- <a href="#">
+          <div><img src="img/1.png" alt=""></div>
+          <span>【中国航母建造速度之快出人意料】预计第四艘中国航母将在两年内建造完成。该项目的首艘航母为002型，已经在上海江南造船厂建造之中。与中国第一艘航母——在大连完建的苏联重型舰载巡洋舰“瓦良格”以及第二艘由中国根据“瓦良格”项目独立建造的航母不同，这艘航母将不会配备滑跃式甲板。</span>
+        </a> -->
+      </li>
+      <li>
+          
+        <!-- <a href="#">
+          <div><img src="img/2.png" alt=""></div>
+          <span>【中国航母建造速度之快出人意料】预计第四艘中国航母将在两年内建造完成。该项目的首艘航母为002型，已经在上海江南造船厂建造之中。与中国第一艘航母——在大连完建的苏联重型舰载巡洋舰“瓦良格”以及第二艘由中国根据“瓦良格”项目独立建造的航母不同，这艘航母将不会配备滑跃式甲板。</span>
+        </a> -->
+      </li>
+      <li>
+        <!-- <a href="#">
+            <div><img src="img/3.png" alt=""></div>
+          <span>【中国航母建造速度之快出人意料】预计第四艘中国航母将在两年内建造完成。该项目的首艘航母为002型，已经在上海江南造船厂建造之中。与中国第一艘航母——在大连完建的苏联重型舰载巡洋舰“瓦良格”以及第二艘由中国根据“瓦良格”项目独立建造的航母不同，这艘航母将不会配备滑跃式甲板。</span>
+        </a> -->
+      </li>
+    </ul>
+
+
+
+  </div>
+  
+</body>
+<script src="js/jquery-1.11.3.min.js"></script>
+<!-- <script>
+  $(function(){
+
+    //1.获取所需要的数据
+    let page=0;
+    let imgData=null;
+    let queryData = ()=>{
+      page++;
+      $.ajax({
+        url:`json/data.json?page=${page}`,
+        method:'get',
+        async:false,//同步
+        dataType:'json',
+        success:(result)=>{
+          imgData=result;
+        }
+      });    
+    }
+    queryData();
+    //console.log(imgData);
+
+    //2.动态绑定
+    //传递一个obj，解构成想要的解构
+    let queryHTML = ({id,pic,link,title}={})=>{
+      return `<a href="${link}">
+          <div><img src="${pic}" alt=""></div>
+          <span>${title}</span>`;
+    };
+
+
+    let $boxList = $('.flowBox>li');
+    let boxList = [].slice.call($boxList);
+    for(let i=0;i<imgData.length;i+=3){
+      //有风险：如果imgData.length不能被3整除，itme2 item3 为undefined
+      let item1 = imgData[i],
+          item2 = imgData[i+1],
+          item3 = imgData[i+2];
+      
+      // 对 liList 中的li进行 低到高 排序    => arr1
+      // 对新获得的 item1，item2，item3  高到低 进行排序  => arr2
+      // arr1[i].appendChild(arr2[i])
+      boxList.sort((a,b)=>{
+        return a.offsetHeight - b.offsetHeight;
+      });
+
+      if(item1){
+        boxList[0].innerHTML+=queryHTML(item1);
+      }
+      if(item2){
+        boxList[1].innerHTML+=queryHTML(item2);
+      }
+      if(item3){
+        boxList[2].innerHTML+=queryHTML(item3);
+      }
+
+      // let arr2 = [];
+      // arr2.push(item1);
+
+    }
+    //3.
+  });
+</script> -->
+<!-- <script src="js/index.js"></script> -->
+<script src="js/index_jq.js"></script>
+</html>

@@ -6,9 +6,26 @@
 
  ##  1.单例模式
 
+```javascript
+
+(function(){
+  SingleWxample
+  
+  
+  
+  
+  window.SingleWxample = SingleWxample;
+})();
+
+```
+
 
 
 ## 2. 构造函数模式
+
+```javascript
+
+```
 
 
 

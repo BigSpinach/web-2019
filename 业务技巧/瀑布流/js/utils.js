@@ -67,6 +67,7 @@ let utils = (function() {
 		}
 		ele.style[attr] = value;
 	};
+
 	let setGroupCss = function(ele, obj) { //批量设置样式属性
 		//首先保证obj是一个对象
 		/*
@@ -79,7 +80,7 @@ let utils = (function() {
 		if (obj.toString() != '[object Object]') {
 			return;
 		}
-		for (var key in obj) {
+		for (let key in obj) {
 			if (obj.hasOwnProperty(key)) {
 				this.setCss(ele, key, obj[key]);
 			}
