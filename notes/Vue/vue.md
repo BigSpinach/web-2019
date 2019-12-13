@@ -1,4 +1,4 @@
-[toc]
+[TOC]
 
 
 
@@ -102,11 +102,11 @@ vm.a // => 3
 > //查看vm实例，实例中的get和set方法
 > <script>
 > 	let vm = new Vue({
->     el:"#app",
->     obj:{
+>    		 el:"#app",
+>     		 obj:{
 >      
->     }
->   });
+>     		 }
+>   	});
 > </script>
 > ```
 >

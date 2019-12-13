@@ -2,8 +2,7 @@
 
 ----
 
-
-#NODE
+# NODE
 
 ****
 
@@ -11,7 +10,7 @@
 
 
 
-##一、初识node
+## 一、初识node
 
 
 
@@ -63,8 +62,7 @@
 
 ****
 
-
-##二、node的核心模块
+## 二、node的核心模块
 
 > 核心模块是由 Node 提供的一个个的具名的模块，它们都有自己特殊的名称标识, 例如
  + `fs`,`http`,`os`,`path`
@@ -72,7 +70,7 @@
 > 所有核心模块在使用的时候都必须手动的先使用 `require` 方法来加载，然后才可以使用，例如：
 + `var fs = require('fs')`
 
-###2.1  `fs`模块
+### 2.1  `fs`模块
 
 #### 2.1.1 创建文件夹 `fs.mkdir(path,callback)`&`fs.makdirsync`
 
@@ -232,7 +230,7 @@ let dirname = path.resolve();
 
 **********
 
-###2.2 `http`模块
+### 2.2 `http`模块
 
 ```javascript
 let http = require('http');
@@ -370,7 +368,7 @@ server.listen(3000, function () {
 
 ****
 
-###2.3  `url`模块
+###  2.3  `url`模块
 
 #### 2.3.1 `url.parse(path,[,config])`
 
@@ -549,8 +547,9 @@ let handle = function (req, res) {
 
 *******************
 
-##三、Node中的模块系统-----基本准则
-###3.1 模块化
+## 三、Node中的模块系统-----基本准则
+### 3.1 模块化
+
 > - 有文件作用域
 > - 有通信规则
 	+ 加载
@@ -562,7 +561,7 @@ let handle = function (req, res) {
 >  - require方法加载
 >  - export方法导出
 
-####3.2.1 `require` 加载
+#### 3.2.1 `require` 加载
 
 ```javascript
 var 自定义变量名 = require('模块');
@@ -606,7 +605,8 @@ var 自定义变量名 = require('模块');
 
 ​	
 
-####3.2.2 `exports` 导出
+#### 3.2.2 `exports` 导出
+
 > +  每个模块中都有一个`module`对象，`module`对象中有一个`exports`对象
 > + node为了 方便我们书写，给每一个模块提供了一个`exports`成员，我们可以使用node提供的`exports`成员来替换 `module.exports`的书写方式，（**注意：**node最终return的还是`module.exports`）
 
@@ -640,7 +640,7 @@ var 自定义变量名 = require('模块');
 ​			...		
 ​		}
 
-####3.2.3  **`exports`**和 **`module.exports`**的区别
+#### 3.2.3  **`exports`**和 **`module.exports`**的区别
 
 ```javascript
 //部分源码
@@ -692,20 +692,21 @@ function require(modelName){};
 
 ***
 
-##四、NPM详解
+## 四、NPM详解
+
 >npm(node package manage)
 
 `建议`
 + 1.每一个项目都有一个`package.json`文件（这个文件可以通过`npm init`自动生成）
 +  2.执行`npm install`的时候都加上`--save`这个选项，目录保存依赖信息（dependencies）
 
-###4.1 npm网站
+### 4.1 npm网站
 作用：查包，发表包
 
-
-###4.2  npm 命令行工具
+### 4.2  npm 命令行工具
 `版本号`
 	
+
 	npm --version
 
 `升级`（自己升级自己）
@@ -764,7 +765,7 @@ function require(modelName){};
 
 ********
 
-##五、`node`中的`Express`
+## 五、`node`中的`Express`
 
 
 ### 5.1 整体感知
@@ -781,13 +782,12 @@ function require(modelName){};
 - 3.3 指定端口号进行监听，开启服务
 	 + ` app.listen(3000,callback(err){});`
 
-
-###5.2 `node`中的`Express`使用
-####5.2.1 安装
+### 5.2 `node`中的`Express`使用
+#### 5.2.1 安装
 
 	npm install --save express
 
-####5.2.2 hello world
+#### 5.2.2 hello world
 
 	var express = require('express');
 	var app = express();
@@ -798,8 +798,8 @@ function require(modelName){};
 	app.listen(3000,function(err){
 		console.log('running 3000');
 	});
-####5.2.3 基本路由
-####5.2.4 开放静态资源
+#### 5.2.3 基本路由
+#### 5.2.4 开放静态资源
 `设置请求静态资源的方式及目录`
 
 	//方式1
@@ -815,7 +815,7 @@ function require(modelName){};
 	app.use('/ahaha/',express.static('./public/'));
 	//访问静态资源的方式为  127.0.0.1:3000/ahaha/index.html
 
-####5.2.5 静态服务
+#### 5.2.5 静态服务
 
 	//1.
 	app.use(express.('public'));
@@ -827,8 +827,7 @@ function require(modelName){};
 	//3
 	app.use('/static',express.static(path.jion(__dirname),'public'));
 
-
-###5.3 在`Express`中配置使用  `art-template`模板
+### 5.3 在`Express`中配置使用  `art-template`模板
 
 	//0：安装
 		npm install --save art-template
@@ -847,10 +846,10 @@ function require(modelName){};
 
 
 
-###5.4 `GET`和`post`请求方式
+### 5.4 `GET`和`post`请求方式
 `GET`
 	> req.query
-	
+
 	app.get('/',function(req,res){
 		res.send('hello Express');
 		
@@ -863,16 +862,16 @@ function require(modelName){};
 	
 	});
 
-
 `POST`
-	> 在`Express`中没有内置的获取表单post请求的API,这里需要使用一个第三方的包，`body-parser`
+
+	>  在`Express`中没有内置的获取表单post请求的API,这里需要使用一个第三方的包，`body-parser`
 
 > 1. 安装
 	+ npm i -S body-parser
 > 2. 配置
 	+ step1.> 引包
 		+ var bodyParser = require('body-parser');
-	+ step2>配置
+	+ step2>  配置
 	**只要加入这个配置，则在req的请求对象上默认增加一个body的属性，这时候就可以通过`req.body`获取请求体的内容了（注意，得到的是字符串）**
 		+ app.ues(bodyParser.urlencoded({ extended ：false }))；
 		+ app.use(bodyParser.json());

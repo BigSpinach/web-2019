@@ -22,8 +22,7 @@
 	}
 ```
 
-
-####1.1.2 不能重复定义
+####  1.2 不能重复定义
 
 ```javascript
 	//2.var 定义的变量可以多次声明，但let不行
@@ -372,7 +371,7 @@
 let a ;
 	//{a} = {a:"ahhh"};
 	//javascript 引擎会将{a}理解成一个代码块
-	//为了避免这样的错误，一般不要将{a}这样的代码卸载行首，
+	//为了避免这样的错误，一般不要将{a}这样的代码写在行首，
 	//非得这么写参照eval，如下
 	//Uncaught SyntaxError: Unexpected token =
 	console.log(a);
@@ -384,7 +383,7 @@ let a ;
 	console.log(a);//ahhh
 ```
 
-##4.  字符串赋值
+## 4.  字符串赋值
 
 ```javascript
 
@@ -447,7 +446,7 @@ String
 		[[PrimitiveValue]]: "ss"
 ```
 
-###4.1 字符串的解构赋值
+### 4.1 字符串的解构赋值
 
 ```javascript
 	let str = "abcdefg";
@@ -459,8 +458,9 @@ String
 	//原理：	是将字符串转为一个类数组对象，然后进行赋值操作
 ```
 
-###4.2  字符串中的一些新方法
-####4.2 .1 `includes(str,[index])`
+### 4.2  字符串中的一些新方法
+#### 4.2 .1 `includes(str,[index])`
+
 ```javascript
 	let str="abacdaefgh";
 	//indexOf()
@@ -475,7 +475,8 @@ String
 	console.log(return_includes_index);//false
 ```
 
-####4.2.2  `startsWith(str,[index])`&`endsWith(str)`
+#### 4.2.2  `startsWith(str,[index])`&`endsWith(str)`
+
 ```javascript
 	let str = "abacdaefgh";
 	//startsWith()
@@ -560,7 +561,7 @@ String
 	//后补白 padEnd(len,content)
 ```
 
-###4.3  模板字符串
+### 4.3  模板字符串
 
 ```javascript
 	//1. `这里写html代码段`
@@ -593,14 +594,14 @@ String
 	console.log(fun("BigSpinach"));//Hello BigSpinach
 ```
 
-###4.4 标签模板
+### 4.4 标签模板
 
 > 1怎么用？
->     函数名``形参·`
+>  函数名``形参·`
 > 2 在哪里用？
 >
 > + 在过滤字符串的时候，防止XSS攻击
-+ 2.处理多语言转换
+> + 2.处理多语言转换
 ```javascript
 		let user = {
 			uname:'liu',
@@ -634,8 +635,8 @@ String
 		console.log(return_abc);//i am ,,i am ,liu25
 ```
 
-##5 .数组扩展
-###5.1 Array类上的方法
+## 5 .数组扩展
+### 5.1 Array类上的方法
 
 ```javascript
 	//1.问题引入
@@ -662,6 +663,7 @@ String
 	let ary = [1,2,3,4,5,6];
 	let return_aryFrom = Array.from(ary);
 	console.log(return_aryFrom,ary);//(6) [1, 2, 3, 4, 5, 6] (6) [1, 2, 3, 4, 5, 6]
+	console.log(return_aryFrom==ary);//false
 
 	//3.1  val是类数组
 	function toArray(){
@@ -707,13 +709,12 @@ String
 		//			new [2, 3,3, 4, 5, 6 , 7, 8];
 ```
 
-
 `find(callback);`
 
 ```javascript
 		//2.查找元素
 		//find(callback);
-		//find先 遍历ary，一项一项执行，一旦函数返回true，就不继续向下执行遍历了，反悔哦当前项
+		//find先 遍历ary，一项一项执行，一旦函数返回true，就不继续向下执行遍历了，返回当前项
 		//	如果一直到遍历结束函数都没有返回true，那么find返回undefined
 		//	callback(item,index,input)
 		//	item:当前项
@@ -887,11 +888,12 @@ String
 
 ```
 
-##6.函数扩展
+## 6.函数扩展
 
-###6.1形参默认值的问题
+### 6.1形参默认值的问题
 
-####6.1.1 默认值生效的时机
+#### 6.1.1 默认值生效的时机
+
 ```javascript
 		//1.
 		// 形参默认值生效的时机
@@ -904,7 +906,7 @@ String
 
 ```
 
-####6.1.2 两种书写默认值方式的异同
+#### 6.1.2 两种书写默认值方式的异同
 
 ```javascript
 		//2.
@@ -935,7 +937,8 @@ String
 		//根据对象的解构赋值原则进行赋值操作
 ```
 
-####6.1.3 一般默认值的书写在后方
+#### .1.3 一般默认值的书写在后方
+
 ```javascript
 		//3.
 		//一般函数的形参默认值都会放在最后边进行
@@ -953,9 +956,10 @@ String
 		fn2();//undefined 3 undefined
 		fn2(99,88,33);//99 88 33
 ```
-###6.2 参数集合
+### 6.2 参数集合
 
-####6.2.1 实参的长度
+#### 6.2.1 实参的长度
+
 ```javascript
 	//使用arguments的方式查看函数参数的个数
 	function fn(a,b,c){
@@ -964,7 +968,8 @@ String
 	fn();//0
 	fn(1,2);//2
 ```
-####6.2.2 形参的长度
+#### 6.2.2 形参的长度
+
 > 函数的length属性是说
 1.在函数没有给定参数默认值的情况下，length表示的是函数参数的长度(个数)
 2.在函数的参数给定默认值的情况下，length表示的是当前默认值参数的位置（索引）
@@ -992,8 +997,9 @@ String
 	//2.在函数的参数给定默认值的情况下，length表示的是当前默认值参数的位置（索引）
 ```
 
-###6.3 参数作用域的问题
+### 6.3 参数作用域的问题
 `形参赋值跟函数{}内的作用域是一个同的作用域`
+
 ```javascript
 	let n=0,m=1;
 	function fn(x=n,y=m) {
@@ -1024,18 +1030,20 @@ String
 
 ```
 
-###6.4 扩展(展开)运算符`...`
+### 6.4 扩展(展开)运算符`...`
+
 > 	作用
   	1.可以将[]转为非数组
   	2.也可以将非数组转为数组
-####6.4.1 展开数组中的每一项
+####  6.4.1 展开数组中的每一项
+
 ```javascript
 	 //将数组中的每一项都输出
   	  let ary = [1,2,3,"xxx"];	  
   	  console.log(...ary);//1 2 3 "xxx"
 ```
 
-####6.4.2 展开字符串中 的每一个字符（包括每一个空格）
+#### 6.4.2 展开字符串中 的每一个字符（包括每一个空格）
 
 ```javascript
 	//将非数组（字符串）转为一个数组
@@ -1046,7 +1054,8 @@ String
   	console.log(...str);//B i g S p           i n a c h
 ```
 
-####6.4.3 `arguments`的展开运算符
+#### 6.4.3 `arguments`的展开运算符
+
 ```javascript
 //arguments的展开运算符
  function fn(a){
@@ -1059,8 +1068,9 @@ String
    	//["a"]
    	//{0: "a"}
 ```
-####6.4.4 展开运算符的应用
+#### 6.4.4 展开运算符的应用
 `1.------求最大值`
+
 ```javascript
 	//求一个数组中的最大值
 	let ary = [1,2,3,4,5,6,25,7,88,8,89,12,25,2];
@@ -1136,8 +1146,9 @@ String
 	let fn4 = new Function('n',"return n*n");
 	console.log(fn4.name);//anonymous-------adj. 匿名的，无名的；无个性特征的
 ```
-###6.6箭头函数
-####6.6.1 箭头函数的书写规则
+### 6.6箭头函数
+#### 6.6.1 箭头函数的书写规则
+
 ```javascript
 	//ES5中函数的写法
 	function fn (a) {
@@ -1165,12 +1176,14 @@ String
 	let return_fn_es6_simple = fn3(2) ;
 	console.log(return_fn_es6_simple);//4
 ```
-####6.6.2 箭头函数中`this`指向问题
+#### 6.6.2 箭头函数中`this`指向问题
+
 > 箭头函数中的this的问题
 	箭头函数是没有this指向的，要知道他的this是谁，记住一句话
 	`箭头函数的上一级作用域是谁，那么他的this就是谁`
 
-##7.对象扩展
+## 7.对象扩展
+
 ### 7.1 简洁表示法&属性表达式
 #### 7.1.1 简洁表示法
 ```javascript
@@ -1196,7 +1209,8 @@ console.log(es5_obj,es6_obj);
 
 ```
 
-####7.1.2 属性表达式
+#### 7.1.2 属性表达式
+
 > 属性可以使用`[变量名]`的方式来定义
 ```javascript
 //2.属性表达式
@@ -1246,7 +1260,7 @@ console.log(obj);
 	console.log(obj);//{liukai: "刘凯", 25liukai: "25liukai", fn: ƒ}
 ```
 
-###7.2 Object类上的新增API
+### 7.2 Object类上的新增API
 
 ```javascript
 console.dir(Object);
@@ -1286,8 +1300,9 @@ console.dir(Object);
 
 
 
-####7.2.1  Object.is(a,b)
+#### 7.2.1  Object.is(a,b)
 Object.is()
+
 ```javascript
 //1. Object.is(a,b)
 	//判断a===b,返回一个Boolean值
@@ -1349,7 +1364,8 @@ Object.is()的实际意义
 		//console.log(return_arr);//[NaN, 1, 2, 3, 45]
 
 ```
-####7.2.2  Object.assign(obj1,obj2)
+#### 7.2.2  Object.assign(obj1,obj2)
+
 > 将obj1和obj2进行合并，返回obj1
 >
 > 注意 ：obj1 和obj2 必须是Object类型的数据，否则会有【意想不到】的结果
@@ -1368,7 +1384,8 @@ Object.is()的实际意义
 		console.log(obj2===return_assign);//false
 ```
 
-####7.2.3  Object.getOwnPropertyDescriptor(obj,attr)
+#### 7.2.3  Object.getOwnPropertyDescriptor(obj,attr)
+
 >接收两个参数
 >obj 要查看的对象
 >attr 要查看的对象的属性
@@ -1399,13 +1416,15 @@ Object.is()的实际意义
 	console.log(Object.getOwnPropertyDescriptors(obj));//{name: {…}, age: {…}}
 ```
 
-####7.2.4 Object.create(propObj,[propertiesObject])
+#### 7.2.4 Object.create(propObj,[propertiesObject])
+
 > propObj 对象，这个对象错位新创建的对象的原型，
 > propertiesObject 可选，指定若干个属性作为新创建的对象的原型上的属性
 
  Object.create()的深入研究
 
 `原型引入----1.不指明类的原型，默认浏览器会自动为类创建一个构造函数指向类本身`
+
 ```javascript
 	var obj = {
 		getX : function(){}
@@ -1578,7 +1597,8 @@ console.log('--------自定义方法模拟Object.create()方法----------');
 			__proto__: Object
 	 */
 ```
-####7.2.5 Object.keys();
+#### 7.2.5 Object.keys();
+
 > 对象属性的遍历
 ```javascript
 	let obj={name:"liu",age:25};
@@ -1610,7 +1630,8 @@ console.log('--------自定义方法模拟Object.create()方法----------');
 		
 ```
 
-###7.3 对象的扩展运算符
+### 7.3 对象的扩展运算符
+
 ```javascript
 	//对象的扩展运算符
 	let {a,b,...c}={a:"aaa",b:"bbb",c:"ccc",d:"ddd",e:"eee"};
@@ -1618,8 +1639,8 @@ console.log('--------自定义方法模拟Object.create()方法----------');
 	//aaa bbb {c: "ccc", d: "ddd", e: "eee"}
 
 ```
-##8.Set和Map数据结构
-###8.1 set数据结构的数据的擦混关键方式
+## 8.Set和Map数据结构
+### 8.1 set数据结构的数据的擦混关键方式
 
 > let set1 = new Set(arr);
 > 参数是一个数组
@@ -1652,7 +1673,8 @@ console.log('--------自定义方法模拟Object.create()方法----------');
 	console.log(return_array_from);//(6) [1, 2, 3, 4, 5, NaN]
 ```
 
-###8.2 set数据结构的一些方法
+### 8.2 set数据结构的一些方法
+
 #### 8.2.1 set.add(n)
 > 向set实例中增加一个n，这个n可以是任意数据类型的数据
 
@@ -1678,7 +1700,8 @@ console.log('--------自定义方法模拟Object.create()方法----------');
 
 ```
 
-####8.2.2 set.has(x);
+#### 8.2.2 set.has(x);
+
 > 判断set实例中是否含有x这一项，返回一个boolean值
 ```javascript
 let arr=[12,3,4,5];
@@ -1689,7 +1712,8 @@ console.log(set.has(arr));//true
 console.log(set.has(set));//true
 ```
 
-####8.2.3 set.delete(x)
+#### 8.2.3 set.delete(x)
+
 > //删除set实例中的某一项x
 		//返回值Boolean
 		//原set会发生改变
@@ -1706,7 +1730,8 @@ console.log(return_set_delete);//ture
 console.log(set);//Set(8) {12, 3, 4, 5, 100, …}
 ```
 
-####8.2.4 set.clera();
+#### 8.2.4 set.clera();
+
 > 没有返回值------undefined
 清空set中的所有数据
 
@@ -1719,7 +1744,7 @@ console.log(return_set_clear);//undefined
 console.log(set);//Set(0) {}
 ```
 
-###8.3 set数据的一些使用
+### 8.3 set数据的一些使用
 
 ```javascript
 		let arr1 = [1,2,34,5,,6];
@@ -1755,7 +1780,7 @@ console.log(set);//Set(0) {}
 		console.log(chaji);//[1, 34, 5, 6]
 ```
 
-###8.4 array.filter()深入研究
+### 8.4 array.filter()深入研究
 
 ```javascript
 	//Array.filter();
@@ -1789,7 +1814,7 @@ console.log(set);//Set(0) {}
 	console.log(return_arr_filter===arr);//false
 ```
 
-###8.5 Map数据结构类型的数据
+### 8.5 Map数据结构类型的数据
 
 #### 8.5.1 创建方式
 >    1.使用构造函数方式创建一个实例`let map1=new Map([[1,"a"],...]);`
@@ -1813,7 +1838,8 @@ console.log(set);//Set(0) {}
   
 ```
 
-####8.5.2 方法
+#### 8.5.2 方法
+
 ```javascript
 //方法
 	 let map1=new Map([[1,"a"],["a","A"],[{name:"liukai"},"250"],[/\d+/,"正则"]]);
@@ -1840,7 +1866,8 @@ console.log(set);//Set(0) {}
     
 ```
 
-####8.5.3 map的遍历
+#### 8.5.3 map的遍历
+
 > forEach(),keys(),values(),entries();
 ```javascript
 	//forEach(),keys(),values(),entries();
@@ -1872,7 +1899,7 @@ console.log(set);//Set(0) {}
 + Object.getOwnPropertySymbols()
 + Reflect.ownKeys()方法可以返回所有类型的键名
 
-###9.1 `Symble`的声明方式
+### 9.1 `Symble`的声明方式
 
 ```javascript
 //1.定义
@@ -1884,7 +1911,8 @@ console.log(a=b);//Symbol()
 console.log(a);//Symbol()
 ```
 
-###9.2 `Symbol.for("x")`
+### 9.2 `Symbol.for("x")`
+
 ```javascript
 	console.dir(Symbol().constructor);
 	/*
@@ -1919,7 +1947,8 @@ console.log(a);//Symbol()
 	console.log(a===b);//true
 ```
 
-###9.3 `Symbol`数据类型数据的 唯一性
+### 9.3 `Symbol`数据类型数据的 唯一性
+
 ```javascript
 	//Symbol.for('x')创建的x变量名跟字符串形式的 "x"属性名不相等
 	let a = Symbol.for('aaa');
@@ -1959,7 +1988,7 @@ console.log(obj.name);//undefined
 
 
 
-###9.4 `Symbol`的遍历
+### 9.4 `Symbol`的遍历
 
 ```javascript
 		let a = Symbol.for('aaa');
@@ -2038,7 +2067,7 @@ console.log(obj.name);//undefined
 
 
 
-###10.1 构造函数
+### 10.1 构造函数
 
 ```javascript
 	//1.构造函数
@@ -2100,7 +2129,7 @@ console.log(obj.name);//undefined
 
 ### 10.3 新增修饰符 `y`,`u`,`s`
 
-####10.3.1 `y`修饰符
+#### 10.3.1 `y`修饰符
 
 ```javascript
 //3.1 y修饰符
@@ -2130,7 +2159,7 @@ console.log(obj.name);//undefined
   // 所以捕获不到，返回null
 ```
 
-####10.3.2 `u`修饰符
+#### 10.3.2 `u`修饰符
 
 ```javascript
 
@@ -2176,7 +2205,8 @@ console.log(obj.name);//undefined
 
 ```
 
-####10.3.3 `s`修饰符
+#### 10.3.3 `s`修饰符
+
 ```javascript
 
 //3.3 s修饰符-------匹配到 换行符，tab 空格
@@ -2223,7 +2253,7 @@ console.log(/foo.bar/s.test('foo\nbar')); // true
 
 
 
-###11.3 Math类
+### 11.3 Math类
 
 ```javascript
 Math
@@ -2554,7 +2584,7 @@ var myName = "BigSpinach";
 var myAge = 26;
 export {
 	myName  as name1，
-myAge as age1
+	myAge as age1
 };
 //这样对外使用的就是 name1 和 age1这两个变量接口了（本质就是接口名和模块内部变量名建立一一对应的关系）
 ```
@@ -2569,7 +2599,7 @@ setTimeout(()=> foo = 'abs',500);
 
 ```
 
-`export`命令可以出现在模块的任何位置，只要处于模块顶层即可。
+`export`命令可以出现在模块的任何位置，只要处于模块**顶层**即可。
 
 ### 15.2 `import` 输入命令
 
