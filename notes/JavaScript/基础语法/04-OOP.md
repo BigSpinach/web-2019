@@ -27,11 +27,11 @@ var pattern2={name:'xxx'}
 
 ```javascript
 var person1={
-    name:"陆相莹",
-    age:18
+    name:"张三丰",
+    age:99
 };
 var person2={
-    name:"刘司南",
+    name:"薛仁贵",
     age:81
 };
 ```

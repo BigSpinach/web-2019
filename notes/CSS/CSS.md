@@ -80,7 +80,7 @@
 <head>
     <!-- 
         mate元信息
-       编码 UTF-8
+        编码 UTF-8
         网页的关关键字 SEO优化
         网页的描述内容
         视口 viewport  meta： vb  tab(移动端手机页面开发必须加的code) 
